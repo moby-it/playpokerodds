@@ -38,15 +38,15 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: https://gtopregistry.azurecr.io/
-          username: ${{ secrets.AzureAppService_ContainerUsername_a347be6341134707bfdc72de13011e4f }}
-          password: ${{ secrets.AzureAppService_ContainerPassword_fc25210fa3024b5992ff32953efff949 }}
+          username: ${{ secrets.CONTAINER_USERNAME }}
+          password: ${{ secrets.CONTAINER_PASSWORD }}
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v2
         with:
           push: true
           working-directory: ./"src/api"
-          tags: gtopregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a347be6341134707bfdc72de13011e4f }}/gtop-api:${{ github.sha }}
+          tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-api:${{ github.sha }}
           file: ./src/api/Dockerfile
 
   deploy:
@@ -63,5 +63,5 @@ jobs:
         with:
           app-name: "gtop-api"
           slot-name: "production"
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_0ea8da4e89da448fbf814b7b58c20ff6 }}
-          images: "gtopregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a347be6341134707bfdc72de13011e4f }}/gtop-api:${{ github.sha }}"
+          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          images: "gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-api:${{ github.sha }}"
