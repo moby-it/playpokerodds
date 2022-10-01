@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test api
+        working-directory: ./src/api
         run: npm run docker:test
   build:
     runs-on: "ubuntu-latest"
