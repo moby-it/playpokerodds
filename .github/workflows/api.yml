@@ -45,9 +45,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          working-directory: ./"src/api"
           tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-api:${{ github.sha }}
-          file: ./src/api/Dockerfile
+          context: ./src/api
 
   deploy:
     runs-on: ubuntu-latest
