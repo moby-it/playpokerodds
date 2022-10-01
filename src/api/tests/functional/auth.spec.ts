@@ -1,0 +1,55 @@
+import { config } from 'dotenv';
+import express, { Application } from 'express';
+import { registerMiddleware } from 'middleware';
+import prisma from 'prisma';
+import { AuthRouter } from 'routes';
+import request from 'supertest';
+import {
+  mockUserPayload,
+  mockUserInvalidPayload1,
+  mockUserInvalidPayload2,
+} from '../fixtures';
+import { mockDb } from '../helpers';
+describe('test auth endpoints', () => {
+  let app: Application;
+  beforeAll(async () => {
+    config();
+    app = express();
+    registerMiddleware(app);
+    app.use(AuthRouter);
+  });
+  afterAll(async () => {
+    await mockDb.tearDown(prisma);
+  });
+  it('should fail to register user with invalid payload', async () => {
+    await request(app)
+      .post('/register')
+      .send(mockUserInvalidPayload1)
+      .expect(400);
+  });
+  it('should fail to register user with invalid email', async () => {
+    await request(app)
+      .post('/register')
+      .send(mockUserInvalidPayload2)
+      .expect(400);
+  });
+  it('should register user', async () => {
+    await request(app)
+      .post('/register')
+      .send(mockUserPayload)
+      .expect(200)
+      .expect(body => {
+        expect(body).toBeDefined();
+      });
+  });
+  it('should have one user in database', async () => {
+    expect(await prisma.user.count()).toEqual(1);
+  });
+  it('should login user', async () => {
+    await request(app)
+      .post('/login')
+      .send(mockUserPayload)
+      .expect(200)
+      .expect(body => expect(body).toBeDefined());
+  });
+});

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "middleware": ["src/middleware/index.ts"],
+      "prisma": ["src/prisma/client.ts"],
+      "shared": ["src/shared/index.ts"],
+      "workers": ["src/workers/index.ts"],
+      "routes": ["src/routes/index.ts"]
+    }
+  },
+  "ts-node": {
+    "files": true,
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["**/*.ts","/tests/**/*.spec.ts"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_CONNECTION_STRING")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  username String  @unique
+  salt     String
+  hash     String
+  Round    Round[]
+  score    Decimal @default(0) @db.Decimal(10, 2)
+
+  @@map("Users")
+}
+
+model Round {
+  id             String   @id @default(uuid())
+  myHand         Json
+  opponentsHands Json
+  board          Json
+  odds           Decimal
+  estimate       Decimal
+  user           User?    @relation(fields: [userId], references: [id])
+  userId         String?
+  timestamp      DateTime @default(now())
+
+  @@map("Rounds")
+}
+
+model Event {
+  id      String @id @default(uuid())
+  type    String
+  payload Json
+
+  @@map("Events")
+}

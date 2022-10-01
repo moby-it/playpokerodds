@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gtop-ui/auth/data-access": ["libs/auth/data-access/src/index.ts"],
+      "@gtop-ui/poker-odds/data-access": [
+        "libs/poker-odds/data-access/src/index.ts"
+      ],
+      "@gtop-ui/poker-odds/game": ["libs/poker-odds/game/src/index.ts"],
+      "@gtop-ui/poker-odds/leaderboards": [
+        "libs/poker-odds/leaderboards/src/index.ts"
+      ],
+      "@gtop-ui/shared/config": ["libs/shared/config/src/index.ts"],
+      "@gtop-ui/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "auth/form": ["libs/auth/form/src/index.ts"],
+      "auth/user-label": ["libs/auth/user-label/src/index.ts"]
+    }
+  },
+  "exclude": ["tmp"]
+}
