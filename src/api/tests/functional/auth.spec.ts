@@ -5,13 +5,14 @@ import prisma from 'prisma';
 import { AuthRouter } from 'routes';
 import request from 'supertest';
 import {
-  mockUserPayload,
+  mockUserPayload1,
   mockUserInvalidPayload1,
   mockUserInvalidPayload2,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test auth endpoints', () => {
   let app: Application;
+  let token: string;
   beforeAll(async () => {
     config();
     app = express();
@@ -36,7 +37,7 @@ describe('test auth endpoints', () => {
   it('should register user', async () => {
     await request(app)
       .post('/register')
-      .send(mockUserPayload)
+      .send(mockUserPayload1)
       .expect(200)
       .expect(body => {
         expect(body).toBeDefined();
@@ -48,8 +49,26 @@ describe('test auth endpoints', () => {
   it('should login user', async () => {
     await request(app)
       .post('/login')
-      .send(mockUserPayload)
+      .send(mockUserPayload1)
       .expect(200)
-      .expect(body => expect(body).toBeDefined());
+      .expect(response => {
+        expect(response.body).toBeDefined();
+        expect(response.body.token).toBeDefined();
+        token = response.body.token;
+      });
+  });
+  it('should change username', async () => {
+    const newUsername = 'fasolakis';
+    await request(app)
+      .post('/changeUsername')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ username: newUsername })
+      .expect(200)
+      .expect(async response => {
+        expect(response.body).toBeDefined();
+        expect(
+          await prisma.user.count({ where: { username: newUsername } })
+        ).toEqual(1);
+      });
   });
 });

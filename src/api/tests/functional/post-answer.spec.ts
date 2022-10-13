@@ -1,9 +1,9 @@
-import { EventType } from '@moby-it/poker-core';
+import { EventType } from 'shared';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerMiddleware } from 'middleware';
 import prisma from 'prisma';
-import { PokerRouter, PostAnswerResponse } from 'routes';
+import { PokerRouter } from 'routes';
 import request from 'supertest';
 import {
   postRoundInvalidPayload1,
@@ -15,6 +15,7 @@ import {
   username,
 } from '../fixtures';
 import { mockDb } from '../helpers';
+import { RoundAnswerDto } from '@moby-it/ppo-core';
 
 describe('test post answer endpoint', () => {
   let app: Application;
@@ -62,7 +63,7 @@ describe('test post answer endpoint', () => {
       .send(postValidRoundPayload1)
       .auth(token, { type: 'bearer' })
       .expect(200)
-      .expect(async (body: PostAnswerResponse) => {
+      .expect(async (body: RoundAnswerDto) => {
         expect(
           await prisma.event.count({
             where: { type: EventType.USER_POSTED_ANSWER },
@@ -78,7 +79,7 @@ describe('test post answer endpoint', () => {
       .send(postValidRoundPayload2)
       .auth(token, { type: 'bearer' })
       .expect(200)
-      .expect(async (body: PostAnswerResponse) => {
+      .expect(async (body: RoundAnswerDto) => {
         expect(
           await prisma.event.count({
             where: { type: EventType.USER_POSTED_ANSWER },

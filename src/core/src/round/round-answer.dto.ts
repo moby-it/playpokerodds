@@ -1,11 +1,10 @@
 import * as t from 'io-ts';
-import { Board } from '../board';
-import { Hand } from '../hand';
+import { Round } from './round';
 export const RoundAnswerDto = t.type({
-  myHand: Hand,
-  opponentsHands: t.array(Hand),
-  board: Board,
+  round: Round,
+  odds: t.number,
   estimate: t.number,
+  score: t.number,
 });
 
 export type RoundAnswerDto = t.TypeOf<typeof RoundAnswerDto>;

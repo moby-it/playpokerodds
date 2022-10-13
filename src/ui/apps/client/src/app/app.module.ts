@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { PushModule } from '@ngrx/component';
 import { AppComponent } from './app.component';
+import { PokerOddsGameModule } from '@gtop-ui/poker-odds/game';
+import { PokerOddsDataAccessModule } from '@gtop-ui/poker-odds/data-access';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,9 +17,11 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
     PushModule,
+    PokerOddsGameModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     AuthDataAccessModule,
+    PokerOddsDataAccessModule,
   ],
   providers: [{ provide: API_URL, useValue: environment.apiUrl }],
   bootstrap: [AppComponent],

@@ -15,10 +15,10 @@ const calculateOddsForEquity: (equity: Equity) => number = (equity: Equity) =>
   );
 
 export function calculateOdds({
-  round: { myHand, opponentsHands, board },
-}: {
-  round: Round;
-}): number {
+  myHand,
+  opponentsHands,
+  board,
+}: Round): number {
   return pipe(
     calculateEquity([myHand, ...opponentsHands], board),
     (equities) => equities[0],

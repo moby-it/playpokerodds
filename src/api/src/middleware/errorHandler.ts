@@ -1,4 +1,4 @@
-import { EventType } from '@moby-it/poker-core';
+import { EventType } from 'shared';
 import { Application, NextFunction, Request, Response } from 'express';
 import prisma from 'prisma';
 

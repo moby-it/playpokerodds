@@ -1,5 +1,17 @@
-export const mockUserPayload = {
+export const mockUserPayload1 = {
   email: 'george@gmail.com',
+  password: '123123',
+};
+export const mockUserPayload2 = {
+  email: 'nick@gmail.com',
+  password: '123123',
+};
+export const mockUserPayload3 = {
+  email: 'chris@gmail.com',
+  password: '123123',
+};
+export const mockUserPayload4 = {
+  email: 'takis@gmail.com',
   password: '123123',
 };
 export const mockUserInvalidPayload1 = {

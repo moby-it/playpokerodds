@@ -1,17 +1,17 @@
-import { RoundAnswerDto } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 import { tryCatch } from 'fp-ts/lib/TaskEither';
 import path from 'path';
 import { Worker } from 'worker_threads';
+import { PostAnswerDto } from './answer.dto';
 export const calculateWinOdds = (
   req: Request,
-  res: Response<unknown, { dto: RoundAnswerDto; odds: number }>,
+  res: Response<unknown, { dto: PostAnswerDto; odds: number }>,
   next: NextFunction
 ) => {
   tryCatch(
     () => {
       return new Promise((resolve, reject) => {
-        const { board, myHand, opponentsHands } = res.locals.dto;
+        const { board, myHand, opponentsHands } = res.locals.dto.round;
         const worker = new Worker(
           path.resolve(__dirname, '../../../workers/calculateOdds.js'),
           {

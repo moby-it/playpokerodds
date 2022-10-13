@@ -24,9 +24,7 @@
         "libs/poker-odds/leaderboards/src/index.ts"
       ],
       "@gtop-ui/shared/config": ["libs/shared/config/src/index.ts"],
-      "@gtop-ui/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "auth/form": ["libs/auth/form/src/index.ts"],
-      "auth/user-label": ["libs/auth/user-label/src/index.ts"]
+      "@gtop-ui/shared/ui": ["libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["tmp"]

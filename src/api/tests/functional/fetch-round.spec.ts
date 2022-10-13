@@ -1,4 +1,4 @@
-import { Round } from '@moby-it/poker-core';
+import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerMiddleware } from 'middleware';

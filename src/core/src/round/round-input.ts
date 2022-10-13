@@ -1,3 +1,4 @@
+import { isRight } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
 import { BoardState } from '../board';
 
@@ -34,3 +35,25 @@ export const RoundInput = t.type({
   boardState: BoardStateC,
 });
 export type RoundInput = t.TypeOf<typeof RoundInput>;
+
+export function createRoundInputs(
+  totalHands: number,
+  totalKnownHands: number,
+  boardState: number
+) {
+  const totalHandsD = TotalHandsBrandC.decode(totalHands);
+  const totalKnownHandsD = TotalKnownHandsBrandC.decode(totalKnownHands);
+  const boardStateD = BoardStateC.decode(boardState);
+  if (
+    isRight(totalHandsD) &&
+    isRight(totalKnownHandsD) &&
+    isRight(boardStateD)
+  ) {
+    return {
+      boardState: boardStateD.right,
+      totalHands: totalHandsD.right,
+      totalKnownHands: totalKnownHandsD.right,
+    } as RoundInput;
+  }
+  throw new Error('Invalid round inputs');
+}

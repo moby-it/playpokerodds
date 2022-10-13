@@ -1,9 +1,9 @@
 import { User } from '@prisma/client';
-import { EventType } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import prisma from 'prisma';
-import { validateAuthPayload, transformUserToResponse } from './helpers';
+import { EventType } from 'shared';
+import { transformUserToResponse, validateAuthPayload } from './common';
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', async (err: Error, user: User, info) => {
@@ -21,4 +21,8 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     }
   })(req, res);
 };
-export const login = [validateAuthPayload, loginUser, transformUserToResponse];
+export const loginEndpoint = [
+  validateAuthPayload,
+  loginUser,
+  transformUserToResponse,
+];

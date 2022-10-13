@@ -1,4 +1,4 @@
-import { RoundInput, RoundInputQueryParams } from '@moby-it/poker-core';
+import { RoundInput, RoundInputQueryParams } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
 import { chain, isLeft, map } from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/function';

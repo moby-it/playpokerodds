@@ -1,49 +1,34 @@
-import {
-  createRoundFromProps,
-  EventType,
-  RoundAnswerDto,
-} from '@moby-it/poker-core';
+import { createRoundFromProps, RoundAnswerDto } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
-import { DecodedJwt } from 'shared';
-import { PostAnswerResponse } from './response';
+import { DecodedJwt, EventType } from 'shared';
+import { PostAnswerDto } from './answer.dto';
 export const pesistUserScore = async (
   req: Request,
   res: Response<
-    PostAnswerResponse,
-    { dto: RoundAnswerDto; score: number; odds: number }
+    RoundAnswerDto,
+    { dto: PostAnswerDto; score: number; odds: number }
   >,
   next: NextFunction
 ) => {
   const authHeader = req.headers.authorization;
-  const dto = res.locals.dto;
-  const responsePayload: PostAnswerResponse = {
+  const round = res.locals.dto.round;
+  const responsePayload: RoundAnswerDto = {
     estimate: res.locals.dto.estimate,
     odds: res.locals.odds,
     score: res.locals.score,
     round: createRoundFromProps({
-      board: dto.board,
-      myHand: dto.myHand,
-      opponentsHands: dto.opponentsHands,
+      board: round.board,
+      myHand: round.myHand,
+      opponentsHands: round.opponentsHands,
     }),
   };
   if (authHeader) {
     const token = authHeader.substring(7, authHeader.length);
     const decodedToken = DecodedJwt.decode(decode(token));
     if (isRight(decodedToken)) {
-      await prisma.event.create({
-        data: {
-          type: EventType.USER_POSTED_ANSWER,
-          payload: {
-            round: { ...res.locals.dto },
-            email: decodedToken.right.email,
-            userId: decodedToken.right.userId,
-            odds: res.locals.odds,
-          },
-        },
-      });
       const id = decodedToken.right.userId;
       await prisma.user.update({
         where: { id },

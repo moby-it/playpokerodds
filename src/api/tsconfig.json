@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
@@ -22,6 +23,6 @@
     "files": true,
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["**/*.ts","/tests/**/*.spec.ts"],
+  "include": ["**/*.ts", "/tests/**/*.spec.ts"],
   "exclude": ["node_modules"]
 }
