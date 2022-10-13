@@ -16,7 +16,7 @@ jobs:
     env:
       JWT_SECRET: SOMEJWTSECRET
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Test api
         working-directory: ./src/api
         run: npm run docker:test
