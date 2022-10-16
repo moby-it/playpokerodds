@@ -16,7 +16,7 @@ model User {
   username String  @unique
   salt     String
   hash     String
-  Round    Round[]
+  rounds    Round[]
   score    Decimal @default(0) @db.Decimal(10, 2)
 
   @@map("Users")

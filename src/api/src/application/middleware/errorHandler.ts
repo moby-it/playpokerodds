@@ -1,6 +1,6 @@
-import { EventType } from 'shared';
+import { prisma } from '@infrastructure';
+import { EventType } from '@domain';
 import { Application, NextFunction, Request, Response } from 'express';
-import prisma from 'prisma';
 
 export async function globalErrorHandler(
   err: Error,

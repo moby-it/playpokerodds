@@ -1,8 +1,11 @@
+import { prisma } from '@infrastructure';
+import { EventType } from '@domain';
 import { genSalt, hash as hashPassword } from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
-import prisma from 'prisma';
-import { EventType } from 'shared';
-import { transformUserToResponse, validateAuthPayload } from './common';
+import {
+  transformUserToResponse,
+  validateAuthPayload,
+} from '../../commands/user/common';
 
 const registerUser = async (
   req: Request<unknown, unknown, { email: string; password: string }>,

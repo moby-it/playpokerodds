@@ -1,7 +1,7 @@
 import { compare } from 'bcrypt';
 import passport from 'passport';
 import { Strategy } from 'passport-local';
-import prisma from 'prisma';
+import { prisma } from '@infrastructure';
 
 export const registerPassportMiddleware = () => {
   passport.use(

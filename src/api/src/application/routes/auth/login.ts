@@ -1,9 +1,12 @@
 import { User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import prisma from 'prisma';
-import { EventType } from 'shared';
-import { transformUserToResponse, validateAuthPayload } from './common';
+import { prisma } from '@infrastructure';
+import { EventType } from '@domain';
+import {
+  transformUserToResponse,
+  validateAuthPayload,
+} from '../../commands/user/common';
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', async (err: Error, user: User, info) => {

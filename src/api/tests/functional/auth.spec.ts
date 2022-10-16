@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { registerMiddleware } from 'middleware';
-import prisma from 'prisma';
-import { AuthRouter } from 'routes';
+import { registerMiddleware } from '';
+import { prisma } from '@infrastructure';
+import { AuthRouter } from 'src/application/routes';
 import request from 'supertest';
 import {
   mockUserPayload1,

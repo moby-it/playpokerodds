@@ -2,7 +2,7 @@ import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerMiddleware } from 'middleware';
-import { PokerRouter } from 'routes';
+import { PokerRouter } from 'src/application/routes';
 import request from 'supertest';
 describe('test fetch round endpoint', () => {
   let app: Application;

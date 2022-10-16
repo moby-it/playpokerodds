@@ -12,11 +12,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "paths": {
-      "middleware": ["middleware/index.ts"],
-      "prisma": ["prisma/client.ts"],
-      "shared": ["shared/index.ts"],
-      "workers": ["workers/index.ts"],
-      "routes": ["routes/index.ts"]
+      "@application/*": ["src/application/index"],
+      "@domain": ["src/domain/index"],
+      "@infrastructure": ["src/infrastructure/index"],
+      "@shared": ["src/shared/index"]
     }
   },
   "ts-node": {

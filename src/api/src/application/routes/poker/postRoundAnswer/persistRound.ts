@@ -3,8 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import { Either, isRight, left } from 'fp-ts/lib/Either';
 import { tryCatch } from 'fp-ts/lib/TaskEither';
 import { decode } from 'jsonwebtoken';
-import prisma from 'prisma';
-import { DecodedJwt, EventType } from 'shared';
+import { prisma } from '@infrastructure';
+import { DecodedJwt, EventType } from '@shared';
 import { PostAnswerDto } from './answer.dto';
 export const pesistRound = async (
   req: Request,

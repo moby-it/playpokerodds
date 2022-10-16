@@ -1,9 +1,9 @@
-import { EventType } from 'shared';
+import { EventType } from '@shared';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerMiddleware } from 'middleware';
-import prisma from 'prisma';
-import { PokerRouter } from 'routes';
+import { prisma } from '@infrastructure';
+import { PokerRouter } from 'src/application/routes';
 import request from 'supertest';
 import {
   postRoundInvalidPayload1,

@@ -1,8 +1,8 @@
+import { prisma } from '@infrastructure';
+import { DecodedJwt, extractToken } from '@shared';
 import { NextFunction, Request, Response } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
-import prisma from 'prisma';
-import { DecodedJwt, extractToken } from 'shared';
 
 function validate(req: Request, res: Response, next: NextFunction) {
   const token = extractToken(req);

@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerMiddleware } from 'middleware';
-import prisma from 'prisma';
-import { AuthRouter, PokerRouter } from 'routes';
+import { prisma } from '@infrastructure';
+import { AuthRouter, PokerRouter } from 'src/application/routes';
 import {
   mockUserPayload1,
   mockUserPayload2,

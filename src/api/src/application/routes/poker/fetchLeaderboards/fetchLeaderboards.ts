@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import prisma from 'prisma';
+import { prisma } from '@infrastructure';
 
 export async function fetchLeaderboards(
   req: Request,
