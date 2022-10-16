@@ -28,5 +28,5 @@ export const createRound: ({
     bind('board', ({ deck }) =>
       pipe(deck, generateBoard(Number(boardState)), of)
     ),
-    map(props => createRoundFromProps(props))
+    map((props) => createRoundFromProps(props))
   )();
