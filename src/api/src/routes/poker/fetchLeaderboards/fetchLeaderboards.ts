@@ -6,8 +6,12 @@ export async function fetchLeaderboards(
   res: Response,
   next: NextFunction
 ) {
-  const usersSortedByScoreAsc = (await prisma.user.findMany()).sort((a, b) =>
-    a.score > b.score ? 1 : -1
-  );
-  res.status(200).send(usersSortedByScoreAsc);
+  try {
+    const usersSortedByScoreAsc = (
+      await prisma.user.findMany({ select: { username: true, score: true } })
+    ).sort((a, b) => (a.score > b.score ? 1 : -1));
+    res.status(200).send(usersSortedByScoreAsc);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 }
