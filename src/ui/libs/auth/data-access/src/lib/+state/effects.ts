@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BEARER_TOKEN_STORAGE_KEY } from '@gtop-ui/shared/config';
+import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, map, mergeMap, switchMap, tap } from 'rxjs';
 import { AuthApiClient } from '../auth.api-client.service';

@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'gtop-ui-poker-table',
+  selector: 'ppo-poker-table',
   templateUrl: './poker-table.component.html',
-  styleUrls: ['./poker-table.component.scss'],
+  styleUrls: ['./poker-table.component.css'],
 })
-export class PokerTableComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class PokerTableComponent {}

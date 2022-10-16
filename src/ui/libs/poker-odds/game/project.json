@@ -2,7 +2,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/poker-odds/game/src",
-  "prefix": "gtop-ui",
+  "prefix": "ppo",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

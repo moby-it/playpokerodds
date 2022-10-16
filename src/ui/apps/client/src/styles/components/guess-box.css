@@ -1,0 +1,31 @@
+
+.guess-box {
+  width: 305px;
+  max-height: 171px;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+.guess-box-label {
+  font-size: 24px;
+}
+.guess-box span {
+  padding: 8px;
+}
+.guess-box-form {
+  display: flex;
+  gap: 24px;
+  height: 100px;
+}
+.guess-box-form input {
+  padding: 28px 0;
+  width: 185px;
+  border-radius: var(--radius);
+  border: none;
+  background-color: var(--neutral--800);
+  text-align: center;
+  color: var(--neutral--80);
+}
+.guess-box-form input:disabled {
+  background-color: var(--neutral--300);
+}

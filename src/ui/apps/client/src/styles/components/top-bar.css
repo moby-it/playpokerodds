@@ -1,0 +1,21 @@
+
+.top-bar {
+  position: fixed;
+  height: 104px;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--padding);
+}
+.nav-menu {
+  display: flex;
+  row-gap: 32px;
+}
+.nav-item {
+  cursor: pointer;
+}
+.nav-item svg path{
+  stroke: var(--neutral--100);
+}
+.nav-item:hover svg path{
+  stroke: var(--neutral--10);
+}

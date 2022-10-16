@@ -1,0 +1,32 @@
+.game-container {
+  background-color: var(--neutral--900);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 208px 24px 100px;
+}
+.play-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+.poker-table-container {
+  width: 900px;
+  height: 457px;
+  padding: 25px 0;
+  display: grid;
+}
+.poker-table {
+  height: 407px;
+  background-color: var(--table-color---surface);
+  border-radius: 283px;
+  border: 36px solid var(--table-color---border);
+  box-shadow: inset 0px -8px 4px rgba(0, 0, 0, 0.25),
+    inset 0px 8px 4px rgba(0, 0, 0, 0.25);
+}
+.submit-form {
+}

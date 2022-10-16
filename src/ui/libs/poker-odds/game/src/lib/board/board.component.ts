@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'gtop-ui-board',
+  selector: 'ppo-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })

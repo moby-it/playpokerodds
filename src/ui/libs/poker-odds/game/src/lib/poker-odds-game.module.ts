@@ -8,9 +8,12 @@ import { PlayingHandComponent } from './playing-hand/playing-hand.component';
 import { PlayerHandBadgeComponent } from './player-hand-badge/player-hand-badge.component';
 import { BoardComponent } from './board/board.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
+import { PokerOddsGameComponent } from './poker-odds-game.component';
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, PokerOddsRoutingModule],
   declarations: [
+    PokerOddsGameComponent,
     GuessBoxComponent,
     PlayButtonComponent,
     PokerTableComponent,

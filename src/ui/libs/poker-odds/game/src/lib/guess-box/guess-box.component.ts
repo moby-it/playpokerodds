@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'gtop-ui-guess-box',
+  selector: 'ppo-guess-box',
   templateUrl: './guess-box.component.html',
   styleUrls: ['./guess-box.component.scss'],
 })

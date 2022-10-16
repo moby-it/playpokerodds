@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { API_URL } from '@gtop-ui/shared/config';
+import { API_URL } from '@ppo/shared/config';
 import { isLeft } from 'fp-ts/es6/Either';
 import { Observable, tap } from 'rxjs';
 import { AuthDto, UserResposeDto } from './dtos';

@@ -1,0 +1,14 @@
+.play-button {
+  height: 96px;
+  border-radius: var(--radius);
+  border: none;
+  padding: 12px;
+  background-color: var(--primary--300);
+}
+.play-button:hover {
+  background-color: var(--primary--200);
+}
+.play-button:disabled {
+  cursor: default;
+  background-color: var(--neutral--500);
+}

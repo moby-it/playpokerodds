@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "gtop-ui",
+            "prefix": "ppo",
             "style": "kebab-case"
           }
         ]

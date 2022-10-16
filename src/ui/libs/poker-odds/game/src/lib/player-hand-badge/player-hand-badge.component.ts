@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'gtop-ui-player-hand-badge',
+  selector: 'ppo-player-hand-badge',
   templateUrl: './player-hand-badge.component.html',
   styleUrls: ['./player-hand-badge.component.scss'],
 })

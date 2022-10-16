@@ -1,25 +1,25 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AuthDataAccessModule } from '@gtop-ui/auth/data-access';
-import { API_URL } from '@gtop-ui/shared/config';
+import { AuthDataAccessModule } from '@ppo/auth/data-access';
+import { PokerOddsDataAccessModule } from '@ppo/poker-odds/data-access';
+import { SharedUiModule } from '@ppo/shared/ui';
+import { API_URL } from '@ppo/shared/config';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
-import { PushModule } from '@ngrx/component';
 import { AppComponent } from './app.component';
-import { PokerOddsGameModule } from '@gtop-ui/poker-odds/game';
-import { PokerOddsDataAccessModule } from '@gtop-ui/poker-odds/data-access';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    PushModule,
-    PokerOddsGameModule,
+    AppRoutingModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    SharedUiModule,
     AuthDataAccessModule,
     PokerOddsDataAccessModule,
   ],

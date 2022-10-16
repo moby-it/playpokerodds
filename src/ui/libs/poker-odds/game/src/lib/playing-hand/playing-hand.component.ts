@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'gtop-ui-playing-hand',
+  selector: 'ppo-playing-hand',
   templateUrl: './playing-hand.component.html',
   styleUrls: ['./playing-hand.component.scss'],
 })

@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import './styles/reset.css';
+@import './styles/ng-root.css';
 @import './styles/colors.css';
 @import './styles/typography.css';
 @import './styles/spacing.css';
 @import './styles/container.css';
+
+// components
+@import './styles/components/guess-box.css';
+@import './styles/components/play-button.css';
+@import './styles/components/top-bar.css';
+@import './styles/components/poker-table.css';

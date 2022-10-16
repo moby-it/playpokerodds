@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "auth-data-access": "libs/auth/data-access",
+    "auth-feature-user-form": "libs/auth/feature-user-form",
     "client": "apps/client",
     "poker-odds-data-access": "libs/poker-odds/data-access",
     "poker-odds-game": "libs/poker-odds/game",
