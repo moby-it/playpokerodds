@@ -10,8 +10,14 @@ import { BoardComponent } from './board/board.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
 import { PokerOddsGameComponent } from './poker-odds-game.component';
+import { LetModule } from '@ngrx/component';
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, PokerOddsRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PokerOddsRoutingModule,
+    LetModule,
+  ],
   declarations: [
     PokerOddsGameComponent,
     GuessBoxComponent,

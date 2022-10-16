@@ -1,1 +1,10 @@
-<p>card works!</p>
+<ng-container *ngIf="back;else flippedCard">
+  <svg>
+    <use [attr.href]="cardLink +'back'" x="62" y="86" fill="red" />
+  </svg>
+</ng-container>
+<ng-template #flippedCard>
+  <svg>
+    <use [attr.href]="cardLink+card" x="62" y="86" fill="red" />
+  </svg>
+</ng-template>

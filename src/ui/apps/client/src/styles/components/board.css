@@ -1,0 +1,8 @@
+.board {
+  width: 423px;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}

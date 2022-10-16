@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Card } from '@moby-it/ppo-core';
 
 @Component({
   selector: 'ppo-playing-hand',
   templateUrl: './playing-hand.component.html',
-  styleUrls: ['./playing-hand.component.scss'],
+  styleUrls: ['./playing-hand.component.css'],
 })
-export class PlayingHandComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class PlayingHandComponent {
+  @Input() hand!: Card[];
 }

@@ -1,0 +1,7 @@
+.player-hand {
+  width: 496px;
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  align-items: center;
+}
