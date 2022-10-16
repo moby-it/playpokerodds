@@ -7,5 +7,5 @@ import { Card } from '@moby-it/ppo-core';
   styleUrls: ['./playing-hand.component.css'],
 })
 export class PlayingHandComponent {
-  @Input() hand!: Card[];
+  @Input() hand: Card[] = [];
 }

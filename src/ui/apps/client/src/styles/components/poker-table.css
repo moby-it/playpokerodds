@@ -17,11 +17,17 @@
 .poker-table-container {
   width: 900px;
   height: 457px;
-  padding: 25px 0;
   display: grid;
+  grid-template-columns: 18px 76px 108px 76px 64px 76px 64px 76px 64px 76px 108px 76px 18px;
+  grid-template-rows: 76px 76px 154px 76px 76px;
 }
 .poker-table {
+  z-index: 0;
+  position: absolute;
+  width: 900px;
   height: 407px;
+  margin-top: 25px;
+  box-sizing: border-box;
   background-color: var(--table-color---surface);
   border-radius: 283px;
   border: 36px solid var(--table-color---border);

@@ -10,13 +10,17 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
+import { PushModule } from '@ngrx/component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+    PushModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     SharedUiModule,

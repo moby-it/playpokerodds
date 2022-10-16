@@ -2,7 +2,16 @@ import { Injectable } from '@angular/core';
 import { Round } from '@moby-it/ppo-core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, map, mergeMap, withLatestFrom } from 'rxjs';
+import { LoaderService } from '@ppo/shared/ui';
+import {
+  EMPTY,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { PokerOddsApiClient } from '../poker-odds.api-client.service';
 import { pokerOddsActions } from './actions';
 import { selectRound } from './reducer';
@@ -12,13 +21,17 @@ export class PokerOddsEffects {
   constructor(
     private actions: Actions,
     private pokerOddsApiClient: PokerOddsApiClient,
-    private store: Store
+    private store: Store,
+    private loader: LoaderService
   ) {}
   fetchRound$ = createEffect(() =>
     this.actions.pipe(
       ofType(pokerOddsActions.startNewRound),
+      tap(() =>
+        this.store.dispatch(pokerOddsActions.setLoading({ loading: true }))
+      ),
       mergeMap(() => this.pokerOddsApiClient.fetchRandomRound()),
-      map((round) => pokerOddsActions.setCurrentRound({ round }))
+      switchMap((round) => [pokerOddsActions.setCurrentRound({ round })])
     )
   );
   postAnswer$ = createEffect(() =>
@@ -26,10 +39,13 @@ export class PokerOddsEffects {
       ofType(pokerOddsActions.answerRound),
       withLatestFrom(this.store.select(selectRound)),
       filter(([, round]) => Boolean(round)),
+      tap(() =>
+        this.store.dispatch(pokerOddsActions.setLoading({ loading: true }))
+      ),
       mergeMap(([action, round]) =>
         this.pokerOddsApiClient.postRoundAnswer(round as Round, action.estimate)
       ),
-      map((answer) => pokerOddsActions.setRoundAnswer({ answer }))
+      switchMap((answer) => [pokerOddsActions.setRoundAnswer({ answer })])
     )
   );
 }

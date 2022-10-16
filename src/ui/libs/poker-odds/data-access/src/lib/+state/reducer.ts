@@ -17,6 +17,10 @@ export const pokerOddsFeature = createFeature({
   name: 'Poker Odds',
   reducer: createReducer(
     initialState,
+    on(pokerOddsActions.setLoading, (state, action) => ({
+      ...state,
+      loading: action.loading,
+    })),
     on(pokerOddsActions.startNewRound, (state) => ({
       ...state,
       answer: null,
@@ -32,10 +36,12 @@ export const pokerOddsFeature = createFeature({
     on(pokerOddsActions.setCurrentRound, (state, action) => ({
       ...state,
       round: action.round,
+      loading: false,
     })),
     on(pokerOddsActions.setRoundAnswer, (state, action) => ({
       ...state,
       answer: action.answer,
+      loading: false,
     }))
   ),
 });

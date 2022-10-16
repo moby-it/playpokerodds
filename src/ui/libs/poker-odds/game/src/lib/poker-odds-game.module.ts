@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
 import { PokerOddsGameComponent } from './poker-odds-game.component';
 import { LetModule } from '@ngrx/component';
+import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { LetModule } from '@ngrx/component';
     PlayingHandComponent,
     PlayerHandBadgeComponent,
     BoardComponent,
+    HandBadgeGridPositionPipe,
   ],
   exports: [PokerTableComponent],
 })

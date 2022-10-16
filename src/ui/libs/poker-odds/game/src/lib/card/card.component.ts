@@ -1,22 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Card } from '@moby-it/ppo-core';
-import { convertToSvgCardLink } from './card.helpers';
+import { Animations } from '@ppo/shared/ui';
 @Component({
   selector: 'ppo-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  animations: [Animations.fadeAnimation],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() back = false;
   @Input() card: Card | undefined;
-  cardLink = 'svg-cards.svg#';
-  ngOnInit() {
-    if (this.back) {
-      this.cardLink += 'back';
-    } else {
-      if (!this.card)
-        throw new Error('cannot render releaved card with undefined value');
-      this.cardLink += convertToSvgCardLink(this.card);
-    }
-  }
+  cardLink = '/assets/svg-cards.svg#';
 }

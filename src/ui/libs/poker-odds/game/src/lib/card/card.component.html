@@ -1,10 +1,6 @@
-<ng-container *ngIf="back;else flippedCard">
-  <svg>
-    <use [attr.href]="cardLink +'back'" x="62" y="86" fill="red" />
-  </svg>
+<ng-container *ngIf="back;else flippedCard" >
+  <img src="/assets/cards/card_hidden.svg" @fade alt="" srcset="">
 </ng-container>
-<ng-template #flippedCard>
-  <svg>
-    <use [attr.href]="cardLink+card" x="62" y="86" fill="red" />
-  </svg>
+<ng-template #flippedCard >
+  <img src="/assets/cards/{{card}}.svg" @fade alt="" srcset="">
 </ng-template>

@@ -1,0 +1,5 @@
+:host {
+  z-index: 1;
+  grid-column: 4 /10;
+  grid-row: 5;
+}

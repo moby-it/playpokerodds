@@ -1,4 +1,10 @@
 <div class="poker-table-container">
-  <div class="poker-table"></div>
-  <ng-container *ngrxLet="round$ as round"></ng-container>
+  <ng-container *ngrxLet="round$ as round">
+    <ppo-board class="board" [board]="round.board"></ppo-board>
+    <ppo-playing-hand [hand]="round.myHand"></ppo-playing-hand>
+    <ppo-player-hand-badge *ngFor="let opponent of round.opponentsHands;let i = index"
+      [ngStyle]="i | handBadgeGridPosition">
+    </ppo-player-hand-badge>
+  </ng-container>
 </div>
+<div class="poker-table"></div>
