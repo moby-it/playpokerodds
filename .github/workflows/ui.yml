@@ -33,7 +33,7 @@ jobs:
       with:
         push: true
         tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-ui:${{ github.sha }}
-        context: ./src/api
+        context: ./src/ui
 
   deploy:
     runs-on: ubuntu-latest
