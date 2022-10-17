@@ -4,13 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { LoaderService } from '@ppo/shared/ui';
 import {
-  EMPTY,
-  filter,
-  map,
-  mergeMap,
+  filter, mergeMap,
   switchMap,
   tap,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs';
 import { PokerOddsApiClient } from '../poker-odds.api-client.service';
 import { pokerOddsActions } from './actions';

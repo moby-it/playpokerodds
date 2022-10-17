@@ -1,7 +1,15 @@
-<div class="guess-box">
-  <span class="guess-box-label" *ngIf="!loading">{{message}}</span>
+<div class="guess-box" *ngrxLet="vm$ as vm" @fade>
+  <div class="guess-box-round-completed" *ngIf="vm.answer as answer">
+    <h1 class="win-odds">{{answer.odds}}</h1>
+    <div class="accuracy-description accuracy-description-{{vm.answer.didAccurateEstimate? 'accurate': 'inaccurate'}}">
+      {{answer | formatAnswerMessage}}</div>
+  </div>
+  <div class="guess-box-label">
+    <ppo-loader *ngIf="vm.loading"></ppo-loader>
+    <span>{{!vm.loading ? vm.message: 'Calculating...'}}</span>
+  </div>
   <form [formGroup]="guessForm" class="guess-box-form">
     <input placeholder="0.00" type="number" step=".01" formControlName="estimate">
-    <ppo-play-button (buttonClicked)="playButtonHandler()"></ppo-play-button>
+    <ppo-play-button (buttonClicked)="playButtonHandler()" [disabled]="vm.loading"></ppo-play-button>
   </form>
 </div>

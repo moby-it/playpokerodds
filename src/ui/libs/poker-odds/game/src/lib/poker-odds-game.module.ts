@@ -10,14 +10,18 @@ import { BoardComponent } from './board/board.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
 import { PokerOddsGameComponent } from './poker-odds-game.component';
-import { LetModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
+import { SharedUiModule } from '@ppo/shared/ui';
+import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     PokerOddsRoutingModule,
     LetModule,
+    PushModule,
+    SharedUiModule,
   ],
   declarations: [
     PokerOddsGameComponent,
@@ -29,6 +33,7 @@ import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.p
     PlayerHandBadgeComponent,
     BoardComponent,
     HandBadgeGridPositionPipe,
+    GuessBoxAnswerMessagePipe,
   ],
   exports: [PokerTableComponent],
 })

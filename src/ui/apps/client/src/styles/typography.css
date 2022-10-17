@@ -16,3 +16,13 @@ span,
 div {
   font-size: 22px;
 }
+.body-large {
+  font-size: 324px;
+  font-weight: 600;
+  line-height: 32px;
+}
+.body-xl {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+}
