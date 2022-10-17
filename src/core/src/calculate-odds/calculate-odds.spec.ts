@@ -3,6 +3,15 @@ import { Hand } from '../hand';
 import { createRoundFromProps } from '../round';
 import { calculateOdds } from './calculate-odds';
 describe('test calculate odds', () => {
+  test('should always return a 4 fraction number', () => {
+    const myHand: Hand = ['Ac', 'Ad'];
+    const opponentsHands: Hand[] = [['2c', '2d']];
+    const round = createRoundFromProps({ myHand, opponentsHands, board: [] });
+    pipe;
+    pipe(round, calculateOdds, (equity) =>
+      expect(equity.toString()).toHaveLength(5) // dot counts
+    );
+  });
   test('should expect aces to win over deuces for about than 82.5% of the time', () => {
     const myHand: Hand = ['Ac', 'Ad'];
     const opponentsHands: Hand[] = [['2c', '2d']];
