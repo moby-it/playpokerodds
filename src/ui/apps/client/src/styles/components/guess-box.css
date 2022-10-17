@@ -41,7 +41,7 @@
   color: var(--neutral--10);
 }
 .accuracy-description {
-  padding: 8px 0;
+  padding: 8px;
   width: 305px;
   border-radius: var(--radius);
   color: var(--neutral--10);
