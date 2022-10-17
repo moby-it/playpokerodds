@@ -14,7 +14,7 @@ export class GuessBoxAnswerMessagePipe implements PipeTransform {
       return SPOT_ON_MESSAGE;
     }
     if (score < 5) {
-      return createGoodGuessMessage(answer.score);
+      return createGoodGuessMessage(score);
     } else {
       return createBadGuessMessage(score);
     }

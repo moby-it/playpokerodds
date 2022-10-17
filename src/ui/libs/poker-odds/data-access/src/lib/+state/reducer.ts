@@ -28,7 +28,6 @@ export const pokerOddsFeature = createFeature({
     })),
     on(pokerOddsActions.startNewRound, (state) => ({
       ...state,
-      answer: null,
       estimate: null,
       loading: true,
     })),
@@ -40,6 +39,7 @@ export const pokerOddsFeature = createFeature({
     on(pokerOddsActions.setCurrentRound, (state, action) => ({
       ...state,
       round: action.round,
+      answer: null,
       loading: false,
       roundStatus: 'Playing',
     })),

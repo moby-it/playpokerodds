@@ -1,9 +1,7 @@
 .guess-box {
   width: 305px;
-  max-height: 171px;
   display: flex;
   flex-direction: column;
-  gap: 42px;
 }
 .guess-box-label {
   font-size: 24px;
@@ -19,6 +17,7 @@
   display: flex;
   gap: 24px;
   height: 100px;
+  justify-content: center;
 }
 .guess-box-form input {
   padding: 28px 0;
@@ -42,8 +41,8 @@
   color: var(--neutral--10);
 }
 .accuracy-description {
+  padding: 8px 0;
   width: 305px;
-  height: 80px;
   border-radius: var(--radius);
   color: var(--neutral--10);
   text-align: center;
@@ -52,5 +51,5 @@
   background-color: var(--green--200);
 }
 .accuracy-description-inaccurate {
-  background-color: var(--green--200);
+  background-color: var(--red--200);
 }

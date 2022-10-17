@@ -27,8 +27,8 @@ model Round {
   myHand         Json
   opponentsHands Json
   board          Json
-  odds           Decimal  @db.Decimal(4, 2)
-  estimate       Decimal  @db.Decimal(4, 2)
+  odds           Decimal  @db.Decimal(5, 2)
+  estimate       Decimal  @db.Decimal(5, 2)
   user           User?    @relation(fields: [userId], references: [id])
   userId         String?
   timestamp      DateTime @default(now())

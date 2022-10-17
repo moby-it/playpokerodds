@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   gap: 80px;
-  padding: 208px 24px 100px;
+  padding: 132px 24px 100px;
 }
 .play-area {
   display: flex;
@@ -33,6 +33,4 @@
   border: 36px solid var(--table-color---border);
   box-shadow: inset 0px -8px 4px rgba(0, 0, 0, 0.25),
     inset 0px 8px 4px rgba(0, 0, 0, 0.25);
-}
-.submit-form {
 }

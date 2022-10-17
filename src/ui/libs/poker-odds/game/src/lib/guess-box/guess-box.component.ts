@@ -4,9 +4,8 @@ import { PokerOddsFacade } from '@ppo/poker-odds/data-access';
 import { Animations } from '@ppo/shared/ui';
 import { combineLatest, map, take, tap } from 'rxjs';
 import {
-  COMPLETED_GUESS_BOX_MESSAGE,
   INITIAL_GUESS_BOX_MESSAGE,
-  PLAYING_GUESS_BOX_MESSAGE,
+  PLAYING_GUESS_BOX_MESSAGE
 } from './constants';
 
 @Component({
@@ -54,10 +53,11 @@ export class GuessBoxComponent {
         take(1),
         tap((status) => {
           const estimate = this.guessForm.getRawValue().estimate;
-          if (status === 'Playing' && estimate) {
+          if (status === 'Playing' && typeof estimate === 'number') {
             this.pokerFacade.submitEstimate(estimate);
-          } else {
+          } else if (status === 'Completed' || status === 'Initial') {
             this.pokerFacade.startNewRound();
+            this.guessForm.reset();
           }
         })
       )

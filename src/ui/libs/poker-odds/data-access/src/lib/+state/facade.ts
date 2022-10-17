@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { debounceTime } from 'rxjs';
+import { delay, of, switchMap } from 'rxjs';
 import { pokerOddsActions } from './actions';
 import {
   selectAnswer,
@@ -14,7 +14,11 @@ export class PokerOddsFacade {
   constructor(private store: Store) {}
   currentRound$ = this.store.select(selectRound);
   answer$ = this.store.select(selectAnswer);
-  loading$ = this.store.select(selectLoading).pipe(debounceTime(500));
+  loading$ = this.store
+    .select(selectLoading)
+    .pipe(
+      switchMap((loading) => (loading ? of(true).pipe(delay(500)) : of(false)))
+    );
   roundStatus$ = this.store.select(selectRoundStatus);
   startNewRound() {
     this.store.dispatch(pokerOddsActions.startNewRound());
