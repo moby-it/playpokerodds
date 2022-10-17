@@ -1,27 +1,25 @@
-import { pipe } from 'fp-ts/lib/function';
-import { calculateEquity, Equity } from 'poker-odds';
 import { Round } from '../round';
 
-const roundToDecimalPlaces = (decimanPlaces: number) => (num: number) =>
-  +num.toFixed(decimanPlaces);
+import { Calculator, Input } from './calculator';
 
-const convertDecimalToPercentage = (number: number) => number * 100;
-
-const calculateOddsForEquity: (equity: Equity) => number = (equity: Equity) =>
-  pipe(
-    equity.wins / equity.count,
-    convertDecimalToPercentage,
-    roundToDecimalPlaces(2)
-  );
-
-export function calculateOdds({
-  myHand,
-  opponentsHands,
-  board,
-}: Round): number {
-  return pipe(
-    calculateEquity([myHand, ...opponentsHands], board),
-    (equities) => equities[0],
-    calculateOddsForEquity
-  );
+const transformRoundToInput = (round: Round): Input => {
+  const hands = [
+    round.myHand.join(','),
+    ...round.opponentsHands
+      .map((h) => h.join())
+      .filter((flattenHand) => flattenHand !== '....')
+  ].filter(Boolean);
+  return {
+    board: round.board.join(','),
+    boardSize: !round.board.length ? 5 : round.board.length,
+    hands,
+    numPlayers: round.opponentsHands.length + 1,
+    iterations: 100000,
+  };
+};
+export function calculateOdds(round: Round): number {
+  const input = transformRoundToInput(round);
+  const calculator = new Calculator(input);
+  const results = calculator.simulate();
+  return results[round.myHand.join(',')].winPercent as number;
 }
