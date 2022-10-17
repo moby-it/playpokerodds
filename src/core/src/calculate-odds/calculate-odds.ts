@@ -15,7 +15,7 @@ const transformRoundToInput = (round: Round): Input => {
     input.boardSize = round.board.length;
   }
   input.numPlayers = round.opponentsHands.length + 1;
-  input.iterations = 20000;
+  input.iterations = 30000;
   return input;
 };
 export function calculateOdds(round: Round): number {
