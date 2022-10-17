@@ -1,6 +1,6 @@
 {
   "name": "@moby-it/ppo-core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Play Poker Odds - Core domain",
   "main": "dist/index.js",
   "private": false,

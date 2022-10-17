@@ -22,5 +22,6 @@ export function calculateOdds(round: Round): number {
   const input = transformRoundToInput(round);
   const calculator = new Calculator(input);
   const results = calculator.simulate();
-  return results[round.myHand.join(',')].winPercent as number;
+  const result = results[round.myHand.join(',')].winPercent as number;
+  return parseFloat(result.toFixed(2));
 }
