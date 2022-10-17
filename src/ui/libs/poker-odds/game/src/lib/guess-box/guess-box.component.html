@@ -1,6 +1,6 @@
 <div class="guess-box" *ngrxLet="vm$ as vm" @fade>
   <div class="guess-box-round-completed" *ngIf="vm.answer as answer">
-    <h1 class="win-odds">{{answer.odds}}</h1>
+    <h1 class="win-odds">{{answer.odds}}%</h1>
     <div class="accuracy-description accuracy-description-{{vm.answer.didAccurateEstimate? 'accurate': 'inaccurate'}}">
       {{answer | formatAnswerMessage}}</div>
   </div>

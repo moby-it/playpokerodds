@@ -15,4 +15,10 @@ describe('test calculate odds', () => {
     const round = createRoundFromProps({ myHand, opponentsHands, board: [] });
     pipe(round, calculateOdds, (equity) => expect(equity).toBeCloseTo(47.4, 0));
   });
+  test('should expect Ace-King to win over random hand for about 64.4% of the time', () => {
+    const myHand: Hand = ['Ac', 'Kd'];
+    const opponentsHands: Hand[] = [['..', '..']];
+    const round = createRoundFromProps({ myHand, opponentsHands, board: [] });
+    pipe(round, calculateOdds, (equity) => expect(equity).toBeCloseTo(64.4, 0));
+  });
 });
