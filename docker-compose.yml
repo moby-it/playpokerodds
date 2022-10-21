@@ -13,7 +13,6 @@ services:
     build:
       context: src/api
       dockerfile: Dockerfile
-    command: npm run docker:dev
     env_file:
       - src/api/docker.env
   db:

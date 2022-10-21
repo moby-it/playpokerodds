@@ -7,6 +7,7 @@ import { TooltipOptions } from '@cloudfactorydk/ng2-tooltip-directive';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent {
+  userFormVisible = false;
   tooltipOptions: TooltipOptions = {
     placement: 'bottom',
     tooltipClass: 'tooltip',
@@ -16,5 +17,9 @@ export class TopBarComponent {
   constructor(private router: Router) {}
   navigateTo(url: string) {
     this.router.navigate([url]);
+  }
+  toggleUserForm() {
+    console.log('should toggle form')
+    this.userFormVisible = !this.userFormVisible;
   }
 }

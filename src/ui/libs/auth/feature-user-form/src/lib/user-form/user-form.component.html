@@ -1,0 +1,14 @@
+<div class="user-form-container">
+  <form [formGroup]="userForm" class="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let control of userForm.controls | keyvalue">
+      <label class="label"> {{control.key| titlecase}} </label>
+      <input class="control" [formControlName]="control.key" [name]="control.key"
+        [type]="control.key === 'password' ? 'password': 'test'" />
+      <!-- <span class="error" *ngIf=""></span> -->
+    </ng-container>
+    <div class="submit-container">
+      <button type="submit" class="submit-btn">Register</button>
+      <span>Already registered? <b class="cursor-pointer">Sign in</b></span>
+    </div>
+  </form>
+</div>

@@ -40,5 +40,6 @@
 
     </div>
   </div>
-  <div class="user-panel">Register / Sign In</div>
+  <div class="user-panel" (click)="toggleUserForm()">Register / Sign In</div>
 </div>
+<ppo-user-form *ngIf="userFormVisible" (ppoClickOutside)="toggleUserForm()"></ppo-user-form>

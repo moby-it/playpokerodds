@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gtop-ui/auth/feature-user-form": [
+      "@ppo/auth/feature-user-form": [
         "libs/auth/feature-user-form/src/index.ts"
       ],
       "@ppo/auth/data-access": ["libs/auth/data-access/src/index.ts"],
