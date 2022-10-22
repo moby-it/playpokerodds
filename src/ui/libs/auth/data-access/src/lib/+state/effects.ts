@@ -12,12 +12,12 @@ export class AuthEffects {
     this.actions.pipe(
       ofType(AuthActions.signin),
       mergeMap((dto) =>
-        this.authApiClient.login(dto).pipe(
+        this.authApiClient.signin(dto).pipe(
           tap((response) => {
             localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
           }),
           map((response) => AuthActions.setUser({ user: { ...response } })),
-          catchError((e: HttpErrorResponse) => EMPTY)
+          catchError(() => EMPTY)
         )
       )
     )
@@ -30,6 +30,20 @@ export class AuthEffects {
           tap((response) => {
             localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
           }),
+          map((response) => AuthActions.setUser({ user: { ...response } })),
+          catchError((e: HttpErrorResponse) => {
+            console.log(e.error);
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+  changeUsername$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.changeUsername),
+      mergeMap((dto) =>
+        this.authApiClient.changeUsername(dto).pipe(
           map((response) => AuthActions.setUser({ user: { ...response } })),
           catchError((e: HttpErrorResponse) => {
             console.log(e.error);

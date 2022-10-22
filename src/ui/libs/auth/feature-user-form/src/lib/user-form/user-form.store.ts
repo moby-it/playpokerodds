@@ -12,7 +12,7 @@ interface UserFormState {
   formType: FormType;
 }
 const initialState: UserFormState = {
-  formType: FormType.REGISTER,
+  formType: FormType.SIGN_IN,
 };
 @Injectable()
 export class UserFormStore extends ComponentStore<UserFormState> {
@@ -52,7 +52,7 @@ export class UserFormStore extends ComponentStore<UserFormState> {
             this.authFacade.signin(formGroup.value);
             break;
           case FormType.EDIT_USER:
-            this.authFacade.editUser(formGroup.value);
+            this.authFacade.changeUsername(formGroup.value);
             break;
         }
       })

@@ -1,9 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from '@cloudfactorydk/ng2-tooltip-directive';
-import { PushModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AuthDataAccessModule } from '@ppo/auth/data-access';
@@ -14,6 +14,7 @@ import { SharedUiModule } from '@ppo/shared/ui';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
+import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     AppRoutingModule,
     TooltipModule,
     PushModule,
+    LetModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     PokerOddsDataAccessModule,
@@ -32,7 +34,14 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     SharedUiModule,
     AuthFeatureUserFormModule,
   ],
-  providers: [{ provide: API_URL, useValue: environment.apiUrl }],
+  providers: [
+    { provide: API_URL, useValue: environment.apiUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

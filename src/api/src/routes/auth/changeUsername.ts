@@ -20,14 +20,23 @@ const changeUsername = async (
   const decodedToken = DecodedJwt.decode(decode(token));
   const newUsername: string = req.body.username;
   if (isRight(decodedToken)) {
-    const { email } = decodedToken.right;
-    const result = await prisma.user.update({
-      where: { email },
-      data: {
-        username: newUsername,
-      },
-    });
-    res.status(200).send(result);
+    try {
+      const { email } = decodedToken.right;
+      const user = await prisma.user.update({
+        where: { email },
+        data: {
+          username: newUsername,
+        },
+      });
+      res.status(200).send({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        score: Number(user.score),
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
   } else {
     res.status(400).send({ message: 'Failed to decode token' });
   }

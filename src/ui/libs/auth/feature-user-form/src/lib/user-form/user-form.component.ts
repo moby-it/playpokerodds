@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormType, UserFormStore } from './user-form.store';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormType, UserFormStore } from './user-form.store';
   providers: [UserFormStore],
 })
 export class UserFormComponent {
+  @Output() clickedOutside = new EventEmitter();
   formTypes = FormType;
   constructor(private componentStore: UserFormStore) {}
   formType$ = this.componentStore.formType$;

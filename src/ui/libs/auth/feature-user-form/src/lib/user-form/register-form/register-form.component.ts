@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
+import { map } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
 interface RegisterForm {
   email: FormControl<string>;
@@ -12,16 +17,22 @@ interface RegisterForm {
   styleUrls: ['./register-form.component.css'],
 })
 export class RegisterFormComponent {
-  constructor(private componentStore: UserFormStore) {}
-  registerForm = new FormGroup<RegisterForm>({
-    email: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl(),
+  constructor(
+    private componentStore: UserFormStore,
+    private fb: NonNullableFormBuilder
+  ) {}
+  registerForm = this.fb.group<RegisterForm>({
+    email: this.fb.control('', { validators: Validators.required }),
+    username: this.fb.control('', { validators: Validators.required }),
+    password: this.fb.control('', { validators: Validators.required }),
   });
-  onSubmit() {
-    console.log('register form', this.registerForm.value);
+  formInvalid$ = this.registerForm.statusChanges.pipe(
+    map((status) => status === 'INVALID')
+  );
+  onSubmit(): void {
+    this.componentStore.submit$(this.registerForm);
   }
-  toSignInForm() {
+  toSignInForm(): void {
     this.componentStore.toSignIn();
   }
 }

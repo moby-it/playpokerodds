@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/login', ...loginEndpoint);
 router.post('/register', ...registerEntpoint);
+router.post('/refreshToken', ...registerEntpoint);
 router.post('/changeUsername', ...changeUsernameEndpoint);
 
 export { router as AuthRouter };

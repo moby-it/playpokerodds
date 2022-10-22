@@ -1,13 +1,13 @@
-<ng-container *ngrxLet="formType$ as formType">
+<div *ngrxLet="formType$ as formType" >
   <ng-container [ngSwitch]="formType">
     <ng-container *ngSwitchCase="formTypes.REGISTER">
-      <ppo-register-form></ppo-register-form>
+      <ppo-register-form (ppoClickOutside)="clickedOutside.emit()"></ppo-register-form>
     </ng-container>
     <ng-container *ngSwitchCase="formTypes.SIGN_IN">
-      <ppo-signin-form></ppo-signin-form>
+      <ppo-signin-form (ppoClickOutside)="clickedOutside.emit()"></ppo-signin-form>
     </ng-container>
     <ng-container *ngSwitchCase="formTypes.EDIT_USER">
-      <ppo-edit-user-form></ppo-edit-user-form>
+      <ppo-edit-user-form (ppoClickOutside)="clickedOutside.emit()"></ppo-edit-user-form>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>

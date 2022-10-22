@@ -1,5 +1,5 @@
 import { User } from '../models';
-import { createReducer, on, createFeature } from '@ngrx/store';
+import { createReducer, on, createFeature, createSelector } from '@ngrx/store';
 import { AuthActions } from './actions';
 export const AUTH_STATE_NAME = 'auth';
 export interface AuthState {
@@ -34,3 +34,7 @@ export const authFeature = createFeature({
   ),
 });
 export const { selectUser, selectStatus } = authFeature;
+export const selectUsername = createSelector(
+  selectUser,
+  (user) => user?.username
+);

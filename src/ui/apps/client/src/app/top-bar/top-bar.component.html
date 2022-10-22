@@ -40,6 +40,15 @@
 
     </div>
   </div>
-  <div class="user-panel" (click)="toggleUserForm()">Register / Sign In</div>
+  <ng-container *ngrxLet="username$ as  username">
+    <div class="user-panel" (click)="toggleUserForm()">
+      <span *ngIf="username; else notLoggedIn">Hello, {{username}}</span>
+      <ng-template #notLoggedIn>
+        <span>
+          Register / Sign In
+        </span>
+      </ng-template>
+    </div>
+  </ng-container>
 </div>
-<ppo-user-form *ngIf="userFormVisible"></ppo-user-form>
+<ppo-user-form *ngIf="userFormVisible" (clickedOutside)="toggleUserForm()"></ppo-user-form>

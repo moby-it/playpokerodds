@@ -5,14 +5,16 @@ import { EventType } from 'shared';
 import { transformUserToResponse, validateAuthPayload } from './common';
 
 const registerUser = async (
-  req: Request<unknown, unknown, { email: string; password: string }>,
+  req: Request<
+    unknown,
+    unknown,
+    { email: string; password: string; username: string }
+  >,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
-    const username =
-      email.split('@')[0] + Math.floor(1000 + Math.random() * 9000);
+    const { email, password, username } = req.body;
     const salt = await genSalt(10);
     const hash = await hashPassword(password, salt);
     const user = await prisma.user.create({
@@ -26,7 +28,7 @@ const registerUser = async (
     await prisma.event.create({
       data: {
         type: EventType.USER_REGISTERED,
-        payload: { email: user.email },
+        payload: { email: user.email, username: user.username },
       },
     });
     res.locals = user;

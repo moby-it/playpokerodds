@@ -6,7 +6,7 @@
       <!-- <span class="error" *ngIf=""></span> -->
     </ng-container>
     <div class="submit-container">
-      <button type="submit" class="submit-btn">Sign out</button>
+      <button type="submit" class="submit-btn" [disabled]="formInvalid$ | ngrxPush">Change Username</button>
     </div>
   </form>
 </div>

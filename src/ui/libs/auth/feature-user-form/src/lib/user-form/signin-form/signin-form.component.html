@@ -7,7 +7,7 @@
       <!-- <span class="error" *ngIf=""></span> -->
     </ng-container>
     <div class="submit-container">
-      <button type="submit" class="submit-btn">Sign in</button>
+      <button type="submit" class="submit-btn"  [disabled]="formInvalid$ | ngrxPush">Sign in</button>
       <span>Dont'have an account yet? <b class="cursor-pointer" (click)="toRegisterInForm()">Register</b></span>
     </div>
   </form>

@@ -6,7 +6,7 @@ import {
   selectAnswer,
   selectLoading,
   selectRound,
-  selectRoundStatus
+  selectRoundStatus,
 } from './reducer';
 
 @Injectable({ providedIn: 'root' })
@@ -20,10 +20,10 @@ export class PokerOddsFacade {
       switchMap((loading) => (loading ? of(true).pipe(delay(500)) : of(false)))
     );
   roundStatus$ = this.store.select(selectRoundStatus);
-  startNewRound() {
+  startNewRound(): void {
     this.store.dispatch(pokerOddsActions.startNewRound());
   }
-  submitEstimate(estimate: number) {
+  submitEstimate(estimate: number): void {
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
   }
 }
