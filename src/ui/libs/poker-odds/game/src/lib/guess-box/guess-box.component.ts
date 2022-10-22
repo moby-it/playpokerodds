@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PokerOddsFacade } from '@ppo/poker-odds/data-access';
 import { Animations } from '@ppo/shared/ui';
-import { combineLatest, map, take, tap } from 'rxjs';
+import { combineLatest, map, startWith, take, tap } from 'rxjs';
 import {
   INITIAL_GUESS_BOX_MESSAGE,
-  PLAYING_GUESS_BOX_MESSAGE
+  PLAYING_GUESS_BOX_MESSAGE,
 } from './constants';
 
 @Component({
@@ -38,7 +38,10 @@ export class GuessBoxComponent {
     this.message$,
     this.loading$,
     this.answer$,
-    this.guessForm.statusChanges.pipe(map((status) => status === 'INVALID')),
+    this.guessForm.statusChanges.pipe(
+      startWith(this.guessForm.status),
+      map((status) => status === 'INVALID')
+    ),
   ]).pipe(
     map(([roundStatus, message, loading, answer, formInvalid]) => ({
       roundStatus,
