@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "admin": "apps/admin",
     "auth-data-access": "libs/auth/data-access",
     "auth-feature-user-form": "libs/auth/feature-user-form",
     "client": "apps/client",

@@ -15,10 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ppo/auth/data-access": ["libs/auth/data-access/src/index.ts"],
       "@ppo/auth/feature-user-form": [
         "libs/auth/feature-user-form/src/index.ts"
       ],
-      "@ppo/auth/data-access": ["libs/auth/data-access/src/index.ts"],
       "@ppo/poker-odds/data-access": [
         "libs/poker-odds/data-access/src/index.ts"
       ],
