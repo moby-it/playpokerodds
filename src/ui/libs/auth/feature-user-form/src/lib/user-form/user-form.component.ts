@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserFormStore } from './user-form.store';
+import { FormType, UserFormStore } from './user-form.store';
 
 @Component({
   selector: 'ppo-user-form',
@@ -8,9 +8,7 @@ import { UserFormStore } from './user-form.store';
   providers: [UserFormStore],
 })
 export class UserFormComponent {
+  formTypes = FormType;
   constructor(private componentStore: UserFormStore) {}
-  userForm = this.componentStore.userForm;
-  onSubmit() {
-    console.log(this.userForm.value);
-  }
+  formType$ = this.componentStore.formType$;
 }

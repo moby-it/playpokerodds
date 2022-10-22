@@ -8,7 +8,7 @@ export const AuthActions = createActionGroup({
     'Set Error Message': props<{ message: string }>(),
     'Set User': props<{ user: User }>(),
     Refresh: emptyProps(),
-    Login: props<AuthDto>(),
+    Signin: props<AuthDto>(),
     Register: props<AuthDto>(),
     Logout: emptyProps(),
   },

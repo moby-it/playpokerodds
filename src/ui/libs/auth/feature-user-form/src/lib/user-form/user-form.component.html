@@ -1,14 +1,13 @@
-<div class="user-form-container">
-  <form [formGroup]="userForm" class="form" (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let control of userForm.controls | keyvalue">
-      <label class="label"> {{control.key| titlecase}} </label>
-      <input class="control" [formControlName]="control.key" [name]="control.key"
-        [type]="control.key === 'password' ? 'password': 'test'" />
-      <!-- <span class="error" *ngIf=""></span> -->
+<ng-container *ngrxLet="formType$ as formType">
+  <ng-container [ngSwitch]="formType">
+    <ng-container *ngSwitchCase="formTypes.REGISTER">
+      <ppo-register-form></ppo-register-form>
     </ng-container>
-    <div class="submit-container">
-      <button type="submit" class="submit-btn">Register</button>
-      <span>Already registered? <b class="cursor-pointer">Sign in</b></span>
-    </div>
-  </form>
-</div>
+    <ng-container *ngSwitchCase="formTypes.SIGN_IN">
+      <ppo-signin-form></ppo-signin-form>
+    </ng-container>
+    <ng-container *ngSwitchCase="formTypes.EDIT_USER">
+      <ppo-edit-user-form></ppo-edit-user-form>
+    </ng-container>
+  </ng-container>
+</ng-container>

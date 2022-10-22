@@ -6,6 +6,7 @@ import { TooltipModule } from '@cloudfactorydk/ng2-tooltip-directive';
 import { PushModule } from '@ngrx/component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { AuthDataAccessModule } from '@ppo/auth/data-access';
 import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
 import { PokerOddsDataAccessModule } from '@ppo/poker-odds/data-access';
 import { API_URL } from '@ppo/shared/config';
@@ -26,9 +27,10 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     PushModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    PokerOddsDataAccessModule,
+    AuthDataAccessModule,
     SharedUiModule,
     AuthFeatureUserFormModule,
-    PokerOddsDataAccessModule,
   ],
   providers: [{ provide: API_URL, useValue: environment.apiUrl }],
   bootstrap: [AppComponent],

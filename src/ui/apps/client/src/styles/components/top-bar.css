@@ -23,6 +23,7 @@
   stroke: var(--neutral--10);
 }
 .user-panel {
+  user-select: none; /* Standard */
   cursor: pointer;
   color: var(--neutral--10);
 }

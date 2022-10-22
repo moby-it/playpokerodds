@@ -1,0 +1,12 @@
+<div class="user-form-container">
+  <form [formGroup]="editUserForm" class="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let control of editUserForm.controls | keyvalue">
+      <label class="label"> {{control.key| titlecase}} </label>
+      <input class="control" [formControlName]="control.key" [name]="control.key" type="text" />
+      <!-- <span class="error" *ngIf=""></span> -->
+    </ng-container>
+    <div class="submit-container">
+      <button type="submit" class="submit-btn">Sign out</button>
+    </div>
+  </form>
+</div>

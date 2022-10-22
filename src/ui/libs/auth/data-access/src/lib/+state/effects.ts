@@ -1,17 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, map, mergeMap, switchMap, tap } from 'rxjs';
+import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
+import { catchError, EMPTY, map, mergeMap, tap } from 'rxjs';
 import { AuthApiClient } from '../auth.api-client.service';
-import { LoginErrorDto, RegisterErrorDto } from '../dtos';
 import { AuthActions } from './actions';
 @Injectable()
 export class AuthEffects {
   constructor(private actions: Actions, private authApiClient: AuthApiClient) {}
-  login$ = createEffect(() =>
+  signIn$ = createEffect(() =>
     this.actions.pipe(
-      ofType(AuthActions.login),
+      ofType(AuthActions.signin),
       mergeMap((dto) =>
         this.authApiClient.login(dto).pipe(
           tap((response) => {
