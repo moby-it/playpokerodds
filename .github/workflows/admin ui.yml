@@ -1,0 +1,55 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and Deploy Admin app
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/ui/apps/admin/**"
+      - "src/ui/libs/admin/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to registry
+      uses: docker/login-action@v1
+      with:
+        registry: https://gtopregistry.azurecr.io/
+        username: ${{ secrets.CONTAINER_USERNAME }}
+        password: ${{ secrets.CONTAINER_PASSWORD }}
+
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.sha }}
+        context: ./src/ui
+        dockerfile: admin.Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'poker-admin'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.ADMIN_PUBLISH_PROFILE }}
+        images: 'gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.sha }}'

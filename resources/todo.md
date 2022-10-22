@@ -1,1 +1,10 @@
-- Change poker engine to poker-odds-machine
+- Change poker engine to poker-odds-machine (DONE)
+- Implement login, register and change username (DONE)
+- Record and implement landing video
+- Create leaderboards
+- Admin
+    - Create role db schema
+        - roles are user, superuser, admin
+    - Create admin endpoints
+    - Create Admin screen with basic stats
+    - Enable admin to add a user to admins
