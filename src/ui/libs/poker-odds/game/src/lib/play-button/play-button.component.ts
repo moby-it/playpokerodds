@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PlayButtonComponent {
   @Input() disabled = false;
   @Output() buttonClicked = new EventEmitter();
-  clicked() {
+  clicked(): void {
     this.buttonClicked.emit();
   }
 }

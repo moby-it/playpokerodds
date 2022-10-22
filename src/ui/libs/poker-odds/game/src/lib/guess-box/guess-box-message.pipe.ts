@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { RoundAnswerDto } from '@moby-it/ppo-core';
-const createGoodGuessMessage = (percent: number) =>
+const createGoodGuessMessage = (percent: number): string =>
   `Good Guess! You were only ${percent} % off!`;
-const createBadGuessMessage = (percent: number) => `You were ${percent} % off!`;
+const createBadGuessMessage = (percent: number): string =>
+  `You were ${percent} % off!`;
 const SPOT_ON_MESSAGE = 'Wow, spot on!';
 @Pipe({
   name: 'formatAnswerMessage',

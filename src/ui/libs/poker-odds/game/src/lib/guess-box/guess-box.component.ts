@@ -30,24 +30,27 @@ export class GuessBoxComponent {
   );
   private loading$ = this.pokerFacade.loading$;
   private answer$ = this.pokerFacade.answer$;
+  guessForm = new FormGroup({
+    estimate: new FormControl(null, [Validators.min(0), Validators.max(100)]),
+  });
   vm$ = combineLatest([
     this.roundStatus$,
     this.message$,
     this.loading$,
     this.answer$,
+    this.guessForm.statusChanges.pipe(map((status) => status === 'INVALID')),
   ]).pipe(
-    map(([roundStatus, message, loading, answer]) => ({
+    map(([roundStatus, message, loading, answer, formInvalid]) => ({
       roundStatus,
       message,
       loading,
       answer,
+      formInvalid,
     }))
   );
   constructor(private pokerFacade: PokerOddsFacade) {}
-  guessForm = new FormGroup({
-    estimate: new FormControl(null, [Validators.min(0)]),
-  });
-  playButtonHandler() {
+
+  playButtonHandler(): void {
     this.roundStatus$
       .pipe(
         take(1),

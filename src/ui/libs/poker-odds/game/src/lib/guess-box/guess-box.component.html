@@ -9,7 +9,8 @@
     <span>{{!vm.loading ? vm.message: 'Calculating...'}}</span>
   </div>
   <form [formGroup]="guessForm" class="guess-box-form">
-    <input placeholder="0.00" type="number" step=".01" formControlName="estimate">
-    <ppo-play-button (buttonClicked)="playButtonHandler()" [disabled]="vm.loading"></ppo-play-button>
+    <input placeholder="0.00" type="number" step=".01" max="100" min="0" formControlName="estimate">
+    <ppo-play-button (buttonClicked)="playButtonHandler()" [disabled]="vm.loading || vm.formInvalid">
+    </ppo-play-button>
   </form>
 </div>
