@@ -26,4 +26,7 @@ export class PokerOddsFacade {
   submitEstimate(estimate: number): void {
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
   }
+  reset(): void {
+    this.store.dispatch(pokerOddsActions.reset());
+  }
 }

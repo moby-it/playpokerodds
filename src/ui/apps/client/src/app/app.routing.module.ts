@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: HomepageComponent,
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '',
+    component: HomepageComponent,
+    pathMatch: 'full',
+  },
   {
     path: 'play',
     loadChildren: () =>
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/play',
+    redirectTo: '/',
   },
 ];
 

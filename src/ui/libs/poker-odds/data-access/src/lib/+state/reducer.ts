@@ -22,6 +22,7 @@ export const pokerOddsFeature = createFeature({
   name: 'PokerOdds',
   reducer: createReducer(
     initialState,
+    on(pokerOddsActions.reset, () => ({ ...initialState })),
     on(pokerOddsActions.setLoading, (state, action) => ({
       ...state,
       loading: action.loading,

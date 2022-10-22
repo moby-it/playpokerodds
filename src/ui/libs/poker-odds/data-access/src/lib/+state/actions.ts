@@ -9,5 +9,6 @@ export const pokerOddsActions = createActionGroup({
     'set Current Round': props<{ round: Round }>(),
     'set Round Answer': props<{ answer: RoundAnswerDto }>(),
     'answer Round': props<{ estimate: number }>(),
+    reset: emptyProps(),
   },
 });

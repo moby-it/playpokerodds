@@ -16,7 +16,7 @@
 .guess-box-form {
   display: flex;
   gap: 24px;
-  height: 100px;
+  height: 72px;
   justify-content: center;
 }
 .guess-box-form input {
