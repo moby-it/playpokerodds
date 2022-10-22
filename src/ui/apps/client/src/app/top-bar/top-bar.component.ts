@@ -21,7 +21,6 @@ export class TopBarComponent {
     this.router.navigate([url]);
   }
   toggleUserForm(): void {
-    console.log('toggled');
     this.userFormVisible = !this.userFormVisible;
   }
 }
