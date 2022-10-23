@@ -14,6 +14,6 @@
   text-align: center;
 }
 video {
-  width: 1220px;
+  border-radius: var(--radius);
   height: 531px;
 }
