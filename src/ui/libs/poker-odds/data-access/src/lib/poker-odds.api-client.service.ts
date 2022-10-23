@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@ppo/shared/config';
 import { Round, RoundAnswerDto } from '@moby-it/ppo-core';
 import { isLeft } from 'fp-ts/es6/Either';
-import { Observable, tap } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 
 @Injectable()
 export class PokerOddsApiClient {
@@ -13,6 +13,7 @@ export class PokerOddsApiClient {
   ) {}
   fetchRandomRound(): Observable<Round> {
     return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`).pipe(
+      delay(1000),
       tap((round) => {
         if (isLeft(Round.decode(round)))
           throw new Error('Invalid Round response');

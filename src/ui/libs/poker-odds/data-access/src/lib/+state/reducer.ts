@@ -5,14 +5,16 @@ import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
 type RoundAnswer = RoundAnswerDto & { didAccurateEstimate: boolean };
 interface PokerOddsGameState {
-  loading: boolean;
+  fetchingRound: boolean;
+  calculatingAnswer: boolean;
   round: Round | null;
   estimate: number | null;
   answer: RoundAnswer | null;
   roundStatus: RoundStatus;
 }
 const initialState: PokerOddsGameState = {
-  loading: false,
+  fetchingRound: false,
+  calculatingAnswer: false,
   round: null,
   estimate: null,
   answer: null,
@@ -30,7 +32,7 @@ export const pokerOddsFeature = createFeature({
     on(pokerOddsActions.startNewRound, (state) => ({
       ...state,
       estimate: null,
-      loading: true,
+      fetchingRound: true,
     })),
     on(pokerOddsActions.answerRound, (state, action) => ({
       ...state,
@@ -41,8 +43,12 @@ export const pokerOddsFeature = createFeature({
       ...state,
       round: action.round,
       answer: null,
-      loading: false,
+      fetchingRound: false,
       roundStatus: 'Playing',
+    })),
+    on(pokerOddsActions.answerRound, (state) => ({
+      ...state,
+      calculatingAnswer: true,
     })),
     on(pokerOddsActions.setRoundAnswer, (state, action) => ({
       ...state,
@@ -50,10 +56,15 @@ export const pokerOddsFeature = createFeature({
         ...action.answer,
         didAccurateEstimate: estimateWasAccurate(action.answer),
       },
-      loading: false,
+      calculatingAnswer: false,
       roundStatus: 'Completed',
     }))
   ),
 });
-export const { selectRound, selectAnswer, selectLoading, selectRoundStatus } =
-  pokerOddsFeature;
+export const {
+  selectRound,
+  selectAnswer,
+  selectCalculatingAnswer,
+  selectFetchingRound,
+  selectRoundStatus,
+} = pokerOddsFeature;
