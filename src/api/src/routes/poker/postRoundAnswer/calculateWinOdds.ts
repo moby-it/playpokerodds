@@ -1,7 +1,6 @@
+import axios from 'axios';
 import { NextFunction, Request, Response } from 'express';
 import { tryCatch } from 'fp-ts/lib/TaskEither';
-import path from 'path';
-import { Worker } from 'worker_threads';
 import { PostAnswerDto } from './answer.dto';
 export const calculateWinOdds = (
   req: Request,
@@ -9,31 +8,14 @@ export const calculateWinOdds = (
   next: NextFunction
 ) => {
   tryCatch(
-    () => {
-      return new Promise((resolve, reject) => {
-        const { board, myHand, opponentsHands } = res.locals.dto.round;
-        const worker = new Worker(
-          path.resolve(__dirname, '../../../workers/calculateOdds.js'),
-          {
-            workerData: {
-              board: board,
-              myHand: myHand,
-              opponentsHands: opponentsHands,
-            },
-          }
-        );
-        worker.on('message', (odds: number) => {
-          res.locals.odds = odds;
-          resolve(odds);
-        });
-        worker.on('error', err => {
-          reject(err);
-        });
-        worker.on('exit', (code: unknown) => {
-          if (code !== 0) reject(new Error(`stopped with  ${code} exit code`));
-        });
-      });
-    },
+    () =>
+      axios
+        .post('https://ppocalcodds.azurewebsites.net/api/calcodds', {
+          round: res.locals.dto.round,
+        })
+        .then(response => {
+          res.locals.odds = response.data;
+        }),
     e => res.status(400).send(e)
   )().then(() => next());
 };
