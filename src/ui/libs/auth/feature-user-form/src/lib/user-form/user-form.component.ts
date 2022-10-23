@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { combineLatest, map } from 'rxjs';
 import { FormType, UserFormStore } from './user-form.store';
 
 @Component({
@@ -9,7 +10,12 @@ import { FormType, UserFormStore } from './user-form.store';
 })
 export class UserFormComponent {
   @Output() clickedOutside = new EventEmitter();
-  formTypes = FormType;
   constructor(private componentStore: UserFormStore) {}
-  formType$ = this.componentStore.formType$;
+  private formType$ = this.componentStore.formType$;
+  private error$ = this.componentStore.authError$;
+  formTypes = FormType;
+
+  vm$ = combineLatest([this.formType$, this.error$]).pipe(
+    map(([formType, error]) => ({ formType, error }))
+  );
 }

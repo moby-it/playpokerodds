@@ -51,5 +51,5 @@
   background-color: var(--green--200);
 }
 .accuracy-description-inaccurate {
-  background-color: var(--red--200);
+  background-color: var(--error);
 }

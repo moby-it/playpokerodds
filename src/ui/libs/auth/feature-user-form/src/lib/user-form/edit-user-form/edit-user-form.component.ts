@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormControl,
   NonNullableFormBuilder,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacade } from '@ppo/auth/data-access';
 import { filter, map, tap } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
-interface EditUserForm {
-  username: FormControl<string>;
-}
+
 @UntilDestroy()
 @Component({
   selector: 'ppo-edit-user-form',
@@ -24,8 +21,8 @@ export class EditUserFormComponent implements OnInit {
     private componentStore: UserFormStore
   ) {}
 
-  editUserForm = this.fb.group<EditUserForm>({
-    username: this.fb.control('', { validators: Validators.required }),
+  editUserForm = this.fb.group({
+    username: ['', Validators.required],
   });
   formInvalid$ = this.editUserForm.statusChanges.pipe(
     map((status) => status === 'INVALID')

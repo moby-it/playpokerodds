@@ -22,5 +22,6 @@ export class TopBarComponent {
   }
   toggleUserForm(): void {
     this.userFormVisible = !this.userFormVisible;
+    this.authFacade.clearErrorMessage();
   }
 }

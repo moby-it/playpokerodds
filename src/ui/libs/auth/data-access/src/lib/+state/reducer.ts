@@ -25,15 +25,20 @@ export const authFeature = createFeature({
       ...state,
       status: Status.AUTHORIZED,
       user: action.user,
+      errorMessage: '',
     })),
     on(AuthActions.logout, (state) => ({
       ...state,
       status: Status.UNAUTHORIZED,
       user: null,
+    })),
+    on(AuthActions.setErrorMessage, (state, action) => ({
+      ...state,
+      errorMessage: action.message,
     }))
   ),
 });
-export const { selectUser, selectStatus } = authFeature;
+export const { selectUser, selectStatus, selectErrorMessage } = authFeature;
 export const selectUsername = createSelector(
   selectUser,
   (user) => user?.username

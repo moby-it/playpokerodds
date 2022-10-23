@@ -17,6 +17,8 @@ const initialState: UserFormState = {
 @Injectable()
 export class UserFormStore extends ComponentStore<UserFormState> {
   formType$ = this.select((state) => state.formType);
+  authError$ = this.authFacade.errorMessage$;
+
   private updateFormType = this.updater((state, formType: FormType) => ({
     ...state,
     formType,
@@ -35,10 +37,16 @@ export class UserFormStore extends ComponentStore<UserFormState> {
       .subscribe();
   }
   toSignIn = this.effect((source$: Observable<void>) =>
-    source$.pipe(tap(() => this.updateFormType(FormType.SIGN_IN)))
+    source$.pipe(
+      tap(() => this.updateFormType(FormType.SIGN_IN)),
+      tap(() => this.authFacade.clearErrorMessage())
+    )
   );
   toRegister = this.effect((source$: Observable<void>) =>
-    source$.pipe(tap(() => this.updateFormType(FormType.REGISTER)))
+    source$.pipe(
+      tap(() => this.updateFormType(FormType.REGISTER)),
+      tap(() => this.authFacade.clearErrorMessage())
+    )
   );
   submit$ = this.effect((source$: Observable<FormGroup>) =>
     source$.pipe(

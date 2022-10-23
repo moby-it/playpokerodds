@@ -3,10 +3,10 @@
     <ng-container *ngFor="let control of editUserForm.controls | keyvalue">
       <label class="label"> {{control.key| titlecase}} </label>
       <input class="control" [formControlName]="control.key" [name]="control.key" type="text" />
-      <!-- <span class="error" *ngIf=""></span> -->
     </ng-container>
     <div class="submit-container">
       <button type="submit" class="submit-btn" [disabled]="formInvalid$ | ngrxPush">Change Username</button>
+      <ng-content [select]="error"></ng-content>
     </div>
   </form>
 </div>
