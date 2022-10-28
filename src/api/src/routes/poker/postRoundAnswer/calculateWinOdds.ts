@@ -10,19 +10,15 @@ export const calculateWinOdds = (
 ) => {
   tryCatch(
     () =>
-      pipe(process.env['CALC_ODDS_KEY'] ?? '', calcOddsKey =>
+      pipe(process.env['CALC_ODDS_URL'] ?? '', calcOddsUrl =>
         axios
-          .post(
-            `https://ppocalcodds.azurewebsites.net/api/calcodds?code=${calcOddsKey}`,
-            {
-              round: res.locals.dto.round,
-            }
-          )
+          .post(calcOddsUrl, {
+            round: res.locals.dto.round,
+          })
           .then(response => {
             res.locals.odds = response.data;
           })
       ),
-
     e => res.status(400).send(e)
   )().then(() => next());
 };
