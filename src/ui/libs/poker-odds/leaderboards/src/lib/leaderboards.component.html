@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="leaderboards-container">
+    <table class="leaderboards-table" *ngrxLet="userScores$ as userScores">
+      <tbody>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Score</th>
+        </tr>
+        <tr *ngFor="let userScore of userScores;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{userScore.username}}</td>
+          <td>{{userScore.score}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

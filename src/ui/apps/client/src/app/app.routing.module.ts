@@ -14,6 +14,13 @@ const routes: Routes = [
       import('@ppo/poker-odds/game').then((m) => m.PokerOddsGameModule),
   },
   {
+    path: 'leaderboards',
+    loadChildren: () =>
+      import('@ppo/poker-odds/leaderboards').then(
+        (m) => m.PokerOddsLeaderboardsModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/',
   },

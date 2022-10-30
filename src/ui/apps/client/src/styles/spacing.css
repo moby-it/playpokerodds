@@ -1,4 +1,8 @@
 :root {
   --radius: 24px;
+  --radius--sm: 8px;
   --padding: 16px 32px;
+  --padding--sm: 8px 16px;
+  --margin--top: 24px;
+  --shadow: var(--neutral--700) 0px 3px 12px;
 }

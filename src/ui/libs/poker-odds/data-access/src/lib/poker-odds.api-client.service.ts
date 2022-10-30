@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@ppo/shared/config';
 import { Round, RoundAnswerDto } from '@moby-it/ppo-core';
 import { isLeft } from 'fp-ts/es6/Either';
-import { delay, Observable, tap } from 'rxjs';
+import { delay, map, Observable, tap } from 'rxjs';
+import { UserScore, UserScores } from './dtos';
 
 @Injectable()
 export class PokerOddsApiClient {
@@ -31,6 +32,42 @@ export class PokerOddsApiClient {
           if (isLeft(RoundAnswerDto.decode(answerDto)))
             throw new Error('Invalid Round Answer response');
         })
+      );
+  }
+  fetchLeaderboards(): Observable<UserScore[]> {
+    return this.http
+      .get<UserScores>(`${this.apiUrl}/poker/fetchLeaderboards`)
+      .pipe(
+        tap((scores) => {
+          if (isLeft(UserScores.decode(scores)))
+            throw new Error('Invalid UserScoreresponse');
+        }),
+        map((scores) => [
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+          ...scores,
+        ])
       );
   }
 }

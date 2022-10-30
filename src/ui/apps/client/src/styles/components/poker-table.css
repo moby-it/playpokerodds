@@ -1,12 +1,4 @@
-.game-container {
-  background-color: var(--neutral--900);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 80px;
-  padding: 100px 24px 100px;
-}
+
 .play-area {
   display: flex;
   flex-direction: column;

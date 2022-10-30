@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Round } from '@moby-it/ppo-core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, mergeMap, switchMap, withLatestFrom } from 'rxjs';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
 import { PokerOddsApiClient } from '../poker-odds.api-client.service';
 import { pokerOddsActions } from './actions';
 import { selectRound } from './reducer';
@@ -30,6 +30,13 @@ export class PokerOddsEffects {
         this.pokerOddsApiClient.postRoundAnswer(round as Round, action.estimate)
       ),
       switchMap((answer) => [pokerOddsActions.setRoundAnswer({ answer })])
+    )
+  );
+  fetchLeaderoards$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(pokerOddsActions.fetchLeaderboards),
+      switchMap(() => this.pokerOddsApiClient.fetchLeaderboards()),
+      map((scores) => pokerOddsActions.setLeaderboards({ scores }))
     )
   );
 }
