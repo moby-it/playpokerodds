@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { API_URL } from '@ppo/shared/config';
 import { Round, RoundAnswerDto } from '@moby-it/ppo-core';
+import { API_URL } from '@ppo/shared/config';
 import { isLeft } from 'fp-ts/es6/Either';
-import { delay, map, Observable, tap } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 import { UserScore, UserScores } from './dtos';
 
 @Injectable()
@@ -41,33 +41,7 @@ export class PokerOddsApiClient {
         tap((scores) => {
           if (isLeft(UserScores.decode(scores)))
             throw new Error('Invalid UserScoreresponse');
-        }),
-        map((scores) => [
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-          ...scores,
-        ])
+        })
       );
   }
 }

@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent, TopBarComponent],
   imports: [
@@ -33,6 +33,11 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     AuthDataAccessModule,
     SharedUiModule,
     AuthFeatureUserFormModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      timeOut: 2000,
+      closeButton: true,
+    }), // ToastrModule added
   ],
   providers: [
     { provide: API_URL, useValue: environment.apiUrl },

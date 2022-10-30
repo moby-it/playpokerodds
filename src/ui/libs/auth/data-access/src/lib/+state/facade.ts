@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { isRight } from 'fp-ts/es6/Either';
+import { map } from 'rxjs';
+import { AuthStatus } from '../..';
 import { EditUserDto, RegisterDto, SigninDto } from '../dtos';
 import { AuthActions } from './actions';
 import {
@@ -16,6 +18,9 @@ export class AuthFacade {
   user$ = this.store.select(selectUser);
   username$ = this.store.select(selectUsername);
   status$ = this.store.select(selectStatus);
+  isLoggedIn$ = this.status$.pipe(
+    map((status) => status === AuthStatus.AUTHORIZED)
+  );
   errorMessage$ = this.store.select(selectErrorMessage);
   signin(dto: SigninDto): void {
     if (isRight(SigninDto.decode(dto)))
