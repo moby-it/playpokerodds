@@ -14,7 +14,9 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    localStorage.clear();
+  }
   user$ = this.store.select(selectUser);
   username$ = this.store.select(selectUsername);
   status$ = this.store.select(selectStatus);

@@ -5,8 +5,9 @@ COPY . ./
 RUN npm ci
 
 FROM dependencies as build
+ARG TARGET=prod
 WORKDIR /app
-RUN npm run build
+RUN npm run build:${TARGET}
 
 FROM nginx:stable-alpine
 COPY --from=build /app/dist/apps/client /usr/share/nginx/html

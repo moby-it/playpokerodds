@@ -1,12 +1,7 @@
 {
   "folders": [
     {
-      "path": ".",
-	  "name": "webapp"
-    },
-    {
-      "path": "../calc-odds-serverless",
-      "name": "odds-calculator"
+      "path": "."
     }
   ],
   "settings": {
@@ -31,5 +26,12 @@
     },
     "eslint.workingDirectories": ["src/api", "src/core", "src/ui"],
     "peacock.color": "#42b883"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-azuretools.vscode-azurefunctions",
+      "nrwl.angular-console",
+      "Angular.ng-template"
+    ]
   }
 }

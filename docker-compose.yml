@@ -6,15 +6,28 @@ services:
     build:
       context: src/ui
       dockerfile: Dockerfile
-  api:
-    container_name: poker-api
+      args:
+        - TARGET=dev
+    depends_on:
+      - web-api
+
+  web-api:
+    container_name: web-api
     ports:
       - 3000:3000
     build:
-      context: src/api
-      dockerfile: Dockerfile
+      context: src/web-api
     env_file:
-      - src/api/docker.env
+      - src/web-api/docker.env
+    depends_on:
+      - db
+      - calc-odds-api
+  calc-odds-api:
+    container_name: calc-odds-api
+    build:
+      context: src/calc-odds-api
+    ports:
+      - 7071:7071
   db:
     container_name: pg_container
     image: postgres
