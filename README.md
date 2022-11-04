@@ -18,6 +18,8 @@ Simply build the docker compose file found in the root of the repo.
 **Steps:**
 - Make sure you have docker installed.
 - **Change the authLevel of the calcOdds Endpoint in the calc-odds-api solution from `function` to `anonymous`.**. You should be able to change that on path `/src/calc-odds-api/calcOdds/function.json`.
+- Navigate to `src/web-api/` and create a copy of `example.env`. Rename the copy to `.env`
 - Make sure you are at the root level of the repo and run `docker compose build` to build every project of the solution.
-- At the same directory level as above, run `docker compose up` to attach your terminal to the docker process. If you need to run it detached, you can run `docker compose up -d`. You can stop every service by running `docker compose down`
+- At the same directory level as above, run `docker compose up` to attach your terminal to the docker process. **Before using the app, run `npx prisma migrate dev` to migrate your postgre instance to the correct db schema.**.
+- If you need to run it detached, you can run `docker compose up -d`. You can stop every service by running `docker compose down`
 
