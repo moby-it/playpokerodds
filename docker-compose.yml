@@ -1,11 +1,22 @@
 services:
-  ui:
-    container_name: poker-ui
+  client-ui:
+    container_name: client-ui
     ports:
       - 4200:80
     build:
       context: src/ui
       dockerfile: Dockerfile
+      args:
+        - TARGET=dev
+    depends_on:
+      - web-api
+  admin-ui:
+    container_name: admin-ui
+    ports:
+      - 4300:80
+    build:
+      context: src/ui
+      dockerfile: admin.Dockerfile
       args:
         - TARGET=dev
     depends_on:

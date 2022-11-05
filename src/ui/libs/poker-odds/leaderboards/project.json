@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/poker-odds/leaderboards"],
+      "outputs": [
+        "coverage/libs/poker-odds/leaderboards"
+      ],
       "options": {
         "jestConfig": "libs/poker-odds/leaderboards/jest.config.ts",
         "passWithNoTests": true

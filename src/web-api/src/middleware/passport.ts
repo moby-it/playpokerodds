@@ -6,7 +6,10 @@ import prisma from 'prisma';
 export const registerPassportMiddleware = () => {
   passport.use(
     new Strategy({ usernameField: 'email' }, async (email, password, done) => {
-      const user = await prisma.user.findFirst({ where: { email } });
+      const user = await prisma.user.findFirst({
+        where: { email },
+        include: { role: true },
+      });
       if (!user) return done(new Error('user not found'));
       if (await compare(password, user?.hash)) {
         return done(null, user);

@@ -11,13 +11,14 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  username String  @unique
+  id       String    @id @default(uuid())
+  email    String    @unique
+  username String    @unique
   salt     String
   hash     String
-  Round    Round[]
-  score    Decimal @default(0) @db.Decimal(10, 2)
+  round    Round[]
+  role     UserRole?
+  score    Decimal   @default(0) @db.Decimal(10, 2)
 
   @@map("Users")
 }
@@ -36,10 +37,19 @@ model Round {
   @@map("Rounds")
 }
 
+model UserRole {
+  id        String @id @default(uuid())
+  role      Int
+  user      User   @relation(fields: [userEmail], references: [email])
+  userEmail String @unique
+
+  @@map("UserRoles")
+}
+
 model Event {
-  id      String @id @default(uuid())
-  type    String
-  payload Json
+  id        String   @id @default(uuid())
+  type      String
+  payload   Json
   timestamp DateTime @default(now())
 
   @@map("Events")

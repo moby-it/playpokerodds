@@ -1,8 +1,8 @@
 # Dev TODO
 - Change poker engine to poker-odds-machine (DONE)
 - Implement login, register and change username (DONE)
-- Record and implement landing video
-- Create leaderboards
+- Record and implement landing video (DONE)
+- Create leaderboards (DONE)
 - Admin
     - Create role db schema
         - roles are user, superuser, admin
@@ -12,5 +12,4 @@
 
 # Integration
 - There is a problem with loop speed when calculating odds. 
-    - Test if operations is faster with azure functions.
-    - If not, maybe investigate moving infra to a vm.
+    - Test if operations is faster with azure functions. IT IS (Transfered logic to azure functions with calc-odds-api solution)

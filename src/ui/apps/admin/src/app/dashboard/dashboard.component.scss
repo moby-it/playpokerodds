@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  padding: 1rem 2rem;
+}
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+mat-form-field {
+  width: 100%;
+}
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  padding: 1rem 0.5rem;
+  border: 2px solid gray;
+  border-radius: 8px;
+}
+.mat-column-payload {
+  width: 50%;
+}

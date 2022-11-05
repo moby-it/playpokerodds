@@ -15,6 +15,7 @@
       "middleware": ["middleware/index.ts"],
       "prisma": ["prisma/client.ts"],
       "shared": ["shared/index.ts"],
+      "model": ["model/index.ts"],
       "workers": ["workers/index.ts"],
       "routes": ["routes/index.ts"]
     }

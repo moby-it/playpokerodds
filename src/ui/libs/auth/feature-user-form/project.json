@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/auth/feature-user-form"],
+      "outputs": [
+        "coverage/libs/auth/feature-user-form"
+      ],
       "options": {
         "jestConfig": "libs/auth/feature-user-form/jest.config.ts",
         "passWithNoTests": true
