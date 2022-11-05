@@ -20,5 +20,7 @@ export const calculateWinOdds = (
           })
       ),
     e => res.status(400).send(e)
-  )().then(() => next());
+  )()
+    .then(() => next())
+    .catch(e => res.status(400).send(e));
 };

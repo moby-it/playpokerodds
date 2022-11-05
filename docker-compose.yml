@@ -39,6 +39,8 @@ services:
       context: src/calc-odds-api
     ports:
       - 7071:7071
+    depends_on:
+      - db
   db:
     container_name: pg_container
     image: postgres

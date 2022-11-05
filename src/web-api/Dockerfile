@@ -1,4 +1,4 @@
-FROM node:16-alpine as dependencies
+FROM node:lts-alpine as dependencies
 WORKDIR /src
 COPY package*.json /
 RUN npm ci
