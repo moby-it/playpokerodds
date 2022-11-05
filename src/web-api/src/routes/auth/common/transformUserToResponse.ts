@@ -15,7 +15,7 @@ export function transformUserToResponse(
 ) {
   const user = res.locals;
   const token = sign(
-    { userId: user.id, email: user.email, role: user.role.role ?? 0 },
+    { userId: user.id, email: user.email, role: user.role?.role ?? 0 },
     getSecretKey(),
     {
       expiresIn: '24h',
