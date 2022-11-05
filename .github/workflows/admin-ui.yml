@@ -34,7 +34,7 @@ jobs:
         push: true
         tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.sha }}
         context: ./src/ui
-        file: admin.Dockerfile
+        file: ./src/ui/admin.Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
