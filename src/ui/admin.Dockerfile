@@ -1,7 +1,7 @@
 # build environment
 FROM node:lts-alpine as dependencies
 WORKDIR /app
-COPY . ./
+COPY package*.json /
 RUN npm ci
 
 FROM dependencies as build
