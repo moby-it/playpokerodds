@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   constructor(private store: AuthService, private fb: NonNullableFormBuilder) {}
+  error$ = this.store.error$;
   form = this.fb.group({
     email: ['', Validators.email],
     password: ['', Validators.required],

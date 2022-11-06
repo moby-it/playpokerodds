@@ -15,7 +15,9 @@ export enum AuthStatus {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _status$ = new BehaviorSubject(AuthStatus.UNAUTHENTICATED);
+  private _error$ = new BehaviorSubject('');
   status$ = this._status$.asObservable().pipe(distinctUntilChanged());
+  error$ = this._error$.asObservable();
   get isLoggedIn(): boolean {
     return this._status$.getValue() === AuthStatus.AUTHENTICATED;
   }
@@ -40,7 +42,9 @@ export class AuthService {
           this.setStatus(AuthStatus.AUTHENTICATED);
         },
         error: (error: HttpErrorResponse) => {
-          console.error(error);
+          this._error$.next(
+            error.error?.message ?? 'Unexpected authentication error.'
+          );
           return EMPTY;
         },
       });

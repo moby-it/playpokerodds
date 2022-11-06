@@ -13,7 +13,9 @@
           <input type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
       </p>
-
+      <ng-container *ngrxLet="error$ as error">
+        <div class="error" *ngIf="error"> {{error}}</div>
+      </ng-container>
       <div class="button">
         <button type="submit" mat-button [disabled]="form.invalid">Login</button>
       </div>
