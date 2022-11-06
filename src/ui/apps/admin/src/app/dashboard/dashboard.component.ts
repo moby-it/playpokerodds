@@ -54,6 +54,6 @@ function filterPredicate(data: AppEvent, filter: string): boolean {
   return (
     data.type.toLowerCase().includes(filter) ||
     date.includes(filter) ||
-    JSON.stringify(data.payload).includes(filter)
+    JSON.stringify(data.payload).toLowerCase().includes(filter)
   );
 }
