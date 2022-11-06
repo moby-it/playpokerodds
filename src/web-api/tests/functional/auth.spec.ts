@@ -1,13 +1,16 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
+import { isRight } from 'fp-ts/lib/Either';
+import { decode } from 'jsonwebtoken';
 import { registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter } from 'routes';
+import { DecodedJwt } from 'shared';
 import request from 'supertest';
 import {
-  mockUserPayload1,
   mockUserInvalidPayload1,
   mockUserInvalidPayload2,
+  mockUserPayload1,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test auth endpoints', () => {
@@ -56,6 +59,13 @@ describe('test auth endpoints', () => {
         expect(response.body.token).toBeDefined();
         token = response.body.token;
       });
+  });
+  it('should include role in token', () => {
+    const decodedToken = DecodedJwt.decode(decode(token));
+    expect(isRight(decodedToken)).toBeTruthy();
+    if (decodedToken._tag === 'Right') {
+      expect(decodedToken.right.role).toEqual(0);
+    }
   });
   it('should change username', async () => {
     const newUsername = 'fasolakis';
