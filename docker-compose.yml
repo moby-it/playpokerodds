@@ -1,6 +1,5 @@
 services:
   client-ui:
-    container_name: client-ui
     ports:
       - 4200:80
     build:
@@ -11,7 +10,6 @@ services:
     depends_on:
       - web-api
   admin-ui:
-    container_name: admin-ui
     ports:
       - 4300:80
     build:
@@ -23,7 +21,6 @@ services:
       - web-api
 
   web-api:
-    container_name: web-api
     ports:
       - 3000:3000
     build:
@@ -34,7 +31,6 @@ services:
       - db
       - calc-odds-api
   calc-odds-api:
-    container_name: calc-odds-api
     build:
       context: src/calc-odds-api
     ports:
@@ -42,7 +38,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: pg_container
+    container_name: playpokerodds-db
     image: postgres
     environment:
       POSTGRES_USER: root

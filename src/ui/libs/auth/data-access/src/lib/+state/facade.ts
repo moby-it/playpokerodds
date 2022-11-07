@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
 import { isRight } from 'fp-ts/es6/Either';
 import { map } from 'rxjs';
 import { AuthStatus } from '../..';
@@ -15,6 +16,9 @@ import {
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
   constructor(private store: Store) {
+    if (localStorage.getItem(BEARER_TOKEN_STORAGE_KEY)) {
+      this.store.dispatch(AuthActions.refresh());
+    }
     localStorage.clear();
   }
   user$ = this.store.select(selectUser);

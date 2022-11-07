@@ -5,7 +5,10 @@ import { isLeft } from 'fp-ts/es6/Either';
 import { Observable, tap } from 'rxjs';
 import {
   AuthResposeDto,
-  EditUserDto, RegisterDto, SigninDto, UserResposeDto
+  EditUserDto,
+  RegisterDto,
+  SigninDto,
+  UserResposeDto,
 } from './dtos';
 @Injectable()
 export class AuthApiClient {
@@ -37,12 +40,24 @@ export class AuthApiClient {
         })
       );
   }
+  refreshToken(): Observable<AuthResposeDto> {
+    return this.http
+      .get<AuthResposeDto>(`${this.apiUrl}/auth/refreshToken`)
+      .pipe(
+        tap((response) => {
+          const decodedResponse = AuthResposeDto.decode(response);
+          if (isLeft(decodedResponse)) {
+            throw new Error(decodedResponse.left.toString());
+          }
+        })
+      );
+  }
   changeUsername(dto: EditUserDto): Observable<UserResposeDto> {
     return this.http
       .post<UserResposeDto>(`${this.apiUrl}/auth/changeUsername`, dto)
       .pipe(
         tap((response) => {
-          const decodedResponse =  UserResposeDto.decode(response);
+          const decodedResponse = UserResposeDto.decode(response);
           if (isLeft(decodedResponse)) {
             throw new Error(decodedResponse.left.toString());
           }

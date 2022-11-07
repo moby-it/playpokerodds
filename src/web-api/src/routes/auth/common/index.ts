@@ -2,6 +2,7 @@ export * from './extractUserFromReq';
 export * from './getSecretKey';
 export * from './logLogin';
 export * from './login';
+export * from './signUserData';
 export * from './transformUserToResponse';
 export * from './validateAdmin';
 export * from './validateAuthPayload';

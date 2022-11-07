@@ -67,4 +67,26 @@ export class AuthEffects {
       )
     )
   );
+  refreshToken$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.refresh),
+      mergeMap(() =>
+        this.authApiClient.refreshToken().pipe(
+          tap((response) => {
+            localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
+          }),
+          map((response) => AuthActions.setUser({ user: { ...response } })),
+          catchError((e) => {
+            if (e instanceof HttpErrorResponse) {
+              return of(
+                AuthActions.setErrorMessage({ message: e.error?.message })
+              );
+            }
+            localStorage.clear();
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
 }

@@ -1,8 +1,7 @@
 import { User, UserRole } from '@prisma/client';
 import { Request, Response } from 'express';
-import { sign } from 'jsonwebtoken';
-import { getSecretKey } from './getSecretKey';
-interface UserResponse {
+import { signUserData } from './signUserData';
+export interface UserResponse {
   id: string;
   username: string;
   email: string;
@@ -14,13 +13,11 @@ export function transformUserToResponse(
   res: Response<UserResponse, User & { role: UserRole }>
 ) {
   const user = res.locals;
-  const token = sign(
-    { userId: user.id, email: user.email, role: user.role?.role ?? 0 },
-    getSecretKey(),
-    {
-      expiresIn: '24h',
-    }
-  );
+  const token = signUserData({
+    id: user.id,
+    email: user.email,
+    role: user.role.role ?? 0,
+  });
   res.status(200).send({
     id: user.id,
     username: user.username,
