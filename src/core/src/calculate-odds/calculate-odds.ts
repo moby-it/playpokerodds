@@ -12,7 +12,6 @@ const transformRoundToInput = (round: Round): Input => {
   ];
   if (round.board.length) {
     input.board = round.board.join(',');
-    input.boardSize = round.board.length;
   }
   input.numPlayers = round.opponentsHands.length + 1;
   input.iterations = 30000;
