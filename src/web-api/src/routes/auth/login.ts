@@ -1,5 +1,6 @@
 import {
   loginUser,
+  logLogin,
   transformUserToResponse,
   validateAuthPayload,
 } from './common';
@@ -7,5 +8,6 @@ import {
 export const loginEndpoint = [
   validateAuthPayload,
   loginUser,
+  logLogin,
   transformUserToResponse,
 ];

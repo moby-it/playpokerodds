@@ -30,7 +30,7 @@ model Round {
   board          Json
   odds           Decimal  @db.Decimal(5, 2)
   estimate       Decimal  @db.Decimal(5, 2)
-  user           User?    @relation(fields: [userId], references: [id])
+  user           User?    @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId         String?
   timestamp      DateTime @default(now())
 

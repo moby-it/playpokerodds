@@ -1,8 +1,6 @@
 import { User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import prisma from 'prisma';
-import { EventType } from 'shared';
 
 export const loginUser = async (
   req: Request,
@@ -13,12 +11,6 @@ export const loginUser = async (
     if (!user) {
       res.status(401).json({ success: false, message: err.message });
     } else {
-      await prisma.event.create({
-        data: {
-          type: EventType.USER_LOGGED_IN,
-          payload: { email: user.email },
-        },
-      });
       res.locals = user;
       next();
     }
