@@ -10,13 +10,13 @@ export interface UserResponse {
 }
 export function transformUserToResponse(
   req: Request,
-  res: Response<UserResponse, User & { role: UserRole }>
+  res: Response<UserResponse, User & { role: UserRole | null }>
 ) {
   const user = res.locals;
   const token = signUserData({
     id: user.id,
     email: user.email,
-    role: user.role.role ?? 0,
+    role: user.role?.role ?? 0,
   });
   res.status(200).send({
     id: user.id,
