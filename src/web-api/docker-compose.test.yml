@@ -11,8 +11,8 @@ services:
     depends_on:
       - db
   db:
+    container_name: playpokerodds-db
     image: postgres
-    restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
