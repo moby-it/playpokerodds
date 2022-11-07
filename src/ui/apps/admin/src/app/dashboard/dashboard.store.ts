@@ -63,7 +63,12 @@ export class DashboardStore extends ComponentStore<DashboardEventsState> {
   last24hUsersRegistered$ = this.events$.pipe(
     map(
       (events) =>
-        events.filter((e) => e.type === EventType.USER_REGISTERED).length
+        events
+          .filter((e) => e.type === EventType.USER_REGISTERED)
+          .filter(
+            (e) =>
+              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
+          ).length
     )
   );
   tableReady$ = this.select((state) => state.tableReady);
