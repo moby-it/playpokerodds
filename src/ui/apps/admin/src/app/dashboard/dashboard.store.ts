@@ -41,13 +41,23 @@ export class DashboardStore extends ComponentStore<DashboardEventsState> {
   last24hRoundsPlayed$ = this.events$.pipe(
     map(
       (events) =>
-        events.filter((e) => e.type === EventType.USER_POSTED_ANSWER).length
+        events
+          .filter((e) => e.type === EventType.USER_POSTED_ANSWER)
+          .filter(
+            (e) =>
+              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
+          ).length
     )
   );
   last24hUsersLoggedIn$ = this.events$.pipe(
     map(
       (events) =>
-        events.filter((e) => e.type === EventType.USER_LOGGED_IN).length
+        events
+          .filter((e) => e.type === EventType.USER_LOGGED_IN)
+          .filter(
+            (e) =>
+              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
+          ).length
     )
   );
   last24hUsersRegistered$ = this.events$.pipe(
