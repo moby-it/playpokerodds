@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 import { BoardState } from '../board';
 
-interface TotalHandsBrand {
+export interface TotalHandsBrand {
   readonly TotalHandsC: unique symbol;
 }
 const TotalHandsBrandC = t.brand(
@@ -10,7 +10,7 @@ const TotalHandsBrandC = t.brand(
     Number(totalHands) < 9,
   'TotalHandsC'
 );
-interface BoardStateBrand {
+export interface BoardStateBrand {
   readonly boardState: unique symbol;
 }
 const BoardStateC = t.brand(
@@ -19,7 +19,7 @@ const BoardStateC = t.brand(
     !!BoardState[Number(boardState)],
   'boardState'
 );
-interface TotalKnownHandsBrand {
+export interface TotalKnownHandsBrand {
   readonly TotalKnownHandsBrandC: unique symbol;
 }
 const TotalKnownHandsBrandC = t.brand(
