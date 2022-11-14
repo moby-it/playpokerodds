@@ -14,6 +14,7 @@ interface PokerOddsGameState {
   answer: RoundAnswer | null;
   userScores: UserScore[] | null;
   roundStatus: RoundStatus;
+  playWithRevealedCards: boolean;
 }
 const initialState: PokerOddsGameState = {
   fetchingRound: false,
@@ -24,6 +25,7 @@ const initialState: PokerOddsGameState = {
   userScores: null,
   answer: null,
   roundStatus: 'Initial',
+  playWithRevealedCards: true,
 };
 export const pokerOddsFeature = createFeature({
   name: 'PokerOdds',
@@ -72,6 +74,10 @@ export const pokerOddsFeature = createFeature({
       },
       calculatingAnswer: false,
       roundStatus: 'Completed',
+    })),
+    on(pokerOddsActions.togglePlayWithRevealedCards, (state) => ({
+      ...state,
+      playWithRevealedCards: !state.playWithRevealedCards,
     }))
   ),
 });
@@ -83,4 +89,5 @@ export const {
   selectRoundStatus,
   selectUserScores,
   selectFetchingLeaderboards,
+  selectPlayWithRevealedCards,
 } = pokerOddsFeature;

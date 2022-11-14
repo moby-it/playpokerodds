@@ -3,9 +3,10 @@ import { Round } from '@moby-it/ppo-core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
+import { generateRandomRoundInputs } from '../helpers';
 import { PokerOddsApiClient } from '../poker-odds.api-client.service';
 import { pokerOddsActions } from './actions';
-import { selectRound } from './reducer';
+import { selectPlayWithRevealedCards, selectRound } from './reducer';
 
 @Injectable()
 export class PokerOddsEffects {
@@ -17,7 +18,12 @@ export class PokerOddsEffects {
   fetchRound$ = createEffect(() =>
     this.actions.pipe(
       ofType(pokerOddsActions.startNewRound),
-      mergeMap(() => this.pokerOddsApiClient.fetchRandomRound()),
+      withLatestFrom(this.store.select(selectPlayWithRevealedCards)),
+      mergeMap(([, withRevealedCards]) =>
+        withRevealedCards
+          ? this.pokerOddsApiClient.fetchRound(generateRandomRoundInputs())
+          : this.pokerOddsApiClient.fetchRandomRound()
+      ),
       switchMap((round) => [pokerOddsActions.setCurrentRound({ round })])
     )
   );

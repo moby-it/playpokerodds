@@ -1,0 +1,10 @@
+.opponent-hand {
+  width: 124px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.opponent-hand img{
+  width: 75%;
+  height: 75%;
+}

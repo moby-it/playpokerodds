@@ -12,6 +12,7 @@ export const pokerOddsActions = createActionGroup({
     'answer Round': props<{ estimate: number }>(),
     'fetch Leaderboards': emptyProps(),
     'set Leaderboards': props<{ scores: UserScore[] }>(),
+    'toggle play with Revealed Cards': emptyProps(),
     reset: emptyProps(),
   },
 });

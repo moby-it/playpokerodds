@@ -1,0 +1,3 @@
+<label for="revealedCardsCheckbox">Playing with Revealed Opponent Cards</label>
+<input id="revealedCardsCheckbox" type="checkbox" [checked]="revealedCards$ | ngrxPush"
+  (change)="toggleRevealedCards()">

@@ -14,6 +14,9 @@ import { LetModule, PushModule } from '@ngrx/component';
 import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
+import { OpponentHandComponent } from './opponent-hand/opponent-hand.component';
+import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-cards-toggle.component';
+import { HandIsVisiblePipe } from './poker-table/handIsVisible.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +36,10 @@ import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
     PlayerHandBadgeComponent,
     BoardComponent,
     HandBadgeGridPositionPipe,
+    HandIsVisiblePipe,
     GuessBoxAnswerMessagePipe,
+    OpponentHandComponent,
+    RevealedCardsToggleComponent,
   ],
   exports: [PokerTableComponent],
 })
