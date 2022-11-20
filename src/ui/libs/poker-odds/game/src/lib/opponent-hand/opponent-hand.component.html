@@ -4,5 +4,7 @@
   </div>
 </ng-container>
 <ng-template #showHandBadge>
-  <ppo-player-hand-badge></ppo-player-hand-badge>
+  <div class="opponent-hand">
+    <ppo-card *ngFor="let card of hand" [back]="true"></ppo-card>
+  </div>
 </ng-template>
