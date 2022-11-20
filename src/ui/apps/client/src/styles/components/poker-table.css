@@ -10,8 +10,8 @@
   width: 900px;
   height: 457px;
   display: grid;
-  grid-template-columns: 18px 76px 108px 76px 64px 76px 64px 76px 64px 76px 108px 76px 18px;
-  grid-template-rows: 76px 76px 154px 76px 76px;
+  grid-template-columns: 4px 104px 74px 104px 40px 104px 40px 104px 40px 104px 74px 104px 4px;
+  grid-template-rows: 89px 86px 107px 86px 89px;
   margin-bottom: 16px;
 }
 .poker-table {

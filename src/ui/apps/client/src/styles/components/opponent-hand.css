@@ -1,10 +1,12 @@
 .opponent-hand {
-  width: 124px;
+  width: 102px;
+  height: 85px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-content: center;
 }
-.opponent-hand img{
-  width: 75%;
-  height: 75%;
+.opponent-hand ppo-card {
+
+}
+.opponent-hand ppo-card:last-child {
+  transform: rotate(15deg);
 }
