@@ -1,10 +1,10 @@
 <ng-container *ngIf="isVisible;else showHandBadge">
   <div class="opponent-hand">
-    <ppo-card *ngFor="let card of hand" [card]="card"></ppo-card>
+    <ppo-card *ngFor="let card of hand" [card]="card" class="card"></ppo-card>
   </div>
 </ng-container>
 <ng-template #showHandBadge>
   <div class="opponent-hand">
-    <ppo-card *ngFor="let card of hand" [back]="true"></ppo-card>
+    <ppo-card *ngFor="let card of hand" [back]="true" class="card"></ppo-card>
   </div>
 </ng-template>
