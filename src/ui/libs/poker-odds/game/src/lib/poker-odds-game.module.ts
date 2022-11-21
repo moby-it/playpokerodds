@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GuessBoxComponent } from './guess-box/guess-box.component';
-import { PlayButtonComponent } from './play-button/play-button.component';
-import { PokerTableComponent } from './poker-table/poker-table.component';
-import { CardComponent } from './card/card.component';
-import { PlayingHandComponent } from './playing-hand/playing-hand.component';
-import { PlayerHandBadgeComponent } from './player-hand-badge/player-hand-badge.component';
-import { BoardComponent } from './board/board.component';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
-import { PokerOddsGameComponent } from './poker-odds-game.component';
 import { LetModule, PushModule } from '@ngrx/component';
-import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
 import { SharedUiModule } from '@ppo/shared/ui';
+import { BoardComponent } from './board/board.component';
+import { CardComponent } from './card/card.component';
 import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
+import { GuessBoxComponent } from './guess-box/guess-box.component';
+import { OpponentHandComponent } from './opponent-hand/opponent-hand.component';
+import { PlayButtonComponent } from './play-button/play-button.component';
+import { PlayingHandComponent } from './playing-hand/playing-hand.component';
+import { PokerOddsGameComponent } from './poker-odds-game.component';
+import { PokerOddsRoutingModule } from './poker-odds-game.routing.module';
+import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
+import { HandIsVisiblePipe } from './poker-table/handIsVisible.pipe';
+import { PokerTableComponent } from './poker-table/poker-table.component';
+import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-cards-toggle.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,10 +32,12 @@ import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
     PokerTableComponent,
     CardComponent,
     PlayingHandComponent,
-    PlayerHandBadgeComponent,
     BoardComponent,
     HandBadgeGridPositionPipe,
+    HandIsVisiblePipe,
     GuessBoxAnswerMessagePipe,
+    OpponentHandComponent,
+    RevealedCardsToggleComponent,
   ],
   exports: [PokerTableComponent],
 })

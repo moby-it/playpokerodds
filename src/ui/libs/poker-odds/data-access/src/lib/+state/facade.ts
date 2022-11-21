@@ -6,6 +6,7 @@ import {
   selectCalculatingAnswer,
   selectFetchingLeaderboards,
   selectFetchingRound,
+  selectPlayWithRevealedCards,
   selectRound,
   selectRoundStatus,
   selectUserScores,
@@ -24,11 +25,15 @@ export class PokerOddsFacade {
 
   roundStatus$ = this.store.select(selectRoundStatus);
   userScores$ = this.store.select(selectUserScores);
+  playingWithRevealedCards$ = this.store.select(selectPlayWithRevealedCards);
   startNewRound(): void {
     this.store.dispatch(pokerOddsActions.startNewRound());
   }
   submitEstimate(estimate: number): void {
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
+  }
+  togglePlayRevealedCards(): void {
+    this.store.dispatch(pokerOddsActions.togglePlayWithRevealedCards());
   }
   refreshLeaderboards(): void {
     this.store.dispatch(pokerOddsActions.fetchLeaderboards());
