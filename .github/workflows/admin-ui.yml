@@ -24,15 +24,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://gtopregistry.azurecr.io/
-        username: ${{ secrets.CONTAINER_USERNAME }}
+        registry: https://docker.io/
+        username: georgespanos
         password: ${{ secrets.CONTAINER_PASSWORD }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.sha }}
+        tags: docker.io/georgespanos/gtop-admin-ui:${{ github.sha }}
         context: ./src/ui
         file: ./src/ui/admin.Dockerfile
 
@@ -51,4 +51,4 @@ jobs:
         app-name: 'poker-admin'
         slot-name: 'production'
         publish-profile: ${{ secrets.ADMIN_PUBLISH_PROFILE }}
-        images: 'gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.sha }}'
+        images: ' docker.io/georgespanos/gtop-admin-ui:${{ github.sha }}'

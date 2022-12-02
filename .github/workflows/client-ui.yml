@@ -24,15 +24,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://gtopregistry.azurecr.io/
-        username: ${{ secrets.CONTAINER_USERNAME }}
+        registry: https://docker.io/
+        username: georgespanos
         password: ${{ secrets.CONTAINER_PASSWORD }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-ui:${{ github.sha }}
+        tags: docker.io/georgespanos/gtop-ui:${{ github.sha }}
         context: ./src/ui
 
   deploy:
@@ -50,4 +50,4 @@ jobs:
         app-name: 'gtop-ui'
         slot-name: 'production'
         publish-profile: ${{ secrets.UI_PUBLISH_PROFILE }}
-        images: 'gtopregistry.azurecr.io/${{ secrets.CONTAINER_USERNAME }}/gtop-ui:${{ github.sha }}'
+        images: docker.io/georgespanos/gtop-ui:${{ github.sha }}
