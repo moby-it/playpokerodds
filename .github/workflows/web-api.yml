@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: docker.io/georgespanos/gtop-api:${{ github.sha }}
+          tags: georgespanos/gtop-api:${{ github.sha }}
           context: ./src/web-api
 
   deploy:
