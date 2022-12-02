@@ -24,7 +24,6 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://docker.io/
         username: georgespanos
         password: ${{ secrets.CONTAINER_PASSWORD }}
 
@@ -51,4 +50,4 @@ jobs:
         app-name: 'poker-admin'
         slot-name: 'production'
         publish-profile: ${{ secrets.ADMIN_PUBLISH_PROFILE }}
-        images: ' docker.io/georgespanos/gtop-admin-ui:${{ github.sha }}'
+        images: 'docker.io/georgespanos/gtop-admin-ui:${{ github.sha }}'
