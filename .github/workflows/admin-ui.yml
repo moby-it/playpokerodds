@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: georgespanos/gtop-admin-ui:${{ github.sha }}
+        tags: georgespanos/gtop-admin-ui:${{ github.sha }},georgespanos/gtop-admin-ui:latest
         context: ./src/ui
         file: ./src/ui/admin.Dockerfile
 
@@ -50,4 +50,4 @@ jobs:
         app-name: 'poker-admin'
         slot-name: 'production'
         publish-profile: ${{ secrets.ADMIN_PUBLISH_PROFILE }}
-        images: 'docker.io/georgespanos/gtop-admin-ui:${{ github.sha }}'
+        images: 'docker.io/georgespanos/gtop-admin-ui:latest'

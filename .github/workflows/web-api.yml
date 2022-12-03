@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: georgespanos/gtop-api:${{ github.sha }}
+          tags: georgespanos/gtop-api:${{ github.sha }},georgespanos/gtop-api:latest
           context: ./src/web-api
 
   deploy:
@@ -62,4 +62,4 @@ jobs:
           app-name: "gtop-api"
           slot-name: "production"
           publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
-          images: "docker.io/georgespanos/gtop-api:${{ github.sha }}"
+          images: "docker.io/georgespanos/gtop-api:latest"
