@@ -7,8 +7,6 @@ import { LoaderService } from '@ppo/shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  constructor(private loaderService: LoaderService) {
-    console.log("test ci")
-  }
+  constructor(private loaderService: LoaderService) {}
   loading$ = this.loaderService.loading$;
 }
