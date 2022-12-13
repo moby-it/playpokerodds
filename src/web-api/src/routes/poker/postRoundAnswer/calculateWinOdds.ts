@@ -1,26 +1,30 @@
 import axios from 'axios';
 import { NextFunction, Request, Response } from 'express';
-import { pipe } from 'fp-ts/lib/function';
-import { tryCatch } from 'fp-ts/lib/TaskEither';
+import prisma from 'prisma';
 import { PostAnswerDto } from './answer.dto';
-export const calculateWinOdds = (
+export const calculateWinOdds = async (
   req: Request,
   res: Response<unknown, { dto: PostAnswerDto; odds: number }>,
   next: NextFunction
 ) => {
-  tryCatch(
-    () =>
-      pipe(process.env['CALC_ODDS_URL'] ?? '', calcOddsUrl =>
-        axios
-          .post(calcOddsUrl, {
-            round: res.locals.dto.round,
-          })
-          .then(response => {
-            res.locals.odds = response.data;
-          })
-      ),
-    e => res.status(400).send(e)
-  )()
-    .then(() => next())
-    .catch(e => res.status(400).send(e));
+  const roundId = res.locals.dto.id;
+  if (roundId) {
+    const round = await prisma.round.findFirst({ where: { id: roundId } });
+    if (!round) {
+      res.status(404).send(`Round with id:${roundId} not found`);
+      return;
+    }
+    res.locals.odds = Number(round.odds);
+  } else {
+    const calcOddsUrl = process.env['CALC_ODDS_URL'] ?? '';
+    return axios
+      .post(calcOddsUrl, {
+        round: res.locals.dto.round,
+      })
+      .then(response => {
+        res.locals.odds = response.data;
+        next();
+      })
+      .catch(e => res.status(400).send(e));
+  }
 };
