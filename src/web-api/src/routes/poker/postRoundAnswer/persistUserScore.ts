@@ -15,7 +15,11 @@ export const pesistUserScore = async (
 ) => {
   const authHeader = req.headers.authorization;
   const round = res.locals.dto.round;
-  const responsePayload: RoundAnswerDto = {
+  const roundId = res.locals.dto.id;
+  if (!roundId) throw new Error('Round with no id');
+  if (!round) throw new Error('No round in answer');
+  const responsePayload: RoundAnswerDto & { id: string } = {
+    id: roundId,
     estimate: res.locals.dto.estimate,
     odds: res.locals.odds,
     score: res.locals.score,
