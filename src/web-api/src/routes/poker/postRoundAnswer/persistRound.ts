@@ -1,17 +1,16 @@
 import { Round } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
-import { Either, isRight, left } from 'fp-ts/lib/Either';
+import { Either, isRight } from 'fp-ts/lib/Either';
 import { tryCatch } from 'fp-ts/lib/TaskEither';
-import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
-import { DecodedJwt, EventType } from 'shared';
+import { EventType } from 'shared';
+import { extractUserDataFromRequest } from '../../../routes/auth/common';
 import { PostAnswerDto } from './answer.dto';
 export const pesistRound = async (
   req: Request,
   res: Response<unknown, { dto: PostAnswerDto; score: number; odds: number }>,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
   const dto = res.locals.dto;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const eventPayload: Record<string, any> = {
@@ -19,17 +18,11 @@ export const pesistRound = async (
     odds: res.locals.odds,
   };
   let result: Either<Error, Round>;
-  if (authHeader) {
-    const token = authHeader.substring(7, authHeader.length);
-    const decodedToken = DecodedJwt.decode(decode(token, {}));
-    if (isRight(decodedToken)) {
-      const { userId } = decodedToken.right;
-      eventPayload.userId = decodedToken.right.userId;
-      result = await createRoundModel(dto, res.locals.odds, userId);
-    } else {
-      result = left(new Error('Invalid token'));
-      res.status(401).send('Invalid token');
-    }
+  const user = extractUserDataFromRequest(req);
+  if (user) {
+    const userId = user.userId;
+    eventPayload.userId = userId;
+    result = await createRoundModel(dto, res.locals.odds, userId);
   } else {
     result = await createRoundModel(dto, res.locals.odds);
   }

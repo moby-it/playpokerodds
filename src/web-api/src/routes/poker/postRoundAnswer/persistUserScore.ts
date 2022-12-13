@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
-import { DecodedJwt, EventType } from 'shared';
+import { DecodedJwt } from 'shared';
 import { PostAnswerDto } from './answer.dto';
 export const pesistUserScore = async (
   req: Request,
