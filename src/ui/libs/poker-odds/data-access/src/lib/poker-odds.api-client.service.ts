@@ -38,7 +38,7 @@ export class PokerOddsApiClient {
   }
   postRoundAnswer(round: Round, estimate: number): Observable<RoundAnswerDto> {
     return this.http
-      .post<RoundAnswerDto>(`${this.apiUrl}/poker/postRoundAnswer`, {
+      .post<RoundAnswerDto>(`${this.apiUrl}/poker/postNewRoundAnswer`, {
         round,
         estimate,
       })
