@@ -1,6 +1,7 @@
 import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
+import { isRight } from 'fp-ts/lib/Either';
 import { registerMiddleware } from 'middleware';
 import { PokerRouter } from 'routes';
 import request from 'supertest';
@@ -65,4 +66,16 @@ describe('test fetch round endpoint', () => {
         expect(round.board).toHaveLength(5);
       });
   });
+  for (let i = 0; i < 10; i++) {
+    it('should fetch round valid random Round', async () => {
+      await request(app)
+        .get('/fetchRandomRound')
+        .expect(200)
+        .expect(response => {
+          const round = Round.decode(response.body);
+          expect(isRight(round)).toBeTruthy();
+        });
+    });
+  }
+
 });
