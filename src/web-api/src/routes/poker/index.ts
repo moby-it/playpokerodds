@@ -4,11 +4,12 @@ import { fetchLeaderBoardsEndpoint } from './fetchLeaderboards';
 import { fetchRandomRound } from './fetchRandomRound';
 import { fetchRound } from './fetchRound';
 import { fetchRoundById } from './fetchRoundById';
-import { postRoundAnswer } from './postRoundAnswer';
+import { postNewRoundAnswer, postExistingRoundAnswer } from './postRoundAnswer';
 
 const router = express.Router();
 
-router.post('/postRoundAnswer', ...postRoundAnswer);
+router.post('/postNewRoundAnswer', ...postNewRoundAnswer);
+router.post('/postExistingRoundAnswer', ...postExistingRoundAnswer);
 router.get('/fetchRoundById/:id', ...fetchRoundById);
 router.get('/fetchRound', ...fetchRound);
 router.get('/fetchLeaderboards', ...fetchLeaderBoardsEndpoint);

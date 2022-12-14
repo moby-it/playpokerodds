@@ -1,13 +1,13 @@
 export const postValidRoundPayload1 = {
-  myHand: ['5d', 'Jh'],
-  opponentsHands: [['..', '..']],
-  board: [],
+  round: {
+    myHand: ['5d', 'Jh'],
+    opponentsHands: [['..', '..']],
+    board: [],
+  },
   estimate: 50.45,
 };
 export const postValidRoundPayload2 = {
-  myHand: ['5d', 'Ah'],
-  opponentsHands: [['..', '..']],
-  board: [],
+  round: { myHand: ['5d', 'Ah'], opponentsHands: [['..', '..']], board: [] },
   estimate: 40.45,
 };
 export const postRoundInvalidPayload1 = {
