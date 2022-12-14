@@ -1,4 +1,4 @@
-export const postValidRoundPayload1 = {
+const postValidRoundPayload1 = {
   round: {
     myHand: ['5d', 'Jh'],
     opponentsHands: [['..', '..']],
@@ -6,23 +6,30 @@ export const postValidRoundPayload1 = {
   },
   estimate: 50,
 };
-export const postValidRoundPayload2 = {
+const postValidRoundPayload2 = {
   round: { myHand: ['5d', 'Ah'], opponentsHands: [['..', '..']], board: [] },
   estimate: 40,
 };
-export const postRoundInvalidPayload1 = {
+const postRoundInvalidPayload1 = {
   myHand: ['5d', 'Jhhh'],
   opponentsHands: [['..', '.123.']],
   board: [],
   estimate: 50.45,
   someValue: 5,
 };
-export const postRoundInvalidPayload2 = {};
+const postRoundInvalidPayload2 = {};
 
-export const postRoundInvalidPayload3 = {
+const postRoundInvalidPayload3 = {
   myHand: ['5d', 'Jh'],
   opponentsHands: [['..', '..']],
   board: [30],
   estimate: 'fasolakia',
   someValue: 5,
+};
+export const NewRoundPayloads = {
+  postRoundInvalidPayload1,
+  postRoundInvalidPayload2,
+  postRoundInvalidPayload3,
+  postValidRoundPayload1,
+  postValidRoundPayload2,
 };

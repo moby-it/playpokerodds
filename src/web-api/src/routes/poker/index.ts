@@ -17,3 +17,4 @@ router.get('/fetchRandomRound', ...fetchRandomRound);
 router.get('/fetchEvents', ...fetchEventsEndpoint);
 
 export { router as PokerRouter };
+export { RoundAnswerResponse } from './postRoundAnswer/RoundAnswerResponse';

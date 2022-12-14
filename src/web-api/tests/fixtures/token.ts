@@ -1,3 +1,0 @@
-export const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzJhYzYxMzc0NTYyNWFhYzIzZTRiYjgiLCJ1c2VybmFtZSI6Imdlb3JnZTEiLCJpYXQiOjE2NjM4ODEyMzUsImV4cCI6MTY2Mzk2NzYzNX0.oRK545SMm4znJAoH1DIjWXP3Xs9hFTcLYc5AUSvIqRM';
-export const username = 'george1';
