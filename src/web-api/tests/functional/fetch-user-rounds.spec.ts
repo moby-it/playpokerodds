@@ -97,7 +97,7 @@ describe('test fetch user rounds endpoint', () => {
         expect(response.body.length).toEqual(2);
       });
   });
-  it('should validate that response is of type round[]', async () => {
+  it('should validate that response array length', async () => {
     await request(app)
       .get('/fetchUserRounds')
       .auth(tokens[1], { type: 'bearer' })
@@ -105,10 +105,6 @@ describe('test fetch user rounds endpoint', () => {
       .expect(response => {
         expect(response.body.length).toEqual(2);
         expect(Array.isArray(response.body)).toBeTruthy();
-        const rounds = response.body as Round[];
-        rounds.forEach(round => {
-          expect(isRight(Round.decode(round))).toBeTruthy();
-        });
       });
   });
 });
