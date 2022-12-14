@@ -53,7 +53,7 @@ describe('test post new round answer endpoint', () => {
         username = res.body.username;
       });
   });
-  it('should post valid round payload', async () => {
+  it('should post valid round payload with unauthenticated user', async () => {
     await request(app)
       .post('/postNewRoundAnswer')
       .send(NewRoundPayloads.postValidRoundPayload1)
@@ -62,7 +62,7 @@ describe('test post new round answer endpoint', () => {
     expect(await prisma.round.count()).toEqual(1);
     expect(await prisma.roundAnswer.count()).toEqual(1);
   });
-  it('should post valid round payload with autheticated payload', async () => {
+  it('should post valid round payload with autheticated user', async () => {
     await request(app)
       .post('/postNewRoundAnswer')
       .send(NewRoundPayloads.postValidRoundPayload2)

@@ -1,15 +1,14 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { registerMiddleware } from 'middleware';
 import prisma from 'prisma';
-import { AuthRouter, PokerRouter, RoundAnswerResponse } from 'routes';
+import { AuthRouter, PokerRouter } from 'routes';
 import request from 'supertest';
 import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  NewRoundPayloads,
+  NewRoundPayloads
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test post existing round answer endpoint', () => {
@@ -17,6 +16,9 @@ describe('test post existing round answer endpoint', () => {
   const tokens: string[] = [];
   const usernames: string[] = [];
   const userScores: number[] = [];
+  let totalEvents = 0;
+  let totalRounds = 0;
+  let totalAnswers = 0;
   let app: Application;
   beforeAll(async () => {
     config();
@@ -47,6 +49,12 @@ describe('test post existing round answer endpoint', () => {
       .send(ExistingRoundPayloads.postRoundInvalidPayload3)
       .expect(400);
   });
+  it('should send 400 to invalid round payload', async () => {
+    await request(app)
+      .post('/postExistingRoundAnswer')
+      .send(ExistingRoundPayloads.postRoundInvalidPayload3)
+      .expect(400);
+  });
   it('should register users', async () => {
     await request(app)
       .post('/register')
@@ -57,6 +65,7 @@ describe('test post existing round answer endpoint', () => {
         tokens.push(res.body.token);
         expect('username' in res.body).toBeTruthy();
         usernames.push(res.body.username);
+        totalEvents++;
       });
     await request(app)
       .post('/register')
@@ -67,6 +76,7 @@ describe('test post existing round answer endpoint', () => {
         tokens.push(res.body.token);
         expect('username' in res.body).toBeTruthy();
         usernames.push(res.body.username);
+        totalEvents++;
       });
   });
   it('should play a new Round', async () => {
@@ -78,8 +88,23 @@ describe('test post existing round answer endpoint', () => {
         expect('id' in res.body).toBeTruthy();
         roundId = res.body.id;
       });
-    expect(await prisma.event.count()).toEqual(3);
-    expect(await prisma.round.count()).toEqual(1);
+    totalEvents++;
+    totalRounds++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
+  });
+  it('should post valid round payload without auth', async () => {
+    await request(app)
+      .post('/postExistingRoundAnswer')
+      .send({ ...ExistingRoundPayloads.postValidRoundPayload1, roundId })
+      .expect(200);
+    totalEvents++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should post valid round payload with auth', async () => {
     await request(app)
@@ -91,9 +116,11 @@ describe('test post existing round answer endpoint', () => {
         expect('score' in response.body).toBeTruthy();
         userScores.push(Math.abs(response.body.score));
       });
-    expect(await prisma.event.count()).toEqual(4);
-    expect(await prisma.round.count()).toEqual(1);
-    expect(await prisma.roundAnswer.count()).toEqual(2);
+    totalEvents++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should have correctly updated user score', async () => {
     const user = await prisma.user.findFirst({
@@ -112,9 +139,11 @@ describe('test post existing round answer endpoint', () => {
         expect('score' in response.body).toBeTruthy();
         userScores.push(Math.abs(response.body.score));
       });
-    expect(await prisma.event.count()).toEqual(5);
-    expect(await prisma.round.count()).toEqual(1);
-    expect(await prisma.roundAnswer.count()).toEqual(3);
+    totalEvents++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should have correctly updated user score', async () => {
     const user = await prisma.user.findFirst({
