@@ -16,7 +16,6 @@
       "prisma": ["src/prisma/client.ts"],
       "shared": ["src/shared/index.ts"],
       "model": ["src/model/index.ts"],
-      "workers": ["src/workers/index.ts"],
       "routes": ["src/routes/index.ts"]
     }
   },

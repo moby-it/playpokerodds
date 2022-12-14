@@ -41,6 +41,7 @@ model RoundAnswer {
   estimate  Decimal  @db.Decimal(5, 2)
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
+  isFavorite Boolean @default(false)
   round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
   roundId   String
   timestamp DateTime @default(now())

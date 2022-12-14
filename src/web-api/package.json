@@ -8,7 +8,7 @@
     "dev": "nodemon ./src/app.ts",
     "start": "prisma migrate deploy && node ./dist/app.js",
     "test": "prisma migrate deploy && jest -i",
-    "docker:test": "docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from api ",
+    "docker:test": "docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from api",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },

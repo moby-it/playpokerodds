@@ -8,7 +8,7 @@ import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  NewRoundPayloads
+  NewRoundPayloads,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test post existing round answer endpoint', () => {
@@ -26,6 +26,35 @@ describe('test post existing round answer endpoint', () => {
     registerMiddleware(app);
     app.use(PokerRouter);
     app.use(AuthRouter);
+    await request(app)
+      .post('/register')
+      .send(mockUserPayload1)
+      .expect(200)
+      .expect(res => {
+        tokens.push(res.body.token);
+        usernames.push(res.body.username);
+        totalEvents++;
+      });
+    await request(app)
+      .post('/register')
+      .send(mockUserPayload2)
+      .expect(200)
+      .expect(res => {
+        tokens.push(res.body.token);
+        usernames.push(res.body.username);
+        totalEvents++;
+      });
+    await request(app)
+      .post('/postNewRoundAnswer')
+      .send(NewRoundPayloads.postValidRoundPayload1)
+      .expect(200)
+      .expect(res => {
+        expect('id' in res.body).toBeTruthy();
+        roundId = res.body.id;
+      });
+    totalEvents++;
+    totalRounds++;
+    totalAnswers++;
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
@@ -54,46 +83,6 @@ describe('test post existing round answer endpoint', () => {
       .post('/postExistingRoundAnswer')
       .send(ExistingRoundPayloads.postRoundInvalidPayload3)
       .expect(400);
-  });
-  it('should register users', async () => {
-    await request(app)
-      .post('/register')
-      .send(mockUserPayload1)
-      .expect(200)
-      .expect(res => {
-        expect('token' in res.body).toBeTruthy();
-        tokens.push(res.body.token);
-        expect('username' in res.body).toBeTruthy();
-        usernames.push(res.body.username);
-        totalEvents++;
-      });
-    await request(app)
-      .post('/register')
-      .send(mockUserPayload2)
-      .expect(200)
-      .expect(res => {
-        expect('token' in res.body).toBeTruthy();
-        tokens.push(res.body.token);
-        expect('username' in res.body).toBeTruthy();
-        usernames.push(res.body.username);
-        totalEvents++;
-      });
-  });
-  it('should play a new Round', async () => {
-    await request(app)
-      .post('/postNewRoundAnswer')
-      .send(NewRoundPayloads.postValidRoundPayload1)
-      .expect(200)
-      .expect(res => {
-        expect('id' in res.body).toBeTruthy();
-        roundId = res.body.id;
-      });
-    totalEvents++;
-    totalRounds++;
-    totalAnswers++;
-    expect(await prisma.event.count()).toEqual(totalEvents);
-    expect(await prisma.round.count()).toEqual(totalRounds);
-    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should post valid round payload without auth', async () => {
     await request(app)
