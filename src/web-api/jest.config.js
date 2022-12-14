@@ -7,7 +7,6 @@ module.exports = {
   testEnvironment: 'node',
   detectOpenHandles: true,
   verbose: true,
-
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),

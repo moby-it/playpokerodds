@@ -11,8 +11,9 @@ import {
   postRoundInvalidPayload2,
   postRoundInvalidPayload3,
   postValidRoundPayload1,
+  postValidRoundPayload2,
   token,
-  username,
+  username
 } from '../fixtures';
 import { mockDb } from '../helpers';
 
@@ -66,20 +67,20 @@ describe('test post answer endpoint', () => {
   it('should post valid round payload with autheticated payload', done => {
     supertest
       .post('/postNewRoundAnswer')
-      .send(postValidRoundPayload1)
+      .send(postValidRoundPayload2)
       .auth(token, { type: 'bearer' })
       .expect(200)
       .expect(async (body: RoundAnswerDto) => {
+        const user = await prisma.user.findFirst({ where: { username } });
+        totalScore = body.score;
+        expect(user?.score).toEqual(totalScore);
         expect(
           await prisma.event.count({
             where: { type: EventType.USER_POSTED_ANSWER },
           })
-        ).toEqual(1);
+        ).toEqual(2);
         expect(await prisma.round.count()).toEqual(2);
         expect(await prisma.roundAnswer.count()).toEqual(2);
-        const user = await prisma.user.findFirst({ where: { username } });
-        totalScore = body.score;
-        expect(user?.score).toEqual(totalScore);
       })
       .end(done);
   });

@@ -6,7 +6,7 @@ import prisma from 'prisma';
 import { EventType } from 'shared';
 import { extractUserDataFromRequest } from '../../../auth/common';
 import { NewAnswerDto } from './newAnswer.dto';
-export const pesistRound = async (
+export const pesistNewRound = async (
   req: Request,
   res: Response<
     unknown,

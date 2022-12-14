@@ -16,13 +16,4 @@ export const calculateWinOdds = async (
       next();
     })
     .catch(e => res.status(400).send(e));
-  // const roundId = res.locals.dto.id;
-  // if (roundId) {
-  //   const round = await prisma.round.findFirst({ where: { id: roundId } });
-  //   if (!round) {
-  //     res.status(404).send(`Round with id:${roundId} not found`);
-  //     return;
-  //   }
-  //   res.locals.odds = Number(round.odds);
-  // }
 };

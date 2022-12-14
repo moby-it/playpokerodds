@@ -4,11 +4,11 @@ export const postValidRoundPayload1 = {
     opponentsHands: [['..', '..']],
     board: [],
   },
-  estimate: 50.45,
+  estimate: 50,
 };
 export const postValidRoundPayload2 = {
   round: { myHand: ['5d', 'Ah'], opponentsHands: [['..', '..']], board: [] },
-  estimate: 40.45,
+  estimate: 40,
 };
 export const postRoundInvalidPayload1 = {
   myHand: ['5d', 'Jhhh'],
