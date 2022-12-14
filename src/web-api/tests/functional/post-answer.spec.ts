@@ -5,7 +5,7 @@ import { registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { PokerRouter } from 'routes';
 import { EventType } from 'shared';
-import request from 'supertest';
+import request, { SuperTest } from 'supertest';
 import {
   postRoundInvalidPayload1,
   postRoundInvalidPayload2,
@@ -19,38 +19,40 @@ import { mockDb } from '../helpers';
 describe('test post answer endpoint', () => {
   let totalScore = 0;
   let app: Application;
+  let supertest: SuperTest<request.Test>;
   beforeAll(async () => {
     config();
     app = express();
     registerMiddleware(app);
     app.use(PokerRouter);
+    supertest = request(app);
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
   });
   it('should send 400 to invalid round payload', done => {
-    request(app)
+    supertest
       .post('/postNewRoundAnswer')
       .send(postRoundInvalidPayload1)
       .expect(400)
       .end(done);
   });
   it('should send 400 to invalid round payload', done => {
-    request(app)
+    supertest
       .post('/postNewRoundAnswer')
       .send(postRoundInvalidPayload2)
       .expect(400)
       .end(done);
   });
   it('should send 400 to invalid round payload', done => {
-    request(app)
+    supertest
       .post('/postNewRoundAnswer')
       .send(postRoundInvalidPayload3)
       .expect(400)
       .end(done);
   });
   it('should post valid round payload', done => {
-    request(app)
+    supertest
       .post('/postNewRoundAnswer')
       .send(postValidRoundPayload1)
       .expect(200)
@@ -62,7 +64,7 @@ describe('test post answer endpoint', () => {
       .end(done);
   });
   it('should post valid round payload with autheticated payload', done => {
-    request(app)
+    supertest
       .post('/postNewRoundAnswer')
       .send(postValidRoundPayload1)
       .auth(token, { type: 'bearer' })
