@@ -1,7 +1,7 @@
 import { Round } from '@moby-it/ppo-core';
 import * as t from 'io-ts';
-export const PostAnswerDto = t.type({
+export const NewAnswerDto = t.type({
   round: Round,
   estimate: t.number,
 });
-export type PostAnswerDto = t.TypeOf<typeof PostAnswerDto>;
+export type NewAnswerDto = t.TypeOf<typeof NewAnswerDto>;

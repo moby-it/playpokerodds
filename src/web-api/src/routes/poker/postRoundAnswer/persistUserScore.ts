@@ -1,24 +1,36 @@
-import { createRoundFromProps, RoundAnswerDto } from '@moby-it/ppo-core';
+import { createRoundFromProps, Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
-import { DecodedJwt, EventType } from 'shared';
-import { PostAnswerDto } from './answer.dto';
+import { DecodedJwt } from 'shared';
+import { ExistingAnswerDto } from './existingRoundAnswer/existingAnswer.dto';
+import { NewAnswerDto } from './newRoundAnswer/newAnswer.dto';
+import { RoundAnswerResponse } from './RoundAnswerResponse';
 export const pesistUserScore = async (
   req: Request,
   res: Response<
-    RoundAnswerDto,
-    { dto: PostAnswerDto; score: number; odds: number }
+    RoundAnswerResponse,
+    {
+      dto: ExistingAnswerDto | NewAnswerDto;
+      round: Round;
+      roundId: string;
+      estimate: number;
+      score: number;
+      odds: number;
+    }
   >,
   next: NextFunction
 ) => {
   const authHeader = req.headers.authorization;
-  const round = res.locals.dto.round;
-  const responsePayload: RoundAnswerDto = {
-    estimate: res.locals.dto.estimate,
-    odds: res.locals.odds,
-    score: res.locals.score,
+  const { roundId, round, estimate, score, odds } = res.locals;
+  if (!roundId) throw new Error('Round with no id');
+  if (!round) throw new Error('No round in answer');
+  const responsePayload: RoundAnswerResponse = {
+    id: roundId,
+    estimate,
+    odds,
+    score,
     round: createRoundFromProps({
       board: round.board,
       myHand: round.myHand,

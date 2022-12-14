@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isLeft, isRight } from 'fp-ts/lib/Either';
+import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import { registerMiddleware } from 'middleware';
 import prisma from 'prisma';
@@ -70,7 +70,6 @@ describe('test fetch events endpoint', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect(body => {
-        console.log(body);
         expect(body).toBeDefined();
       });
   });

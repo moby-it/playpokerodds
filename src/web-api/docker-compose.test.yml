@@ -8,6 +8,13 @@ services:
     env_file:
       - docker.env
     depends_on:
+      - calc-odds-api
+  calc-odds-api:
+    build:
+      context: ../calc-odds-api
+    ports:
+      - 7071:7071
+    depends_on:
       - db
   db:
     container_name: playpokerodds-db

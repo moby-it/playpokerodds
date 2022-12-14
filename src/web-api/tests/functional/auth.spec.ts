@@ -67,9 +67,9 @@ describe('test auth endpoints', () => {
       expect(decodedToken.right.role).toEqual(0);
     }
   });
-  it('should change username', async () => {
+  it('should change username', done => {
     const newUsername = 'fasolakis';
-    await request(app)
+    request(app)
       .post('/changeUsername')
       .set('Authorization', `Bearer ${token}`)
       .send({ username: newUsername })
@@ -79,6 +79,7 @@ describe('test auth endpoints', () => {
         expect(
           await prisma.user.count({ where: { username: newUsername } })
         ).toEqual(1);
-      });
+      })
+      .end(done);
   });
 });
