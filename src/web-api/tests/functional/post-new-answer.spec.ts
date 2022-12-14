@@ -8,6 +8,9 @@ import request from 'supertest';
 import { mockUserPayload1, NewRoundPayloads } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test post new round answer endpoint', () => {
+  let totalEvents = 0;
+  let totalRounds = 0;
+  let totalAnswers = 0;
   let totalScore = 0;
   let username = '';
   let token = '';
@@ -18,6 +21,15 @@ describe('test post new round answer endpoint', () => {
     registerMiddleware(app);
     app.use(PokerRouter);
     app.use(AuthRouter);
+    await request(app)
+      .post('/register')
+      .send(mockUserPayload1)
+      .expect(200)
+      .expect(res => {
+        token = res.body.token;
+        username = res.body.username;
+        totalEvents++;
+      });
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
@@ -41,26 +53,18 @@ describe('test post new round answer endpoint', () => {
       .send(NewRoundPayloads.postRoundInvalidPayload3)
       .expect(400);
   });
-  it('should register user', async () => {
-    await request(app)
-      .post('/register')
-      .send(mockUserPayload1)
-      .expect(200)
-      .expect(res => {
-        expect('token' in res.body).toBeTruthy();
-        token = res.body.token;
-        expect('username' in res.body).toBeTruthy();
-        username = res.body.username;
-      });
-  });
+
   it('should post valid round payload with unauthenticated user', async () => {
     await request(app)
       .post('/postNewRoundAnswer')
       .send(NewRoundPayloads.postValidRoundPayload1)
       .expect(200);
-    expect(await prisma.event.count()).toEqual(2);
-    expect(await prisma.round.count()).toEqual(1);
-    expect(await prisma.roundAnswer.count()).toEqual(1);
+    totalEvents++;
+    totalRounds++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should post valid round payload with autheticated user', async () => {
     await request(app)
@@ -70,6 +74,9 @@ describe('test post new round answer endpoint', () => {
       .expect(200)
       .expect(response => {
         totalScore = response.body.score;
+        totalEvents++;
+        totalRounds++;
+        totalAnswers++;
       });
     const user = await prisma.user.findFirst({ where: { username } });
     expect(user).toBeDefined();
@@ -79,7 +86,8 @@ describe('test post new round answer endpoint', () => {
         where: { type: EventType.USER_POSTED_ANSWER },
       })
     ).toEqual(2);
-    expect(await prisma.round.count()).toEqual(2);
-    expect(await prisma.roundAnswer.count()).toEqual(2);
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
 });
