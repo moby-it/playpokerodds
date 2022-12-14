@@ -7,6 +7,13 @@ services:
       dockerfile: Dockerfile
     env_file:
       - docker.env
+  calc-odds-api:
+    build:
+      context: ../calc-odds-api
+    ports:
+      - 7071:7071
+    depends_on:
+      - db
   db:
     container_name: playpokerodds-db
     image: postgres
