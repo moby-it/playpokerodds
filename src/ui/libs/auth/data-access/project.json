@@ -1,4 +1,5 @@
 {
+  "name": "auth-data-access",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/auth/data-access/src",
@@ -22,6 +23,5 @@
       }
     }
   },
-  "tags": [],
-  "name": "auth-data-access"
+  "tags": []
 }

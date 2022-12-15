@@ -4,7 +4,7 @@ import {
   EventEmitter,
   HostListener,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import { fromEvent, take } from 'rxjs';
 

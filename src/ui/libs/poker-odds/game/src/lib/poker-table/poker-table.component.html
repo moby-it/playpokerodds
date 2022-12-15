@@ -2,8 +2,12 @@
   <ng-container *ngrxLet="round$ as round">
     <ppo-board class="board" [board]="round.board"></ppo-board>
     <ppo-playing-hand [hand]="round.myHand"></ppo-playing-hand>
-    <ppo-opponent-hand *ngFor="let opponent of round.opponentsHands;let i = index" [hand]="opponent"
-      [isVisible]="opponent | handIsVisible" [ngStyle]="i | handBadgeGridPosition">
+    <ppo-opponent-hand
+      *ngFor="let opponent of round.opponentsHands; let i = index"
+      [hand]="opponent"
+      [isVisible]="opponent | handIsVisible"
+      [ngStyle]="i | handBadgeGridPosition"
+    >
     </ppo-opponent-hand>
   </ng-container>
 </div>

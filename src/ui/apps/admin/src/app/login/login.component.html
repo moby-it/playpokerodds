@@ -4,22 +4,34 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <p>
         <mat-form-field>
-          <input type="email" matInput placeholder="Email" formControlName="email" name="email">
+          <input
+            type="email"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            name="email"
+          />
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="password" matInput placeholder="Password" formControlName="password">
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            formControlName="password"
+          />
         </mat-form-field>
       </p>
       <ng-container *ngrxLet="error$ as error">
-        <div class="error" *ngIf="error"> {{error}}</div>
+        <div class="error" *ngIf="error">{{ error }}</div>
       </ng-container>
       <div class="button">
-        <button type="submit" mat-button [disabled]="form.invalid">Login</button>
+        <button type="submit" mat-button [disabled]="form.invalid">
+          Login
+        </button>
       </div>
-
     </form>
   </mat-card-content>
 </mat-card>

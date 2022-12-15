@@ -50,13 +50,13 @@ export class PokerOddsApiClient {
       }
     );
   }
-  addToFavorites(roundId: string): Observable<RoundAnswer> {
+  addToFavorites(roundId: string): Observable<unknown> {
     return this.http.put<RoundAnswer>(
       `${this.apiUrl}/poker/addToFavorites/${roundId}`,
       {}
     );
   }
-  removeFromFavorites(roundId: string): Observable<RoundAnswer> {
+  removeFromFavorites(roundId: string): Observable<unknown> {
     return this.http.put<RoundAnswer>(
       `${this.apiUrl}/poker/removeFromFavorites/${roundId}`,
       {}

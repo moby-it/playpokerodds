@@ -17,7 +17,13 @@ import {
     SigninFormComponent,
     EditUserFormComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, LetModule, PushModule, SharedUiModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LetModule,
+    PushModule,
+    SharedUiModule,
+  ],
   exports: [UserFormComponent],
 })
 export class AuthFeatureUserFormModule {}
