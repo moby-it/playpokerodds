@@ -1,1 +1,1 @@
-export { calculateGuessScore as calculateGuessAccuracy } from './calculate-guess-accuracy';
+export * from './calculate-guess-accuracy';

@@ -1,4 +1,6 @@
-export const calculateGuessScore: (
-  estimate: number
-) => (handOdds: number) => number = estimate => (handOdds: number) =>
-  Number((estimate - handOdds).toFixed(2));
+export function calculateGuessScore(
+  estimate: number,
+  handOdds: number
+): number {
+  return Number((estimate - handOdds).toFixed(2));
+}

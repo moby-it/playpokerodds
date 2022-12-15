@@ -1,77 +1,68 @@
-import * as t from 'io-ts';
+export const Spade = [
+  'As',
+  'Ks',
+  'Qs',
+  'Qs',
+  'Js',
+  'Ts',
+  '9s',
+  '8s',
+  '7s',
+  '6s',
+  '5s',
+  '4s',
+  '3s',
+  '2s',
+] as const;
+export const Heart = [
+  'Ah',
+  'Kh',
+  'Qh',
+  'Qh',
+  'Jh',
+  'Th',
+  '9h',
+  '8h',
+  '7h',
+  '6h',
+  '5h',
+  '4h',
+  '3h',
+  '2h',
+] as const;
+export const Club = [
+  'Ac',
+  'Kc',
+  'Qc',
+  'Qc',
+  'Jc',
+  'Tc',
+  '9c',
+  '8c',
+  '7c',
+  '6c',
+  '5c',
+  '4c',
+  '3c',
+  '2c',
+] as const;
+export const Diamond = [
+  'Ad',
+  'Kd',
+  'Qd',
+  'Qd',
+  'Jd',
+  'Td',
+  '9d',
+  '8d',
+  '7d',
+  '6d',
+  '5d',
+  '4d',
+  '3d',
+  '2d',
+] as const;
+export type Diamond = typeof Diamond;
 
-export const Spade = t.union([
-  t.literal('As'),
-  t.literal('Ks'),
-  t.literal('Qs'),
-  t.literal('Qs'),
-  t.literal('Js'),
-  t.literal('Ts'),
-  t.literal('9s'),
-  t.literal('8s'),
-  t.literal('7s'),
-  t.literal('6s'),
-  t.literal('5s'),
-  t.literal('4s'),
-  t.literal('3s'),
-  t.literal('2s'),
-]);
-export type Spade = t.TypeOf<typeof Spade>;
-export const Heart = t.union([
-  t.literal('Ah'),
-  t.literal('Kh'),
-  t.literal('Qh'),
-  t.literal('Qh'),
-  t.literal('Jh'),
-  t.literal('Th'),
-  t.literal('9h'),
-  t.literal('8h'),
-  t.literal('7h'),
-
-  t.literal('6h'),
-  t.literal('5h'),
-  t.literal('4h'),
-  t.literal('3h'),
-  t.literal('2h'),
-]);
-export type Heart = t.TypeOf<typeof Heart>;
-export const Club = t.union([
-  t.literal('Ac'),
-  t.literal('Kc'),
-  t.literal('Qc'),
-  t.literal('Qc'),
-  t.literal('Jc'),
-  t.literal('Tc'),
-  t.literal('9c'),
-  t.literal('8c'),
-  t.literal('7c'),
-
-  t.literal('6c'),
-  t.literal('5c'),
-  t.literal('4c'),
-  t.literal('3c'),
-  t.literal('2c'),
-]);
-export type Club = t.TypeOf<typeof Club>;
-export const Diamond = t.union([
-  t.literal('Ad'),
-  t.literal('Kd'),
-  t.literal('Qd'),
-  t.literal('Qd'),
-  t.literal('Jd'),
-  t.literal('Td'),
-  t.literal('9d'),
-  t.literal('8d'),
-  t.literal('7d'),
-  t.literal('6d'),
-  t.literal('5d'),
-  t.literal('4d'),
-  t.literal('3d'),
-  t.literal('2d'),
-]);
-export type Diamond = t.TypeOf<typeof Diamond>;
-
-export const UnknownCard = t.literal('..');
-export type UnknownCard = t.TypeOf<typeof UnknownCard>;
-export const Card = t.union([Spade, Heart, Club, Diamond, UnknownCard]);
-export type Card = t.TypeOf<typeof Card>;
+export const UnknownCard = '..' as const;
+export type Card = string;
