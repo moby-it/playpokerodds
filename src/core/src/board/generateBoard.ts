@@ -1,21 +1,12 @@
-import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/lib/function';
-import { map, range } from 'fp-ts/lib/NonEmptyArray';
 import { generateCardAndRemoveFromDeck } from '../card';
 import { Deck } from '../deck';
+import { range } from '../helpers';
 import { Board } from './board';
 import { BoardState, openBoardCardsFromState } from './boardState';
-export const generateBoard =
-  (boardState: BoardState) =>
-  (deck: Deck): Board =>
-    boardState === BoardState.PreFlop
-      ? []
-      : pipe(
-          range(1, pipe(boardState, openBoardCardsFromState)),
-          map(() => pipe(deck, generateCardAndRemoveFromDeck)),
-          Board.decode,
-          E.fold(
-            () => [] as Board,
-            (a) => a
-          )
-        );
+
+export function generateBoard(boardState: BoardState, deck: Deck): Board {
+  if (boardState == BoardState.PreFlop) return [];
+  return range(1, openBoardCardsFromState(boardState)).map(() =>
+    generateCardAndRemoveFromDeck(deck)
+  );
+}

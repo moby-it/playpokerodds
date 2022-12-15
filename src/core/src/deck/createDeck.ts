@@ -1,7 +1,6 @@
-import * as IO from 'fp-ts/IO';
 import { Deck } from './deck';
 
-export const createDeck: IO.IO<Deck> = () => [
+export const createDeck = (): Deck => [
   'As',
   'Ks',
   'Qs',
