@@ -10,12 +10,14 @@ export const validateAdmin = (
   const decodedJwt = extractUserDataFromRequest(req);
   if (!decodedJwt) {
     res.sendStatus(401);
+    return;
   } else {
     const { role } = decodedJwt;
     if (role >= UserRoles.Superuser) {
       next();
     } else {
       res.sendStatus(401);
+      return;
     }
   }
 };

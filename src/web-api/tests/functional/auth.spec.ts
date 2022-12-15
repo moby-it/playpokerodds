@@ -3,6 +3,7 @@ import express, { Application } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import { registerMiddleware } from 'middleware';
+import { UserRoles } from 'model';
 import prisma from 'prisma';
 import { AuthRouter } from 'routes';
 import { DecodedJwt } from 'shared';
@@ -10,7 +11,10 @@ import request from 'supertest';
 import {
   mockUserInvalidPayload1,
   mockUserInvalidPayload2,
+  mockUserInvalidPayload3,
   mockUserPayload1,
+  mockUserPayload2,
+  mockUserPayload5,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test auth endpoints', () => {
@@ -37,6 +41,12 @@ describe('test auth endpoints', () => {
       .send(mockUserInvalidPayload2)
       .expect(400);
   });
+  it('should fail to register user no password', async () => {
+    await request(app)
+      .post('/register')
+      .send(mockUserInvalidPayload3)
+      .expect(400);
+  });
   it('should register user', async () => {
     await request(app)
       .post('/register')
@@ -45,10 +55,27 @@ describe('test auth endpoints', () => {
       .expect(body => {
         expect(body).toBeDefined();
       });
+    await request(app)
+      .post('/register')
+      .send(mockUserPayload2)
+      .expect(200)
+      .expect(body => {
+        expect(body).toBeDefined();
+      });
   });
-  it('should have one user in database', async () => {
-    expect(await prisma.user.count()).toEqual(1);
+  it('should have two users in database', async () => {
+    expect(await prisma.user.count()).toEqual(2);
   });
+  it('should fail to login for useemail that does not exist', async () => {
+    await request(app).post('/login').send(mockUserPayload5).expect(401);
+  });
+  it('should fail to login for useemail with wrong credentials', async () => {
+    await request(app)
+      .post('/login')
+      .send({ ...mockUserPayload1, password: 'Somewrongpasswrasd' })
+      .expect(401);
+  });
+
   it('should login user', async () => {
     await request(app)
       .post('/login')
@@ -81,5 +108,32 @@ describe('test auth endpoints', () => {
         ).toEqual(1);
       })
       .end(done);
+  });
+  it('should change username with no auth payload', async () => {
+    const newUsername = 'fasolakis';
+    await request(app)
+      .post('/changeUsername')
+      .send({ username: newUsername })
+      .expect(400);
+  });
+  it('should add user as admin', async () => {
+    const result = await prisma.userRole.create({
+      data: { role: UserRoles.Admin, userEmail: mockUserPayload1.email },
+    });
+    expect(result).toBeDefined();
+  });
+  it('should not let normal user login as admin', async () => {
+    await request(app).post('/admin-login').send(mockUserPayload2).expect(401);
+  });
+  it('should admin user login as admin', async () => {
+    await request(app)
+      .post('/admin-login')
+      .send(mockUserPayload1)
+      .expect(200)
+      .expect(response => {
+        expect(response.body).toBeDefined();
+        expect(response.body.token).toBeDefined();
+        token = response.body.token;
+      });
   });
 });

@@ -24,9 +24,13 @@
       "titleBar.inactiveBackground": "#42b88399",
       "titleBar.inactiveForeground": "#15202b99"
     },
-    "eslint.workingDirectories": ["src/web-api", "src/core", "src/ui","src/calc-odds-api"],
-    "peacock.color": "#42b883",
-    "editor.lineNumbers": "relative"
+    "eslint.workingDirectories": [
+      "src/web-api",
+      "src/core",
+      "src/ui",
+      "src/calc-odds-api"
+    ],
+    "peacock.color": "#42b883"
   },
   "extensions": {
     "recommendations": [

@@ -18,6 +18,11 @@ export const mockUserPayload4 = {
   password: '123123',
   username: 'takis',
 };
+export const mockUserPayload5 = {
+  email: 'maria@gmail.com',
+  password: '123123',
+  username: 'maria',
+};
 export const mockUserInvalidPayload1 = {
   username: 'george@gmail.com',
   password: '123123',
@@ -25,4 +30,7 @@ export const mockUserInvalidPayload1 = {
 export const mockUserInvalidPayload2 = {
   email: 'george',
   password: '123123',
+};
+export const mockUserInvalidPayload3 = {
+  email: 'george',
 };

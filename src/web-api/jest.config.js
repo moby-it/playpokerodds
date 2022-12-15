@@ -7,7 +7,7 @@ module.exports = {
   testEnvironment: 'node',
   detectOpenHandles: true,
   verbose: true,
-  collectCoverage: false,
+  collectCoverage: true,
   collectCoverageFrom: ['./src/**/*.ts'],
   coverageDirectory: './coverage',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {

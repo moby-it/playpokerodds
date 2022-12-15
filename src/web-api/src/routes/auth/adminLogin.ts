@@ -16,6 +16,7 @@ const verifyRoles = (
     next();
   } else {
     res.status(401).send('You are not an admin');
+    return;
   }
 };
 export const adminLoginEndpoint = [
