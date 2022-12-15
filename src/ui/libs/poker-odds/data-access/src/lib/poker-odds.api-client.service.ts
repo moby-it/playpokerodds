@@ -1,14 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import {
-  Round,
-  RoundAnswerDto,
-  RoundInputQueryParams,
-} from '@moby-it/ppo-core';
+import { Round } from '@moby-it/ppo-core';
 import { API_URL } from '@ppo/shared/config';
-import { isLeft } from 'fp-ts/es6/Either';
-import { delay, Observable, tap } from 'rxjs';
-import { UserScore, UserScores } from './dtos';
+import { delay, Observable } from 'rxjs';
+import { RoundAnswer, UserScore } from './dtos';
+import { RoundInputs } from './helpers';
 
 @Injectable()
 export class PokerOddsApiClient {
@@ -17,46 +13,48 @@ export class PokerOddsApiClient {
     private http: HttpClient
   ) {}
   fetchRandomRound(): Observable<Round> {
-    return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`).pipe(
-      delay(1000),
-      tap((round) => {
-        if (isLeft(Round.decode(round)))
-          throw new Error('Invalid Round response');
-      })
-    );
-  }
-  fetchRound(params: RoundInputQueryParams): Observable<Round> {
     return this.http
-      .get<Round>(`${this.apiUrl}/poker/FetchRound`, { params })
-      .pipe(
-        delay(1000),
-        tap((round) => {
-          if (isLeft(Round.decode(round)))
-            throw new Error('Invalid Round response');
-        })
-      );
+      .get<Round>(`${this.apiUrl}/poker/FetchRandomRound`)
+      .pipe(delay(1000));
   }
-  postRoundAnswer(round: Round, estimate: number): Observable<RoundAnswerDto> {
-    return this.http
-      .post<RoundAnswerDto>(`${this.apiUrl}/poker/postNewRoundAnswer`, {
+  fetchRound({
+    boardState,
+    totalHands,
+    totalKnownHands,
+  }: RoundInputs): Observable<Round> {
+    return this.http.get<Round>(`${this.apiUrl}/poker/FetchRound`, {
+      params: {
+        totalHands,
+        totalKnownHands,
+        boardState,
+      },
+    });
+  }
+  postNewRoundAnswer(round: Round, estimate: number): Observable<RoundAnswer> {
+    return this.http.post<RoundAnswer>(
+      `${this.apiUrl}/poker/postNewRoundAnswer`,
+      {
         round,
         estimate,
-      })
-      .pipe(
-        tap((answerDto) => {
-          if (isLeft(RoundAnswerDto.decode(answerDto)))
-            throw new Error('Invalid Round Answer response');
-        })
-      );
+      }
+    );
+  }
+  postExistingRoundAnswer(
+    roundId: string,
+    estimate: number
+  ): Observable<RoundAnswer> {
+    return this.http.post<RoundAnswer>(
+      `${this.apiUrl}/poker/postExistingRoundAnswer`,
+      {
+        roundId,
+        estimate,
+      }
+    );
   }
   fetchLeaderboards(): Observable<UserScore[]> {
-    return this.http
-      .get<UserScores>(`${this.apiUrl}/poker/fetchLeaderboards`)
-      .pipe(
-        tap((scores) => {
-          if (isLeft(UserScores.decode(scores)))
-            throw new Error('Invalid UserScoreresponse');
-        })
-      );
+    return this.http.get<UserScore[]>(`${this.apiUrl}/poker/fetchLeaderboards`);
+  }
+  fetchUserRounds(): Observable<RoundAnswer[]> {
+    return this.http.get<RoundAnswer[]>(`${this.apiUrl}/poker/fetchUserRounds`);
   }
 }

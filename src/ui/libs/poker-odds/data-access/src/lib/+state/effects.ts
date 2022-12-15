@@ -33,7 +33,7 @@ export class PokerOddsEffects {
       withLatestFrom(this.store.select(selectRound)),
       filter(([, round]) => Boolean(round)),
       mergeMap(([action, round]) =>
-        this.pokerOddsApiClient.postRoundAnswer(round as Round, action.estimate)
+        this.pokerOddsApiClient.postNewRoundAnswer(round as Round, action.estimate)
       ),
       switchMap((answer) => [pokerOddsActions.setRoundAnswer({ answer })])
     )

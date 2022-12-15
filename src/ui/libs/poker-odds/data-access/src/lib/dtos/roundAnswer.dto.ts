@@ -1,6 +1,6 @@
 import { Round } from '@moby-it/ppo-core';
 
-export interface RoundAnswerResponse {
+export interface RoundAnswer {
   id: string;
   round: Round;
   odds: number;

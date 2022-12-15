@@ -31,11 +31,11 @@ export const pesistUserScore = async (
     estimate,
     odds,
     score,
-    round: createRoundFromProps({
+    round: {
       board: round.board,
       myHand: round.myHand,
       opponentsHands: round.opponentsHands,
-    }),
+    },
   };
   if (authHeader) {
     const token = authHeader.substring(7, authHeader.length);
