@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
-import { registerMiddleware } from 'middleware';
+import { registerMiddleware, registerErrorHandlers } from 'middleware';
 import { UserRoles } from 'model';
 import prisma from 'prisma';
 import { AuthRouter } from 'routes';
@@ -25,6 +25,7 @@ describe('test auth endpoints', () => {
     app = express();
     registerMiddleware(app);
     app.use(AuthRouter);
+    registerErrorHandlers(app);
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);

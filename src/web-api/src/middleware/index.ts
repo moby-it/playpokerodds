@@ -10,3 +10,4 @@ export function registerMiddleware(app: Application) {
   // app.use(morgan('dev'));
   registerPassportMiddleware();
 }
+export { registerErrorHandlers } from './errorHandler';

@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { registerMiddleware } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
 import request from 'supertest';
@@ -22,6 +22,7 @@ describe('test leaderboards', () => {
     registerMiddleware(app);
     app.use(AuthRouter);
     app.use(PokerRouter);
+    registerErrorHandlers(app);
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);

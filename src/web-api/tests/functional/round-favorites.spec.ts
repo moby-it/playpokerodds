@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { registerMiddleware } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
 
@@ -18,6 +18,7 @@ describe('test round favorite endpoints', () => {
     registerMiddleware(app);
     app.use(AuthRouter);
     app.use(PokerRouter);
+    registerErrorHandlers(app);
     await request(app)
       .post('/register')
       .send(mockUserPayload1)

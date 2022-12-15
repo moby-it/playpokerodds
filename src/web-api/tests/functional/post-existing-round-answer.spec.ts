@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { registerMiddleware } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
 import request from 'supertest';
@@ -26,6 +26,7 @@ describe('test post existing round answer endpoint', () => {
     registerMiddleware(app);
     app.use(PokerRouter);
     app.use(AuthRouter);
+    registerErrorHandlers(app);
     await request(app)
       .post('/register')
       .send(mockUserPayload1)

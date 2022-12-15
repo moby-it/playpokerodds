@@ -2,7 +2,7 @@ import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
-import { registerMiddleware } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import { PokerRouter } from 'routes';
 import request from 'supertest';
 describe('test fetch round endpoint', () => {
@@ -12,6 +12,7 @@ describe('test fetch round endpoint', () => {
     app = express();
     registerMiddleware(app);
     app.use(PokerRouter);
+    registerErrorHandlers(app);
   });
   it('should get 400 on fetch round with no query params', async () => {
     await request(app).get('/fetchRound').expect(400);
@@ -77,5 +78,4 @@ describe('test fetch round endpoint', () => {
         });
     });
   }
-
 });

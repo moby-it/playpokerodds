@@ -2,7 +2,7 @@ import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
-import { registerMiddleware } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
 import request from 'supertest';
@@ -24,6 +24,7 @@ describe('test fetch user rounds endpoint', () => {
     registerMiddleware(app);
     app.use(PokerRouter);
     app.use(AuthRouter);
+    registerErrorHandlers(app);
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
