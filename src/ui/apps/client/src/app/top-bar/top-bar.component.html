@@ -1,11 +1,6 @@
 <div class="top-bar">
   <div class="nav-menu">
-    <div
-      class="nav-item"
-      tooltip="Home"
-      [options]="tooltipOptions"
-      (click)="navigateTo('')"
-    >
+    <div class="nav-item" ppoTooltip="Home" (click)="navigateTo('')">
       <svg
         width="72"
         height="72"
@@ -36,12 +31,7 @@
         />
       </svg>
     </div>
-    <div
-      class="nav-item"
-      tooltip="Play!"
-      [options]="tooltipOptions"
-      (click)="navigateTo('play')"
-    >
+    <div class="nav-item" ppoTooltip="Play!" (click)="navigateTo('play')">
       <svg
         width="72"
         height="72"
@@ -63,8 +53,7 @@
     </div>
     <div
       class="nav-item"
-      tooltip="Leaderboards"
-      [options]="tooltipOptions"
+      ppoTooltip="Leaderboards"
       (click)="navigateTo('leaderboards')"
     >
       <svg

@@ -2,7 +2,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TooltipModule } from '@cloudfactorydk/ng2-tooltip-directive';
 import { LetModule, PushModule } from '@ngrx/component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -25,7 +24,6 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    TooltipModule,
     PushModule,
     LetModule,
     StoreModule.forRoot({}),
