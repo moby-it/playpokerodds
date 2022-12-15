@@ -3,8 +3,10 @@ import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { isRight } from 'fp-ts/lib/Either';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
+import prisma from 'prisma';
 import { PokerRouter } from 'routes';
 import request from 'supertest';
+import { mockDb, postNewRound } from '../helpers';
 describe('test fetch round endpoint', () => {
   let app: Application;
   beforeAll(async () => {
@@ -13,6 +15,9 @@ describe('test fetch round endpoint', () => {
     registerMiddleware(app);
     app.use(PokerRouter);
     registerErrorHandlers(app);
+  });
+  afterAll(async () => {
+    await mockDb.tearDown(prisma);
   });
   it('should get 400 on fetch round with no query params', async () => {
     await request(app).get('/fetchRound').expect(400);
@@ -78,4 +83,11 @@ describe('test fetch round endpoint', () => {
         });
     });
   }
+  it('should fetch non existing round by id', async () => {
+    await request(app).get('/fetchRoundById/somerandomId').expect(404);
+  });
+  it('should fetch existing round by id', async () => {
+    const round = await postNewRound(app);
+    await request(app).get(`/fetchRoundById/${round.id}`).expect(200);
+  });
 });
