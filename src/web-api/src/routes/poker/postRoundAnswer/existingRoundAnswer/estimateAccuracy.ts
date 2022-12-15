@@ -1,6 +1,5 @@
-import { calculateGuessAccuracy } from '@moby-it/ppo-core';
+import { calculateGuessScore } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { pipe } from 'fp-ts/lib/function';
 import { ExistingAnswerDto } from './existingAnswer.dto';
 export const estimateAccuracy = (
   req: Request,
@@ -12,10 +11,7 @@ export const estimateAccuracy = (
 ) => {
   res.locals = {
     ...res.locals,
-    score: pipe(
-      res.locals.odds,
-      calculateGuessAccuracy(res.locals.dto.estimate)
-    ),
+    score: calculateGuessScore(res.locals.dto.estimate, res.locals.odds),
   };
   next();
 };

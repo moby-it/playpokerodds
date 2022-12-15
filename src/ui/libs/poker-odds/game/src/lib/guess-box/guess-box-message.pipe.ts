@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { RoundAnswerDto } from '@moby-it/ppo-core';
+import { RoundAnswer } from '@ppo/poker-odds/data-access';
 const createGoodGuessMessage = (percent: number): string =>
   `Good Guess! You were only ${percent} % off!`;
 const createBadGuessMessage = (percent: number): string =>
@@ -9,7 +9,7 @@ const SPOT_ON_MESSAGE = 'Wow, spot on!';
   name: 'formatAnswerMessage',
 })
 export class GuessBoxAnswerMessagePipe implements PipeTransform {
-  transform(answer: RoundAnswerDto): string {
+  transform(answer: RoundAnswer): string {
     const score = Math.abs(answer.score);
     if (score === 0) {
       return SPOT_ON_MESSAGE;

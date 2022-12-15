@@ -1,17 +1,31 @@
 <div class="guess-box" *ngrxLet="vm$ as vm" @fade>
   <div class="guess-box-round-completed" *ngIf="vm.answer as answer">
-    <h1 class="win-odds">{{answer.odds}}%</h1>
-    <div class="accuracy-description accuracy-description-{{vm.answer.didAccurateEstimate? 'accurate': 'inaccurate'}}">
-      {{answer | formatAnswerMessage}}</div>
+    <h1 class="win-odds">{{ answer.odds }}%</h1>
+    <div
+      class="accuracy-description accuracy-description-{{
+        vm.answer.didAccurateEstimate ? 'accurate' : 'inaccurate'
+      }}"
+    >
+      {{ answer | formatAnswerMessage }}
+    </div>
   </div>
   <ppo-loader *ngIf="vm.calculatingAnswer && !vm.fetchingRound"></ppo-loader>
   <div class="guess-box-label">
-    <span>{{!vm.calculatingAnswer ? vm.message: 'Calculating...'}}</span>
+    <span>{{ !vm.calculatingAnswer ? vm.message : 'Calculating...' }}</span>
   </div>
   <form [formGroup]="guessForm" class="guess-box-form">
-    <input placeholder="0.00" type="number" step=".01" max="100" min="0" formControlName="estimate">
-    <ppo-play-button (buttonClicked)="playButtonHandler()"
-      [disabled]="vm.calculatingAnswer || vm.fetchingRound || vm.formInvalid">
+    <input
+      placeholder="0.00"
+      type="number"
+      step=".01"
+      max="100"
+      min="0"
+      formControlName="estimate"
+    />
+    <ppo-play-button
+      (buttonClicked)="playButtonHandler()"
+      [disabled]="vm.calculatingAnswer || vm.fetchingRound || vm.formInvalid"
+    >
     </ppo-play-button>
   </form>
 </div>

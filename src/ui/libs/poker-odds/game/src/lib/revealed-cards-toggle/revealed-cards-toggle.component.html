@@ -1,6 +1,10 @@
 <label for="revealedCardsCheckbox">Playing with Revealed Opponent Cards</label>
 <label class="switch">
-  <input id="revealedCardsCheckbox" type="checkbox" [checked]="revealedCards$ | ngrxPush"
-    (change)="toggleRevealedCards()">
+  <input
+    id="revealedCardsCheckbox"
+    type="checkbox"
+    [checked]="revealedCards$ | ngrxPush"
+    (change)="toggleRevealedCards()"
+  />
   <span class="slider round"></span>
 </label>

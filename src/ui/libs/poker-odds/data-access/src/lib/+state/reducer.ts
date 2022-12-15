@@ -1,17 +1,17 @@
-import { Round, RoundAnswerDto } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/ppo-core';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { UserScore } from '../dtos';
+import { RoundAnswer, UserScore } from '../dtos';
 import { estimateWasAccurate } from '../helpers';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
-type RoundAnswer = RoundAnswerDto & { didAccurateEstimate: boolean };
+type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };
 interface PokerOddsGameState {
   fetchingRound: boolean;
   calculatingAnswer: boolean;
   fetchingLeaderboards: boolean;
   round: Round | null;
   estimate: number | null;
-  answer: RoundAnswer | null;
+  answer: RoundAnswerWithEstimate | null;
   userScores: UserScore[] | null;
   roundStatus: RoundStatus;
   playWithRevealedCards: boolean;

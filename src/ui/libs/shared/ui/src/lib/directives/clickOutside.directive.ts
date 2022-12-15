@@ -4,7 +4,7 @@ import {
   EventEmitter,
   HostListener,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import { fromEvent, take } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class ClickOutsideDirective implements OnInit {
   constructor(private elRef: ElementRef) {}
 
   @HostListener('document:click', ['$event.target'])
-  onClick(target: HTMLElement) {
+  onClick(target: HTMLElement): void {
     if (!this.captured) {
       return;
     }
@@ -29,7 +29,7 @@ export class ClickOutsideDirective implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     fromEvent(document, 'click', { capture: true })
       .pipe(take(1))
       .subscribe(() => (this.captured = true));

@@ -1,11 +1,10 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
-import { DecodedJwt } from 'shared';
+import { DecodedJwt, decodedJwtIsValid } from 'shared';
 import request from 'supertest';
 import { mockDb } from '..//helpers';
 import { mockUserPayload1 } from '../fixtures';
@@ -20,7 +19,6 @@ describe('test fetch events endpoint', () => {
     app.use(PokerRouter);
     app.use(AuthRouter);
     registerErrorHandlers(app);
-
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
@@ -47,9 +45,8 @@ describe('test fetch events endpoint', () => {
   });
 
   it('should add user to admins', async () => {
-    const decodedToken = DecodedJwt.decode(decode(token));
-    const validToken = () => isRight(decodedToken);
-    expect(validToken()).toBeTruthy();
+    const decodedToken = decode(token) as DecodedJwt;
+    expect(decodedJwtIsValid(decodedToken)).toBeTruthy();
     await prisma.userRole.create({
       data: { role: 2, userEmail: mockUserPayload1.email },
     });

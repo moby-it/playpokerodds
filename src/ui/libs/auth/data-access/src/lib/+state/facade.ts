@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
-import { isRight } from 'fp-ts/es6/Either';
 import { map } from 'rxjs';
 import { AuthStatus } from '../..';
 import { EditUserDto, RegisterDto, SigninDto } from '../dtos';
@@ -29,16 +28,13 @@ export class AuthFacade {
   );
   errorMessage$ = this.store.select(selectErrorMessage);
   signin(dto: SigninDto): void {
-    if (isRight(SigninDto.decode(dto)))
-      this.store.dispatch(AuthActions.signin(dto));
+    this.store.dispatch(AuthActions.signin(dto));
   }
   register(dto: RegisterDto): void {
-    if (isRight(RegisterDto.decode(dto)))
-      this.store.dispatch(AuthActions.register(dto));
+    this.store.dispatch(AuthActions.register(dto));
   }
   changeUsername(dto: EditUserDto): void {
-    if (isRight(EditUserDto.decode(dto)))
-      this.store.dispatch(AuthActions.changeUsername(dto));
+    this.store.dispatch(AuthActions.changeUsername(dto));
   }
   clearErrorMessage(): void {
     this.store.dispatch(AuthActions.setErrorMessage({ message: '' }));

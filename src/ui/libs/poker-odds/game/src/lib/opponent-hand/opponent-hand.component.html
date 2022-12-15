@@ -1,4 +1,4 @@
-<ng-container *ngIf="isVisible;else showHandBadge">
+<ng-container *ngIf="isVisible; else showHandBadge">
   <div class="opponent-hand">
     <ppo-card *ngFor="let card of hand" [card]="card" class="card"></ppo-card>
   </div>

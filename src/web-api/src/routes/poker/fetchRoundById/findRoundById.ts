@@ -1,6 +1,5 @@
-import { Round } from '@moby-it/ppo-core';
+import { Board, Hand, Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { isLeft } from 'fp-ts/lib/Either';
 import prisma from 'prisma';
 
 export async function findRoundById(
@@ -13,18 +12,14 @@ export async function findRoundById(
     res.sendStatus(400);
     return;
   }
-  const prismaRound = Round.decode(
-    await prisma.round.findFirst({ where: { id: roundId } })
-  );
-  if (isLeft(prismaRound)) {
+  const round = await prisma.round.findFirst({ where: { id: roundId } });
+  if (!round) {
     res.sendStatus(404);
     return;
-  } else {
-    const round = prismaRound.right;
-    res.send({
-      board: round.board,
-      myHand: round.myHand,
-      opponentsHands: round.opponentsHands,
-    });
   }
+  res.send({
+    board: round.board as Board,
+    myHand: round.myHand as Hand,
+    opponentsHands: round.opponentsHands as Hand[],
+  });
 }

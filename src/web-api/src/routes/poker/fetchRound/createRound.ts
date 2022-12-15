@@ -1,22 +1,14 @@
-import { createRound, RoundInput } from '@moby-it/ppo-core';
+import { createRound, CreateRoundInputs, Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { fold } from 'fp-ts/lib/Either';
-import { pipe } from 'fp-ts/lib/function';
-export const createNewRound = async (
+export async function createNewRound(
   req: Request,
-  res: Response<unknown, RoundInput>,
+  res: Response<Round, CreateRoundInputs>,
   next: NextFunction
-) => {
-  pipe(
-    res.locals,
-    RoundInput.decode,
-    fold(
-      e => {
-        res.status(500).send(e);
-      },
-      round => {
-        res.send(createRound(round));
-      }
-    )
+) {
+  const round = createRound(
+    res.locals.totalHands,
+    res.locals.totalKnownHands,
+    res.locals.boardState
   );
-};
+  res.status(200).send(round);
+}

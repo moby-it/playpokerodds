@@ -30,7 +30,20 @@
       "src/ui",
       "src/calc-odds-api"
     ],
-    "peacock.color": "#42b883"
+    "peacock.color": "#42b883",
+    "prettier.configPath": "./src/ui/.prettierrc",
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
   },
   "extensions": {
     "recommendations": [

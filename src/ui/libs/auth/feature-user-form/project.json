@@ -1,4 +1,5 @@
 {
+  "name": "auth-feature-user-form",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/auth/feature-user-form/src",

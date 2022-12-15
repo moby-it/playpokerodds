@@ -1,6 +1,5 @@
-import { Round } from '@moby-it/ppo-core';
+import { Board, Hand, Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { isLeft } from 'fp-ts/lib/Either';
 import prisma from 'prisma';
 import { ExistingAnswerDto } from './existingAnswer.dto';
 
@@ -17,16 +16,17 @@ export async function findRoundById(
     res.sendStatus(400);
     return;
   }
-  const prismaRound = await prisma.round.findFirst({ where: { id: roundId } });
-  const round = Round.decode(prismaRound);
-  if (isLeft(round)) throw new Error('invalid round front db');
-  if (!prismaRound) {
+  const round = await prisma.round.findFirst({ where: { id: roundId } });
+  if (!round) {
     res.sendStatus(404);
     return;
-  } else {
-    res.locals.round = round.right;
-    res.locals.roundId = prismaRound.id;
-    res.locals.odds = Number(prismaRound.odds);
-    next();
   }
+  res.locals.round = {
+    board: round.board as Board,
+    myHand: round.myHand as Hand,
+    opponentsHands: round.opponentsHands as Hand[],
+  };
+  res.locals.roundId = round.id;
+  res.locals.odds = Number(round.odds);
+  next();
 }

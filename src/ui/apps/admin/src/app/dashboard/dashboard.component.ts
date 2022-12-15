@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { combineLatest, map } from 'rxjs';
 import { AppEvent, DashboardStore } from './dashboard.store';
 import { format } from 'date-fns';
@@ -49,7 +49,10 @@ export class DashboardComponent implements AfterViewInit {
   }
 }
 function filterPredicate(data: AppEvent, filter: string): boolean {
-  const date = format(new Date(data.timestamp),'MMMM dd yyyy hh mm ss SSSS XXXX').toLowerCase();
+  const date = format(
+    new Date(data.timestamp),
+    'MMMM dd yyyy hh mm ss SSSS XXXX'
+  ).toLowerCase();
 
   return (
     data.type.toLowerCase().includes(filter) ||

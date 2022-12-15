@@ -1,7 +1,5 @@
 import { Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { isLeft } from 'fp-ts/lib/Either';
-import { tryCatch } from 'fp-ts/lib/TaskEither';
 import prisma from 'prisma';
 import { EventType } from 'shared';
 import { extractUserDataFromRequest } from '../../../auth/common';
@@ -33,10 +31,7 @@ export const persistExistingRound = async (
     const userId = user.userId;
     eventPayload.userId = userId;
   }
-  const roundAnswerSaveResult = await createRoundAnswerModel(dto, user?.userId);
-  if (isLeft(roundAnswerSaveResult)) {
-    throw roundAnswerSaveResult.left;
-  }
+  await createRoundAnswerModel(dto, user?.userId);
   await prisma.event.create({
     data: {
       type: EventType.USER_POSTED_ANSWER,
@@ -48,15 +43,11 @@ export const persistExistingRound = async (
 };
 
 async function createRoundAnswerModel(dto: ExistingAnswerDto, userId?: string) {
-  return tryCatch(
-    () =>
-      prisma.roundAnswer.create({
-        data: {
-          roundId: dto.roundId,
-          estimate: dto.estimate,
-          userId,
-        },
-      }),
-    error => Error(String(error))
-  )();
+  await prisma.roundAnswer.create({
+    data: {
+      roundId: dto.roundId,
+      estimate: dto.estimate,
+      userId,
+    },
+  });
 }

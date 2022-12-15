@@ -4,9 +4,9 @@
       <tbody>
         <ng-container *ngrxLet="currentUser$ as currentUser">
           <tr *ngIf="currentUser" class="m-1">
-            <td>#{{userScores | leaderboardsPosition :currentUser}}</td>
-            <td>{{currentUser?.username}}</td>
-            <td>{{currentUser?.score}}</td>
+            <td>#{{ userScores | leaderboardsPosition: currentUser }}</td>
+            <td>{{ currentUser?.username }}</td>
+            <td>{{ currentUser?.score }}</td>
           </tr>
         </ng-container>
       </tbody>
@@ -18,13 +18,12 @@
           <th>Username</th>
           <th>Score</th>
         </tr>
-        <tr *ngFor=" let userScore of userScores;let i=index">
-          <td>{{i + 1}}</td>
-          <td>{{userScore.username}}</td>
-          <td>{{userScore.score}}</td>
+        <tr *ngFor="let userScore of userScores; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ userScore.username }}</td>
+          <td>{{ userScore.score }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-
 </div>

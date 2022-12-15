@@ -1,6 +1,6 @@
-<ng-container *ngIf="back;else flippedCard" >
-  <img src="/assets/cards/card_hidden.svg" @fade alt="" srcset="">
+<ng-container *ngIf="back; else flippedCard">
+  <img src="/assets/cards/card_hidden.svg" @fade alt="" srcset="" />
 </ng-container>
-<ng-template #flippedCard >
-  <img src="/assets/cards/{{card}}.svg" @fade alt="" srcset="">
+<ng-template #flippedCard>
+  <img src="/assets/cards/{{ card }}.svg" @fade alt="" srcset="" />
 </ng-template>

@@ -1,7 +1,5 @@
-import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { AuthRouter, PokerRouter } from 'routes';
@@ -10,7 +8,7 @@ import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  NewRoundPayloads,
+  NewRoundPayloads
 } from '../fixtures';
 import { mockDb } from '../helpers';
 

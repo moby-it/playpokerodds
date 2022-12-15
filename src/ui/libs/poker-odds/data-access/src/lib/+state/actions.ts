@@ -1,6 +1,6 @@
-import { Round, RoundAnswerDto } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/ppo-core';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { UserScore } from '../dtos';
+import { RoundAnswer, UserScore } from '../dtos';
 
 export const pokerOddsActions = createActionGroup({
   source: 'pokerOdds',
@@ -8,7 +8,9 @@ export const pokerOddsActions = createActionGroup({
     'set Loading': props<{ loading: boolean }>(),
     'start new Round': emptyProps(),
     'set Current Round': props<{ round: Round }>(),
-    'set Round Answer': props<{ answer: RoundAnswerDto }>(),
+    'set Round Answer': props<{ answer: RoundAnswer }>(),
+    'add Round To Favorites': props<{ roundId: string }>(),
+    'remove Round From Favorites': props<{ roundId: string }>(),
     'answer Round': props<{ estimate: number }>(),
     'fetch Leaderboards': emptyProps(),
     'set Leaderboards': props<{ scores: UserScore[] }>(),

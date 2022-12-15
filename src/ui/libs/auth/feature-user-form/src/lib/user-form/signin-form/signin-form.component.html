@@ -1,15 +1,29 @@
 <div class="user-form-container">
   <form [formGroup]="signinForm" class="form" (ngSubmit)="onSubmit()">
     <ng-container *ngFor="let control of signinForm.controls | keyvalue">
-      <label class="label"> {{control.key | titlecase}} </label>
-      <input class="control" [formControlName]="control.key" [name]="control.key"
-        [type]="control.key === 'password' ? 'password': 'username'" />
+      <label class="label"> {{ control.key | titlecase }} </label>
+      <input
+        class="control"
+        [formControlName]="control.key"
+        [name]="control.key"
+        [type]="control.key === 'password' ? 'password' : 'username'"
+      />
     </ng-container>
     <div class="submit-container">
-      <button type="submit" class="primary submit-btn" [disabled]="(formInvalid$ | ngrxPush)===true">Sign in</button>
-      <span>Dont'have an account yet? <b class="cursor-pointer" (click)="toRegisterInForm()">Register</b></span>
+      <button
+        type="submit"
+        class="primary submit-btn"
+        [disabled]="(formInvalid$ | ngrxPush) === true"
+      >
+        Sign in
+      </button>
+      <span
+        >Dont'have an account yet?
+        <b class="cursor-pointer" (click)="toRegisterInForm()"
+          >Register</b
+        ></span
+      >
       <ng-content [select]="error"></ng-content>
-
     </div>
   </form>
 </div>
