@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Round } from '@moby-it/ppo-core';
+import { CreateRoundInputs, Round } from '@moby-it/ppo-core';
 import { API_URL } from '@ppo/shared/config';
 import { delay, Observable } from 'rxjs';
 import { RoundAnswer, UserScore } from './dtos';
-import { RoundInputs } from './helpers';
 
 @Injectable()
 export class PokerOddsApiClient {
@@ -21,7 +20,7 @@ export class PokerOddsApiClient {
     boardState,
     totalHands,
     totalKnownHands,
-  }: RoundInputs): Observable<Round> {
+  }: CreateRoundInputs): Observable<Round> {
     return this.http.get<Round>(`${this.apiUrl}/poker/FetchRound`, {
       params: {
         totalHands,
@@ -49,6 +48,18 @@ export class PokerOddsApiClient {
         roundId,
         estimate,
       }
+    );
+  }
+  addToFavorites(roundId: string): Observable<RoundAnswer> {
+    return this.http.put<RoundAnswer>(
+      `${this.apiUrl}/poker/addToFavorites/${roundId}`,
+      {}
+    );
+  }
+  removeFromFavorites(roundId: string): Observable<RoundAnswer> {
+    return this.http.put<RoundAnswer>(
+      `${this.apiUrl}/poker/removeFromFavorites/${roundId}`,
+      {}
     );
   }
   fetchLeaderboards(): Observable<UserScore[]> {

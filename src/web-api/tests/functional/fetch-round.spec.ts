@@ -1,10 +1,10 @@
 import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import prisma from 'prisma';
 import { PokerRouter } from 'routes';
+import { validateObject } from 'shared';
 import request from 'supertest';
 import { mockDb, postNewRound } from '../helpers';
 describe('test fetch round endpoint', () => {
@@ -78,8 +78,12 @@ describe('test fetch round endpoint', () => {
         .get('/fetchRandomRound')
         .expect(200)
         .expect(response => {
-          const round = Round.decode(response.body);
-          expect(isRight(round)).toBeTruthy();
+          const roundIsValid =
+            validateObject(response.body) &&
+            'myHand' in response.body &&
+            'opponentsHands' in response.body &&
+            'board' in response.body;
+          expect(roundIsValid).toBeTruthy();
         });
     });
   }

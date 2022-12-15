@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { isLeft } from 'fp-ts/lib/Either';
-import { PathReporter } from 'io-ts/lib/PathReporter';
+import { validateObject } from 'shared';
 import { NewAnswerDto } from './newAnswer.dto';
 
 export const validatePayload = (
@@ -8,11 +7,19 @@ export const validatePayload = (
   res: Response<unknown, { dto: NewAnswerDto }>,
   next: NextFunction
 ) => {
-  const dto = NewAnswerDto.decode(req.body);
-  if (isLeft(dto)) {
-    res.status(400).send({ error: PathReporter.report(dto) });
-  } else {
-    res.locals.dto = dto.right;
+  const dto = req.body as NewAnswerDto;
+  if (
+    validateObject(dto) &&
+    'estimate' in dto &&
+    'round' in dto &&
+    'myHand' in dto.round &&
+    'opponentsHands' in dto.round &&
+    'board' in dto.round
+  ) {
+    res.locals.dto = dto;
     next();
+    return;
+  } else {
+    res.sendStatus(400);
   }
 };

@@ -1,9 +1,8 @@
-import { createRoundFromProps, Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
-import { DecodedJwt } from 'shared';
+import { decodedJwtIsValid } from 'shared';
 import { ExistingAnswerDto } from './existingRoundAnswer/existingAnswer.dto';
 import { NewAnswerDto } from './newRoundAnswer/newAnswer.dto';
 import { RoundAnswerResponse } from './RoundAnswerResponse';
@@ -39,9 +38,9 @@ export const pesistUserScore = async (
   };
   if (authHeader) {
     const token = authHeader.substring(7, authHeader.length);
-    const decodedToken = DecodedJwt.decode(decode(token));
-    if (isRight(decodedToken)) {
-      const id = decodedToken.right.userId;
+    const decodedToken = decode(token);
+    if (decodedJwtIsValid(decodedToken)) {
+      const id = decodedToken.userId;
       await prisma.user.update({
         where: { id },
         data: {

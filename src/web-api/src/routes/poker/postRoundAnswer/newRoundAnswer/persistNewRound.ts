@@ -1,7 +1,5 @@
 import { Round } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { isLeft } from 'fp-ts/lib/Either';
-import { tryCatch } from 'fp-ts/lib/TaskEither';
 import prisma from 'prisma';
 import { EventType } from 'shared';
 import { extractUserDataFromRequest } from '../../../auth/common';
@@ -34,18 +32,8 @@ export const pesistNewRound = async (
     eventPayload.userId = userId;
   }
   const roundSaveResult = await createRoundModel(round, res.locals.odds);
-  if (isLeft(roundSaveResult)) {
-    throw roundSaveResult.left;
-  }
-  const roundId = roundSaveResult.right.id;
-  const roundAnswerSaveResult = await createRoundAnswerModel(
-    dto,
-    roundSaveResult.right.id,
-    user?.userId
-  );
-  if (isLeft(roundAnswerSaveResult)) {
-    throw roundAnswerSaveResult.left;
-  }
+  const roundId = roundSaveResult.id;
+  await createRoundAnswerModel(dto, roundSaveResult.id, user?.userId);
   await prisma.event.create({
     data: {
       type: EventType.USER_POSTED_ANSWER,
@@ -57,33 +45,25 @@ export const pesistNewRound = async (
 };
 
 async function createRoundModel(round: Round, odds: number) {
-  return tryCatch(
-    () =>
-      prisma.round.create({
-        data: {
-          myHand: round.myHand,
-          opponentsHands: round.opponentsHands,
-          board: round.board,
-          odds: odds,
-        },
-      }),
-    error => Error(String(error))
-  )();
+  return await prisma.round.create({
+    data: {
+      myHand: round.myHand,
+      opponentsHands: round.opponentsHands,
+      board: round.board,
+      odds: odds,
+    },
+  });
 }
 async function createRoundAnswerModel(
   dto: NewAnswerDto,
   roundId: string,
   userId?: string
 ) {
-  return tryCatch(
-    () =>
-      prisma.roundAnswer.create({
-        data: {
-          roundId,
-          estimate: dto.estimate,
-          userId,
-        },
-      }),
-    error => Error(String(error))
-  )();
+  return await prisma.roundAnswer.create({
+    data: {
+      roundId,
+      estimate: dto.estimate,
+      userId,
+    },
+  });
 }

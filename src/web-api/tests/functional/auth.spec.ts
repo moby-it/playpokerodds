@@ -1,12 +1,11 @@
 import { config } from 'dotenv';
 import express, { Application } from 'express';
-import { isRight } from 'fp-ts/lib/Either';
 import { decode } from 'jsonwebtoken';
-import { registerMiddleware, registerErrorHandlers } from 'middleware';
+import { registerErrorHandlers, registerMiddleware } from 'middleware';
 import { UserRoles } from 'model';
 import prisma from 'prisma';
 import { AuthRouter } from 'routes';
-import { DecodedJwt } from 'shared';
+import { DecodedJwt, decodedJwtIsValid } from 'shared';
 import request from 'supertest';
 import {
   mockUserInvalidPayload1,
@@ -89,11 +88,9 @@ describe('test auth endpoints', () => {
       });
   });
   it('should include role in token', () => {
-    const decodedToken = DecodedJwt.decode(decode(token));
-    expect(isRight(decodedToken)).toBeTruthy();
-    if (decodedToken._tag === 'Right') {
-      expect(decodedToken.right.role).toEqual(0);
-    }
+    const decodedToken = decode(token) as DecodedJwt;
+    expect(decodedJwtIsValid(decodedToken)).toBeTruthy();
+    expect(decodedToken.role).toEqual(0);
   });
   it('should change username', done => {
     const newUsername = 'fasolakis';
@@ -115,7 +112,7 @@ describe('test auth endpoints', () => {
     await request(app)
       .post('/changeUsername')
       .send({ username: newUsername })
-      .expect(400);
+      .expect(401);
   });
   it('should add user as admin', async () => {
     const result = await prisma.userRole.create({

@@ -1,33 +1,39 @@
-import { RoundInput, RoundInputQueryParams } from '@moby-it/ppo-core';
 import { NextFunction, Request, Response } from 'express';
-import { chain, isLeft, map } from 'fp-ts/lib/Either';
-import { pipe } from 'fp-ts/lib/function';
-import { PathReporter } from 'io-ts/lib/PathReporter';
+import { validateObject } from 'shared';
 
 export const validatePayload = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  return pipe(
-    req.query,
-    RoundInputQueryParams.decode,
-    map(
-      ({ boardState, totalHands, totalKnownHands }) =>
-        ({
-          boardState: Number(boardState),
-          totalHands: Number(totalHands),
-          totalKnownHands: Number(totalKnownHands),
-        } as RoundInput)
-    ),
-    chain(RoundInput.decode),
-    result => {
-      if (isLeft(result)) {
-        return res.status(400).send({ error: PathReporter.report(result) });
-      } else {
-        res.locals = result.right;
-        next();
-      }
+  if (
+    validateObject(req.query) &&
+    'boardState' in req.query &&
+    'totalHands' in req.query &&
+    'totalKnownHands' in req.query
+  ) {
+    const boardState = Number(req.query.boardState);
+    if (boardState < 0 || boardState > 3) {
+      res.sendStatus(400);
+      return;
     }
-  );
+    const totalHands = Number(req.query.totalHands);
+    if (totalHands <= 0 || totalHands > 9) {
+      res.sendStatus(400);
+      return;
+    }
+    const totalKnownHands = Number(req.query.totalKnownHands);
+    if (totalKnownHands > totalHands) {
+      res.sendStatus(400);
+      return;
+    }
+    res.locals = {
+      boardState,
+      totalHands,
+      totalKnownHands,
+    };
+    next();
+  } else {
+    res.sendStatus(400);
+  }
 };

@@ -1,7 +1,16 @@
-import * as t from 'io-ts';
-export const DecodedJwt = t.type({
-  userId: t.string,
-  email: t.string,
-  role: t.number,
-});
-export type DecodedJwt = t.TypeOf<typeof DecodedJwt>;
+export interface DecodedJwt {
+  userId: string;
+  email: string;
+  role: number;
+}
+export function decodedJwtIsValid(
+  decodedJwt: unknown
+): decodedJwt is DecodedJwt {
+  return (
+    typeof decodedJwt === 'object' &&
+    !!decodedJwt &&
+    'userId' in decodedJwt &&
+    'email' in decodedJwt &&
+    'role' in decodedJwt
+  );
+}

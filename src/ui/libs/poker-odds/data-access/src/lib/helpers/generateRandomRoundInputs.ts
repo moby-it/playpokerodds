@@ -1,11 +1,6 @@
-import { BoardState } from '@moby-it/ppo-core';
+import { BoardState, CreateRoundInputs } from '@moby-it/ppo-core';
 
-export interface RoundInputs {
-  boardState: number;
-  totalHands: number;
-  totalKnownHands: number;
-}
-export function generateRandomRoundInputs(): RoundInputs {
+export function generateRandomRoundInputs(): CreateRoundInputs {
   const boardState = rng(BoardState.PreFlop, BoardState.Turn);
   const totalHands = rng(2, 5);
   const totalKnownHands = totalHands;
