@@ -11,9 +11,9 @@ export const calculateWinOdds = async (
     .post(calcOddsUrl, {
       round: res.locals.dto.round,
     })
-    .then(response => {
-      res.locals.odds = response.data;
+    .then((response) => {
+      res.locals.odds = response.data.odds;
       next();
     })
-    .catch(e => res.status(400).send(e));
+    .catch((e) => res.status(400).send(e));
 };
