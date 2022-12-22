@@ -9,7 +9,7 @@ on:
       - main
     paths:
       - "src/ui/**"
-      - "!src/ui/admin/**"
+      - "!src/ui/apps/admin/**"
   workflow_dispatch:
 
 jobs:
