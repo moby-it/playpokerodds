@@ -10,10 +10,12 @@
   min-width: 300px;
 }
 
-mat-card-title,
-mat-card-content {
+mat-card-title{
+  text-align: center;
+}
+mat-card-content form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .error {
