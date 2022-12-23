@@ -49,12 +49,12 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 }
+
 function filterPredicate(data: AppEvent, filter: string): boolean {
   const date = format(
     new Date(data.timestamp),
     'MMMM dd yyyy hh mm ss SSSS XXXX'
   ).toLowerCase();
-
   return (
     data.type.toLowerCase().includes(filter) ||
     date.includes(filter) ||
