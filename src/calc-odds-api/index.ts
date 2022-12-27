@@ -1,15 +1,15 @@
-import { calculateOdds, Round } from '@moby-it/ppo-core';
+import { calculateOdds, validateRound } from '@moby-it/ppo-core';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 7071;
 
 app.get('/', (req: Request, res: Response) => {
   const body = req.body;
-  if (!inputIsValid(body)) {
+  if (!validateRound(body)) {
     res.sendStatus(400).send('invalid body payload');
     return;
   }
@@ -20,6 +20,3 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 });
-function inputIsValid(payload: unknown): payload is Round {
-  return true;
-}
