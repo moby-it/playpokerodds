@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'auth-data-access',
+  displayName: 'auth-domain',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/auth/data-access',
+  coverageDirectory: '../../../coverage/libs/auth/domain',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

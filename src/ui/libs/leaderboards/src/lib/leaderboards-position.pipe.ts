@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { UserScore } from '@ppo/game/domain';
-import { User } from '@ppo/auth/data-access';
+import { User } from '@ppo/auth/domain';
 
 @Pipe({
   name: 'leaderboardsPosition',

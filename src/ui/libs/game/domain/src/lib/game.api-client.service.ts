@@ -6,7 +6,7 @@ import { delay, Observable } from 'rxjs';
 import { RoundAnswer, UserScore } from './dtos';
 
 @Injectable()
-export class PokerOddsApiClient {
+export class GameApiClient {
   constructor(
     @Inject(API_URL) private apiUrl: string,
     private http: HttpClient

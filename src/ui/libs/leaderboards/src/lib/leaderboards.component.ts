@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthFacade } from '@ppo/auth/data-access';
+import { AuthFacade } from '@ppo/auth/domain';
 import { PokerOddsFacade } from '@ppo/game/domain';
 import { filter } from 'rxjs';
 @Component({

@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PokerOddsFacade } from '@ppo/game/domain';
 import { ToastrService } from 'ngx-toastr';
-import { AuthFacade } from '@ppo/auth/data-access';
+import { AuthFacade } from '@ppo/auth/domain';
 import { take } from 'rxjs';
 @Component({
-  selector: 'ppo-poker-odds-game',
-  templateUrl: './poker-odds-game.component.html',
-  styleUrls: ['./poker-odds-game.component.css'],
+  selector: 'ppo-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.css'],
 })
 export class GameUiComponent implements OnDestroy, OnInit {
   constructor(

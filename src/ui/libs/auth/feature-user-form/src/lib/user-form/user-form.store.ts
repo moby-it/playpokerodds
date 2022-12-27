@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ComponentStore } from '@ngrx/component-store';
-import { AuthFacade, AuthStatus } from '@ppo/auth/data-access';
+import { AuthFacade, AuthStatus } from '@ppo/auth/domain';
 import { Observable, tap, withLatestFrom } from 'rxjs';
 export enum FormType {
   REGISTER,

@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
 import { generateRandomRoundInputs } from '../helpers';
-import { PokerOddsApiClient } from '../poker-odds.api-client.service';
+import { GameApiClient } from '../game.api-client.service';
 import { pokerOddsActions } from './actions';
 import { selectPlayWithRevealedCards, selectRound } from './reducer';
 
@@ -12,7 +12,7 @@ import { selectPlayWithRevealedCards, selectRound } from './reducer';
 export class PokerOddsEffects {
   constructor(
     private actions: Actions,
-    private pokerOddsApiClient: PokerOddsApiClient,
+    private pokerOddsApiClient: GameApiClient,
     private store: Store
   ) {}
   fetchRound$ = createEffect(() =>

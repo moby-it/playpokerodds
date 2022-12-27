@@ -6,7 +6,7 @@ import { LetModule, PushModule } from '@ngrx/component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AuthDataAccessModule } from '@ppo/auth/data-access';
+import { AuthDomainModule } from '@ppo/auth/domain';
 import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
 import { GameDomainModule } from '@ppo/game/domain';
 import { API_URL } from '@ppo/shared/config';
@@ -34,7 +34,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
     GameDomainModule,
-    AuthDataAccessModule,
+    AuthDomainModule,
     SharedUiModule,
     AuthFeatureUserFormModule,
     ToastrModule.forRoot({

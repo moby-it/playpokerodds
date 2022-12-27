@@ -3,7 +3,7 @@
   "version": 2,
   "projects": {
     "admin": "apps/admin",
-    "auth-data-access": "libs/auth/data-access",
+    "auth-domain": "libs/auth/domain",
     "auth-feature-user-form": "libs/auth/feature-user-form",
     "client": "apps/client",
     "game-domain": "libs/game/domain",

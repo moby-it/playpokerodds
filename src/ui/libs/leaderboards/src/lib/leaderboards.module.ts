@@ -4,7 +4,7 @@ import { LetModule } from '@ngrx/component';
 import { LeaderboardsComponent } from './leaderboards.component';
 import { LeaderboardsResolver } from './leaderboards.resolvers';
 import { LeaderboardsPositionPipe } from './leaderboards-position.pipe';
-import { LeaderboardsRoutingModule } from './poker-odds-leaderboards.routing.module';
+import { LeaderboardsRoutingModule } from './leaderboards.routing.module';
 
 @NgModule({
   imports: [CommonModule, LeaderboardsRoutingModule, LetModule],

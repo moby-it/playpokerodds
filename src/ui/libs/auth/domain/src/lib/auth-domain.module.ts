@@ -12,4 +12,4 @@ import { AuthApiClient } from './auth.api-client.service';
   ],
   providers: [AuthApiClient],
 })
-export class AuthDataAccessModule {}
+export class AuthDomainModule {}
