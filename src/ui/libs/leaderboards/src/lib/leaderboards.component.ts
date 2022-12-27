@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AuthFacade } from '@ppo/auth/domain';
 import { PokerOddsFacade } from '@ppo/game/domain';
-import { filter } from 'rxjs';
+import { filter, map, withLatestFrom } from 'rxjs';
 @Component({
   selector: 'ppo-leaderboards',
   templateUrl: './leaderboards.component.html',
@@ -14,7 +14,14 @@ export class LeaderboardsComponent implements OnDestroy {
   ) {}
   userScores$ = this.pokerOddsFacade.userScores$.pipe(filter(Boolean));
   loading$ = this.pokerOddsFacade.fetchingLeaderboards$;
-  currentUser$ = this.auth.user$;
+  currentUserScore$ = this.auth.user$
+    .pipe(withLatestFrom(this.userScores$))
+    .pipe(
+      map(([currentUser, userScores]) =>
+        userScores.find((score) => score.username === currentUser?.username)
+      ),
+      filter(Boolean)
+    );
   refreshScores(): void {
     this.pokerOddsFacade.refreshLeaderboards();
   }

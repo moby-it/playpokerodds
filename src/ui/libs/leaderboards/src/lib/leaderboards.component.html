@@ -2,11 +2,11 @@
   <div class="leaderboards-container" *ngrxLet="userScores$ as userScores">
     <table class="leaderboards-table my-score">
       <tbody>
-        <ng-container *ngrxLet="currentUser$ as currentUser">
-          <tr *ngIf="currentUser" class="m-1">
-            <td>#{{ userScores | leaderboardsPosition: currentUser }}</td>
-            <td>{{ currentUser?.username }}</td>
-            <td>{{ currentUser?.score }}</td>
+        <ng-container *ngrxLet="currentUserScore$ as currentUserScore">
+          <tr *ngIf="currentUserScore" class="m-1">
+            <td>#{{ userScores | leaderboardsPosition: currentUserScore }}</td>
+            <td>{{ currentUserScore.username }}</td>
+            <td>{{ currentUserScore.score }}</td>
           </tr>
         </ng-container>
       </tbody>
