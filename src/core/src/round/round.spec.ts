@@ -3,7 +3,7 @@ import { validateRound } from './round';
 describe('test round validator', () => {
   it('should consider round invalid ', () => {
     const round = {
-      boardState: 5,
+      board: ['Ac', 'Kd'],
       myHand: ['Ac', 'Kd'],
       opponentsHands: [['..', '..']],
     };
@@ -11,7 +11,7 @@ describe('test round validator', () => {
   });
   it('should consider round invalid ', () => {
     const round = {
-      boardState: 3,
+      board: [],
       myHand: ['Ac', 'Kd', '3c'],
       opponentsHands: [['..', '..']],
     };
@@ -19,7 +19,7 @@ describe('test round validator', () => {
   });
   it('should consider round invalid ', () => {
     const round = {
-      boardState: 2,
+      board: [],
       myHand: ['Ac', 'Kd'],
       opponentsHands: [['fasolaki', '..']],
     };
@@ -27,14 +27,14 @@ describe('test round validator', () => {
   });
   it('should consider round invalid ', () => {
     const round = {
-      boardState: 2,
+      board: [],
       myHand: ['Ac', 'Kd'],
     };
     expect(validateRound(round)).toBeFalsy();
   });
   it('should consider round invalid ', () => {
     const round = {
-      boardState: 2,
+      board: ['Ac', '2d', '3h'],
       myHand: ['Ac', 'Kd'],
       opponentsHands: [],
     };
@@ -42,7 +42,7 @@ describe('test round validator', () => {
   });
   it('should consider round valid ', () => {
     const round = {
-      boardState: 2,
+      board: ['Ah', '2d', '3h'],
       myHand: ['Ac', 'Kd'],
       opponentsHands: [
         ['..', '..'],

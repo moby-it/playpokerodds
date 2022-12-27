@@ -1,4 +1,4 @@
-import { BoardState, validateBoardState } from '../board';
+import { BoardState, validateBoard } from '../board';
 import { Board } from '../board/board';
 import { Card, UnknownCard } from '../card';
 import { Hand, validateHand } from '../hand';
@@ -29,8 +29,8 @@ function _validateRound(payload: unknown): payload is Round {
         accumulator && validateHand(currentValue),
       true
     ) &&
-    'boardState' in p &&
-    validateBoardState(p.boardState)
+    'board' in p &&
+    validateBoard(p.board)
   );
 }
 function roundHasDuplicateCard(round: Round): boolean {
