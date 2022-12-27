@@ -66,3 +66,10 @@ export type Diamond = typeof Diamond;
 
 export const UnknownCard = '..' as const;
 export type Card = string;
+
+export function validateCard(payload: unknown): payload is Card {
+  return (
+    typeof payload === 'string' &&
+    payload in [...Spade, ...Heart, ...Diamond, ...Club, UnknownCard]
+  );
+}

@@ -16,3 +16,6 @@ export function openBoardCardsFromState(state: BoardState): BoardState {
       return 5;
   }
 }
+export function validateBoardState(payload: unknown): payload is BoardState {
+  return typeof payload === 'number' && payload >= 0 && payload <= 3;
+}
