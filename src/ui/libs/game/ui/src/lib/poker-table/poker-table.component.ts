@@ -1,0 +1,13 @@
+import { Component } from '@angular/core';
+import { PokerOddsFacade } from '@ppo/game/domain';
+import { filter } from 'rxjs';
+
+@Component({
+  selector: 'ppo-poker-table',
+  templateUrl: './poker-table.component.html',
+  styleUrls: ['./poker-table.component.css'],
+})
+export class PokerTableComponent {
+  constructor(private pokerFacade: PokerOddsFacade) {}
+  round$ = this.pokerFacade.currentRound$.pipe(filter(Boolean));
+}

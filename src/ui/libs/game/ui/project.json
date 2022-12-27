@@ -1,25 +1,22 @@
 {
-  "name": "shared-config",
+  "name": "game-ui",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/shared/config/src",
+  "sourceRoot": "libs/game/ui/src",
   "prefix": "ppo",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/config"],
+      "outputs": ["{workspaceRoot}/coverage/libs/game/ui"],
       "options": {
-        "jestConfig": "libs/shared/config/jest.config.ts",
+        "jestConfig": "libs/game/ui/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/config/**/*.ts",
-          "libs/shared/config/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/game/ui/**/*.ts", "libs/game/ui/**/*.html"]
       }
     }
   },

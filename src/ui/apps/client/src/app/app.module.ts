@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthDataAccessModule } from '@ppo/auth/data-access';
 import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
-import { PokerOddsDataAccessModule } from '@ppo/poker-odds/data-access';
+import { GameDomainModule } from '@ppo/game/domain';
 import { API_URL } from '@ppo/shared/config';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { ToastrModule } from 'ngx-toastr';
@@ -33,7 +33,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
-    PokerOddsDataAccessModule,
+    GameDomainModule,
     AuthDataAccessModule,
     SharedUiModule,
     AuthFeatureUserFormModule,

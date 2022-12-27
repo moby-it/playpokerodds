@@ -6,9 +6,10 @@
     "auth-data-access": "libs/auth/data-access",
     "auth-feature-user-form": "libs/auth/feature-user-form",
     "client": "apps/client",
-    "poker-odds-data-access": "libs/poker-odds/data-access",
-    "poker-odds-game": "libs/poker-odds/game",
-    "poker-odds-leaderboards": "libs/poker-odds/leaderboards",
+    "game-domain": "libs/game/domain",
+    "game-ui": "libs/game/ui",
+    "leaderboards": "libs/leaderboards",
+    "profile": "libs/profile",
     "shared-config": "libs/shared/config",
     "shared-ui": "libs/shared/ui"
   }
