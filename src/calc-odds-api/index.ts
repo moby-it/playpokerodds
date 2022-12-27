@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/calcOdds', (req: Request, res: Response) => {
-  const body = req.body;
+  const body = req.body.round;
   if (!validateRound(body)) {
     res.status(400).send('invalid body payload');
     return;
