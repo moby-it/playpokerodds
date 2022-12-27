@@ -1,5 +1,6 @@
 import { BoardState, validateBoardState } from '../board';
 import { Board } from '../board/board';
+import { Card, UnknownCard } from '../card';
 import { Hand, validateHand } from '../hand';
 
 export interface Round {
@@ -12,19 +13,33 @@ export interface CreateRoundInputs {
   totalKnownHands: number;
   boardState: BoardState;
 }
-export function validateRound(payload: unknown): payload is Round {
+function _validateRound(payload: unknown): payload is Round {
+  const isObject = typeof payload === 'object' && !!payload;
+  if (!isObject) return false;
+  const p = payload as Record<string, unknown>;
   return (
-    typeof payload === 'object' &&
-    !!payload &&
-    'myHand' in payload &&
-    validateHand(payload.myHand) &&
+    'myHand' in p &&
+    validateHand(p.myHand) &&
     'opponentsHands' in payload &&
-    Array.isArray(payload.opponentsHands) &&
-    payload.opponentsHands.reduce(
-      (prev, current) => current && validateHand(prev),
+    Array.isArray(p.opponentsHands) &&
+    p.opponentsHands.length <= 8 &&
+    p.opponentsHands.length > 0 &&
+    p.opponentsHands.reduce(
+      (accumulator: boolean, currentValue: Hand) =>
+        accumulator && validateHand(currentValue),
       true
     ) &&
-    'boardState' in payload &&
-    validateBoardState(payload.boardState)
+    'boardState' in p &&
+    validateBoardState(p.boardState)
   );
+}
+function roundHasDuplicateCard(round: Round): boolean {
+  const cards: Card[] = [
+    ...round.myHand,
+    ...round.opponentsHands.flat(),
+  ].filter((c) => c !== UnknownCard);
+  return cards.length !== new Set(cards).size;
+}
+export function validateRound(payload: unknown): payload is Round {
+  return _validateRound(payload) && !roundHasDuplicateCard(payload);
 }

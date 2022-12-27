@@ -68,8 +68,12 @@ export const UnknownCard = '..' as const;
 export type Card = string;
 
 export function validateCard(payload: unknown): payload is Card {
-  return (
-    typeof payload === 'string' &&
-    payload in [...Spade, ...Heart, ...Diamond, ...Club, UnknownCard]
-  );
+  const cards = [
+    ...Spade,
+    ...Heart,
+    ...Diamond,
+    ...Club,
+    UnknownCard,
+  ] as Card[];
+  return typeof payload === 'string' && cards.includes(payload);
 }
