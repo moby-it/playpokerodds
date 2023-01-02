@@ -15,7 +15,7 @@ const httpTrigger: AzureFunction = async function (
   }
   const odds = calculateOdds(round);
   context.res = {
-    body: odds,
+    body: { odds },
   };
 };
 

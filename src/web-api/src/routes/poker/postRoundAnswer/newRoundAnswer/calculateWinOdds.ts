@@ -12,12 +12,13 @@ export const calculateWinOdds = async (
       round: res.locals.dto.round,
     })
     .then((response) => {
-      console.log(response)
+      if(typeof response.data.odds !== 'number') {
+        throw new Error("3303: invalid response type")
+      }
       res.locals.odds = response.data.odds;
       next();
     })
     .catch((e) => {
-      console.error(e);
       res.status(400).send(e);
     });
 };
