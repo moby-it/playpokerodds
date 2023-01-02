@@ -10,15 +10,12 @@ const routes: Routes = [
   },
   {
     path: 'play',
-    loadChildren: () =>
-      import('@ppo/poker-odds/game').then((m) => m.PokerOddsGameModule),
+    loadChildren: () => import('@ppo/game/ui').then((m) => m.GameUiModule),
   },
   {
     path: 'leaderboards',
     loadChildren: () =>
-      import('@ppo/poker-odds/leaderboards').then(
-        (m) => m.PokerOddsLeaderboardsModule
-      ),
+      import('@ppo/leaderboards').then((m) => m.LeaderboardsModule),
   },
   {
     path: '**',

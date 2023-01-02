@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthFacade } from '@ppo/auth/data-access';
+import { AuthFacade } from '@ppo/auth/domain';
 @Component({
   selector: 'ppo-top-bar',
   templateUrl: './top-bar.component.html',

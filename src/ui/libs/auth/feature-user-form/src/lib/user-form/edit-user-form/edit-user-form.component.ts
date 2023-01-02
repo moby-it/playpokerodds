@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AuthFacade } from '@ppo/auth/data-access';
+import { AuthFacade } from '@ppo/auth/domain';
 import { filter, map, tap } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
 

@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="leaderboards-container" *ngrxLet="userScores$ as userScores">
+    <table class="leaderboards-table my-score">
+      <tbody>
+        <ng-container *ngrxLet="currentUserScore$ as currentUserScore">
+          <tr *ngIf="currentUserScore" class="m-1">
+            <td>#{{ userScores | leaderboardsPosition: currentUserScore }}</td>
+            <td>{{ currentUserScore.username }}</td>
+            <td>{{ currentUserScore.score }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <table class="leaderboards-table">
+      <tbody>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Score</th>
+        </tr>
+        <tr *ngFor="let userScore of userScores; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ userScore.username }}</td>
+          <td>{{ userScore.score }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

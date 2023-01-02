@@ -6,6 +6,7 @@ export {
   createRound,
   Round,
   CreateRoundInputs,
+  validateRound,
 } from './round';
 export { Card } from './card';
 export { Hand } from './hand';
