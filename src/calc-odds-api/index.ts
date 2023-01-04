@@ -8,7 +8,9 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 7071;
-app.use(cors());
+app.use(cors({
+  origin:'https://playpokerodds.com',
+}));
 app.use(bodyParser.json());
 
 app.post('/api/calcOdds', (req: Request, res: Response) => {
