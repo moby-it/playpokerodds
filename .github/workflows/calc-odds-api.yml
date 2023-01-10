@@ -43,5 +43,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          env: SHA,CONTAINER_USERNAME
+          envs: SHA,CONTAINER_USERNAME
           script: docker service update gtop-calc-odds --image=$CONTAINER_USERNAME/gtop-calc-odds:$SHA
