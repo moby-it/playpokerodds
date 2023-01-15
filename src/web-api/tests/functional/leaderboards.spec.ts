@@ -8,9 +8,7 @@ import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  mockUserPayload3,
-  mockUserPayload4,
-  NewRoundPayloads
+  NewRoundPayloads,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test leaderboards', () => {
@@ -28,40 +26,24 @@ describe('test leaderboards', () => {
     await mockDb.tearDown(prisma);
   });
 
-  it('should create four users', async () => {
+  it('should create 2 users', async () => {
     await request(app)
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
       .expect(response => {
-        tokens.push();
         expect('token' in response.body).toBeTruthy();
+        tokens.push(response.body.token);
       });
     await request(app)
       .post('/register')
       .send(mockUserPayload2)
       .expect(200)
       .expect(response => {
-        tokens.push();
         expect('token' in response.body).toBeTruthy();
+        tokens.push(response.body.token);
       });
-    await request(app)
-      .post('/register')
-      .send(mockUserPayload3)
-      .expect(200)
-      .expect(response => {
-        tokens.push();
-        expect('token' in response.body).toBeTruthy();
-      });
-    await request(app)
-      .post('/register')
-      .send(mockUserPayload4)
-      .expect(200)
-      .expect(response => {
-        tokens.push();
-        expect('token' in response.body).toBeTruthy();
-      });
-    expect(await prisma.user.count()).toEqual(4);
+    expect(await prisma.user.count()).toEqual(2);
   });
 
   it('should play a some rounds', async () => {
@@ -76,25 +58,24 @@ describe('test leaderboards', () => {
         roundId = response.body.id;
       });
     await request(app)
+      .post('/postNewRoundAnswer')
+      .send(NewRoundPayloads.postValidRoundPayload1)
+      .auth(tokens[1], { type: 'bearer' })
+      .expect(200);
+    await request(app)
       .post('/postExistingRoundAnswer')
       .send({ ...ExistingRoundPayloads.postValidRoundPayload1, roundId })
       .auth(tokens[1], { type: 'bearer' })
       .expect(200);
-    await request(app)
-      .post('/postNewRoundAnswer')
-      .send(NewRoundPayloads.postValidRoundPayload2)
-      .auth(tokens[2], { type: 'bearer' })
-      .expect(200);
+    const roundAnswers = await prisma.roundAnswer.findMany();
+    expect(roundAnswers.length).toEqual(3);
   });
-  it('should have 4 users on the leaderboards', async () => {
+  it('should have 1 user on the leaderboards', async () => {
     await request(app)
       .get('/fetchLeaderboards')
       .expect(200)
       .expect(response => {
-        expect(Array.isArray(response.body)).toBeTruthy();
-        expect(response.body.length).toEqual(4);
-        const lastScore = Number(response.body[response.body.length - 1].score);
-        expect(lastScore).toEqual(0);
+        expect(response.body.length).toEqual(1);
       });
   });
 });

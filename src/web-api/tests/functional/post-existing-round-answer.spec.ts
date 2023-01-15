@@ -31,7 +31,7 @@ describe('test post existing round answer endpoint', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(res => {
+      .expect((res) => {
         tokens.push(res.body.token);
         usernames.push(res.body.username);
         totalEvents++;
@@ -40,7 +40,7 @@ describe('test post existing round answer endpoint', () => {
       .post('/register')
       .send(mockUserPayload2)
       .expect(200)
-      .expect(res => {
+      .expect((res) => {
         tokens.push(res.body.token);
         usernames.push(res.body.username);
         totalEvents++;
@@ -49,7 +49,7 @@ describe('test post existing round answer endpoint', () => {
       .post('/postNewRoundAnswer')
       .send(NewRoundPayloads.postValidRoundPayload1)
       .expect(200)
-      .expect(res => {
+      .expect((res) => {
         expect('id' in res.body).toBeTruthy();
         roundId = res.body.id;
       });
@@ -60,7 +60,7 @@ describe('test post existing round answer endpoint', () => {
   afterAll(async () => {
     await mockDb.tearDown(prisma);
   });
-  it('should send 400 to invalid round payload', done => {
+  it('should send 400 to invalid round payload', (done) => {
     request(app)
       .post('/postExistingRoundAnswer')
       .send(ExistingRoundPayloads.postRoundInvalidPayload1)
@@ -102,7 +102,7 @@ describe('test post existing round answer endpoint', () => {
       .send({ ...ExistingRoundPayloads.postValidRoundPayload1, roundId })
       .auth(tokens[0], { type: 'bearer' })
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect('score' in response.body).toBeTruthy();
         userScores.push(Math.abs(response.body.score));
       });
@@ -125,9 +125,9 @@ describe('test post existing round answer endpoint', () => {
       .send({ ...ExistingRoundPayloads.postValidRoundPayload1, roundId })
       .auth(tokens[1], { type: 'bearer' })
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect('score' in response.body).toBeTruthy();
-        userScores.push(Math.abs(response.body.score));
+        userScores.push(response.body.score);
       });
     totalEvents++;
     totalAnswers++;
@@ -140,6 +140,6 @@ describe('test post existing round answer endpoint', () => {
       where: { username: usernames[1] },
     });
     expect(user).toBeDefined();
-    expect(Math.abs(Number(user?.score))).toEqual(Math.abs(userScores[1]));
+    expect(Number(user?.score)).toEqual(userScores[1]);
   });
 });
