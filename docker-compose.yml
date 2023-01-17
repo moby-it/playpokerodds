@@ -1,3 +1,4 @@
+version: '2.4'
 services:
   client-ui:
     ports:
@@ -28,8 +29,10 @@ services:
     env_file:
       - src/web-api/docker.env
     depends_on:
-      - db
-      - calc-odds-api
+      db:
+        condition: service_healthy
+      calc-odds-api:
+        condition: service_started
   calc-odds-api:
     build:
       context: src/calc-odds-api
@@ -44,7 +47,15 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: gtop
+    healthcheck:
+      test: ["CMD", "pg_isready","-d", "gtop","-U", "root"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql/
+      - ./postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data:
+    external: true
