@@ -19,7 +19,12 @@ app.post('/api/calcOdds', (req: Request, res: Response) => {
   const odds = calculateOdds(body);
   res.status(200).send({ odds });
 });
-
+app.get('/readiness', (req: Request, res: Response) => {
+  res.send('Readiness check passed');
+});
+app.get('/liveness', (req: Request, res: Response) => {
+  res.send('liveness check passed');
+});
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
