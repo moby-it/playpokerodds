@@ -1,4 +1,4 @@
-FROM node:lts-slim as dependencies
+FROM node:18.13.0-alpine as dependencies
 WORKDIR /src
 COPY package*.json /
 RUN npm ci
