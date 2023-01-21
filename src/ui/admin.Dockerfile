@@ -1,5 +1,5 @@
 # build environment
-FROM node:lts-alpine as dependencies
+FROM node:18.13.0-alpine as dependencies
 WORKDIR /app
 COPY package*.json decorate-angular-cli.js ./
 RUN npm ci
