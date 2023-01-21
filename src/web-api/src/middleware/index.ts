@@ -7,7 +7,7 @@ import { registerPassportMiddleware } from './passport';
 export function registerMiddleware(app: Application) {
   app.use(cors());
   app.use(bodyParser.json());
-  // app.use(morgan('dev'));
+  app.use(morgan('dev'));
   registerPassportMiddleware();
 }
 export { registerErrorHandlers } from './errorHandler';

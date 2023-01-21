@@ -1,7 +1,6 @@
 import { calculateOdds, validateRound } from '@moby-it/ppo-core';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import express, { Express, Request, Response } from 'express';
 
 dotenv.config();
