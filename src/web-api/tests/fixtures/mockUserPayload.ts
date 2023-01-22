@@ -32,5 +32,5 @@ export const mockUserInvalidPayload2 = {
   password: '123123',
 };
 export const mockUserInvalidPayload3 = {
-  email: 'george',
+  email: 'takis@gmail.com',
 };

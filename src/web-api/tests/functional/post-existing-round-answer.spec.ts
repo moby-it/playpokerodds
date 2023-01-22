@@ -135,6 +135,20 @@ describe('test post existing round answer endpoint', () => {
     expect(await prisma.round.count()).toEqual(totalRounds);
     expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
+  it('should try to post answer on a non existing round', async () => {
+    const randomRoundId = 'randomRoundId';
+    await request(app)
+      .post('/postExistingRoundAnswer')
+      .send({
+        ...ExistingRoundPayloads.postValidRoundPayload1,
+        roundId: randomRoundId,
+      })
+      .auth(tokens[1], { type: 'bearer' })
+      .expect(404);
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
+  });
   it('should have correctly updated user score', async () => {
     const user = await prisma.user.findFirst({
       where: { username: usernames[1] },

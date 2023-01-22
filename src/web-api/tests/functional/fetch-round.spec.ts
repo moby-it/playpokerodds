@@ -27,6 +27,11 @@ describe('test fetch round endpoint', () => {
       .get('/fetchRound?totalHands=30&totalKnownHands=1&boardState=1')
       .expect(400);
   });
+  it('should fetch round with total known hands > total hands query', async () => {
+    await request(app)
+      .get('/fetchRound?totalHands=3&totalKnownHands=7&boardState=1')
+      .expect(400);
+  });
   it('should fetch round with invalid boardState param', async () => {
     await request(app)
       .get('/fetchRound?totalHands=30&totalKnownHands=1&boardState=7')

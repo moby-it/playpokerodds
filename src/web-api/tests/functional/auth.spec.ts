@@ -52,14 +52,14 @@ describe('test auth endpoints', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(body => {
+      .expect((body) => {
         expect(body).toBeDefined();
       });
     await request(app)
       .post('/register')
       .send(mockUserPayload2)
       .expect(200)
-      .expect(body => {
+      .expect((body) => {
         expect(body).toBeDefined();
       });
   });
@@ -81,7 +81,7 @@ describe('test auth endpoints', () => {
       .post('/login')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect(response.body).toBeDefined();
         expect(response.body.token).toBeDefined();
         token = response.body.token;
@@ -92,14 +92,14 @@ describe('test auth endpoints', () => {
     expect(decodedJwtIsValid(decodedToken)).toBeTruthy();
     expect(decodedToken.role).toEqual(0);
   });
-  it('should change username', done => {
+  it('should change username', (done) => {
     const newUsername = 'fasolakis';
     request(app)
       .post('/changeUsername')
       .set('Authorization', `Bearer ${token}`)
       .send({ username: newUsername })
       .expect(200)
-      .expect(async response => {
+      .expect(async (response) => {
         expect(response.body).toBeDefined();
         expect(
           await prisma.user.count({ where: { username: newUsername } })
@@ -128,7 +128,7 @@ describe('test auth endpoints', () => {
       .post('/admin-login')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect(response.body).toBeDefined();
         expect(response.body.token).toBeDefined();
         token = response.body.token;
