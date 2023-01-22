@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   max-height: 70vh;
-  width: 70%;
+  width: 85%;
   overflow: auto;
   margin-top: var(--margin--top);
 }
