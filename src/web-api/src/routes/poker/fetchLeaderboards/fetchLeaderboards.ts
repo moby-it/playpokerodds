@@ -13,7 +13,7 @@ export async function fetchLeaderboards(
     })
   )
     .filter(user => user._count.RoundAnswer >= leaderboardMinGames)
-    .sort((a, b) => (a.score > b.score ? 1 : -1))
+    .sort((a, b) => (a.score < b.score ? 1 : -1))
     .map(user => ({
       username: user.username,
       score: user.score,
