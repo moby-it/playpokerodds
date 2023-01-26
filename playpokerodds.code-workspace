@@ -47,7 +47,6 @@
   },
   "extensions": {
     "recommendations": [
-      "ms-azuretools.vscode-azurefunctions",
       "nrwl.angular-console",
       "Angular.ng-template"
     ]
