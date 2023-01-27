@@ -17,8 +17,8 @@ app.post("/api/calcOdds", (req: Request, res: Response) => {
   }
   console.time("calcOdds");
   const odds = calculateOdds(body);
-  console.log("Time calculating:", console.timeEnd("calcOdds"));
-
+  console.log("Time spent calculating");
+  console.timeEnd("calcOdds");
   res.status(200).send({ odds });
 });
 app.get("/readiness", (req: Request, res: Response) => {
