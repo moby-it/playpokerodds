@@ -15,7 +15,9 @@ app.post('/api/calcOdds', (req: Request, res: Response) => {
     res.status(400).send('invalid body payload');
     return;
   }
+  console.time("calcOdds");
   const odds = calculateOdds(body);
+  console.log("Time calculating:", console.timeEnd("calcOdds"));
   res.status(200).send({ odds });
 });
 app.get('/readiness', (req: Request, res: Response) => {
