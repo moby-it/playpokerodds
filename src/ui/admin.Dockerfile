@@ -13,5 +13,9 @@ RUN npm run build:admin:${TARGET}
 FROM nginx:stable-alpine
 COPY --from=build /app/dist/apps/admin /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost/ || exit 1
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
