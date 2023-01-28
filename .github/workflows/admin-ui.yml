@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - "src/ui/apps/admin/**"
+      - "src/ui/admin.Dockerfile"
   workflow_dispatch:
 
 jobs:

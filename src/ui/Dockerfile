@@ -9,7 +9,7 @@ ARG TARGET=prod
 COPY . ./
 RUN npm run build:${TARGET}
 
-FROM nginx:stable-alpine
+FROM nginx:1.23-alpine
 COPY --from=build /app/dist/apps/client /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
