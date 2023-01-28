@@ -47,6 +47,8 @@
   },
   "extensions": {
     "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
       "nrwl.angular-console",
       "Angular.ng-template"
     ]
