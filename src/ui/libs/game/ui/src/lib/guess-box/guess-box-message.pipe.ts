@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { RoundAnswer } from '@ppo/game/domain';
 const createGoodGuessMessage = (percent: number): string =>
-  `Good Guess! You were only ${percent} % off!`;
+  `You were only ${percent} % off!`;
 const createBadGuessMessage = (percent: number): string =>
   `You were ${percent} % off!`;
 const SPOT_ON_MESSAGE = 'Wow, spot on!';
