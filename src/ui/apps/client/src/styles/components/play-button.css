@@ -1,4 +1,5 @@
 .play-button {
-  height: 72px;
-  padding: 12px;
+  height: 64px;
+  width: 88px;
+  padding: 8px 20px;
 }

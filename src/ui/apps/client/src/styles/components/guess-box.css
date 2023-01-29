@@ -1,13 +1,19 @@
 .guess-box {
-  width: 305px;
+  width: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  height: 184px;
+  gap: 24px;
 }
 .guess-box-label {
   font-size: 24px;
+  width: 100%;
+  height: 44px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
   color: var(--neutral--10);
 }
 .guess-box span {
@@ -15,13 +21,15 @@
 }
 .guess-box-form {
   display: flex;
+  align-items: flex-start;
   gap: 24px;
-  height: 72px;
-  justify-content: center;
+  width: 100%;
+  height: 64px;
 }
 .guess-box-form input {
-  padding: 28px 0;
-  width: 185px;
+  padding: 18px 0;
+  width: 188px;
+  height: 100%;
   border-radius: var(--radius);
   border: none;
   background-color: var(--neutral--800);
@@ -38,11 +46,23 @@
   gap: 16px;
 }
 .win-odds {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  padding: 0;
   color: var(--neutral--10);
 }
 .accuracy-description {
-  padding: 8px;
-  width: 305px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--padding-sm);
+  gap: 8px;
+  width: 100%;
+  height: 44px;
   border-radius: var(--radius);
   color: var(--neutral--10);
   text-align: center;
