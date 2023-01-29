@@ -23,5 +23,5 @@ jobs:
           username: georgespanos
           password: ${{ secrets.CONTAINER_PASSWORD }}
           stack_file: "docker-stack.yml"
-          stack_name: "mockstack"
+          stack_name: "playpokerodds"
 
