@@ -1,4 +1,5 @@
-import { cpu } from 'node-os-utils';
+import pkg from 'node-os-utils';
+const { cpu } = pkg;
 import chalk from 'chalk';
 export function startCpuProfile() {
   setInterval(() => {

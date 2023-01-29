@@ -2,14 +2,14 @@ import { calculateOdds, validateRound } from '@moby-it/ppo-core';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
-import * as monitor from './monitor';
+import { startCpuProfile } from './monitor.mjs';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 7071;
 app.use(bodyParser.json());
-monitor.startCpuProfile();
+startCpuProfile();
 app.post('/api/calcOdds', (req: Request, res: Response) => {
   const body = req.body.round;
   if (!validateRound(body)) {
