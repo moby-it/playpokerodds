@@ -5,8 +5,8 @@ name: Build and Deploy Client UI
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*"
     paths:
       - "src/ui/**"
       - "!src/ui/apps/admin/**"
@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: georgespanos/gtop-ui:${{ github.sha }},georgespanos/gtop-ui:latest
+          tags: georgespanos/gtop-ui:${{ github.ref_name }},georgespanos/gtop-ui:stable
           context: ./src/ui
 
   deploy:
@@ -42,11 +42,11 @@ jobs:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.7
         env:
-          SHA: ${{ github.sha }}
+          TAG: ${{ github.ref_name }}
           CONTAINER_USERNAME: ${{ secrets.CONTAINER_USERNAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          envs: SHA,CONTAINER_USERNAME
-          script: docker service update ui-poker-odds --image=$CONTAINER_USERNAME/gtop-ui:$SHA
+          envs: TAG,CONTAINER_USERNAME
+          script: docker service update ui-poker-odds --image=$CONTAINER_USERNAME/gtop-ui:$TAG

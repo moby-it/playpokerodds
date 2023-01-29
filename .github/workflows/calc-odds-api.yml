@@ -5,10 +5,10 @@ name: Build and Deploy Calc Odds Api
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
     paths:
-      - "src/calc-odds-api/**"
+      - 'src/calc-odds-api/**'
   workflow_dispatch:
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:${{ github.sha }},${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:latest
+          tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:stable
           context: ./src/calc-odds-api
   deploy:
     runs-on: ubuntu-latest
@@ -37,11 +37,11 @@ jobs:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.7
         env:
-          SHA: ${{ github.sha }}
+          TAG: ${{ github.ref_name }}
           CONTAINER_USERNAME: ${{ secrets.CONTAINER_USERNAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          envs: SHA,CONTAINER_USERNAME
-          script: docker service update calc-poker-odds --image=$CONTAINER_USERNAME/gtop-calc-odds:$SHA
+          envs: TAG,CONTAINER_USERNAME
+          script: docker service update calc-poker-odds --image=$CONTAINER_USERNAME/gtop-calc-odds:$TAG

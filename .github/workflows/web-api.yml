@@ -4,8 +4,8 @@
 name: Build, Test and Deploy Web Api
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*"
     paths:
       - "src/web-api/**"
   workflow_dispatch:
@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: georgespanos/gtop-api:${{ github.sha }},georgespanos/gtop-api:latest
+          tags: georgespanos/gtop-api:${{ github.ref_name }},georgespanos/gtop-api:stable
           context: ./src/web-api
 
   deploy:
@@ -54,11 +54,11 @@ jobs:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.7
         env:
-          SHA: ${{ github.sha }}
+          TAG: ${{ github.ref_name }}
           CONTAINER_USERNAME: ${{ secrets.CONTAINER_USERNAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          envs: SHA,CONTAINER_USERNAME
-          script: docker service update api-poker-odds --image=$CONTAINER_USERNAME/gtop-api:$SHA
+          envs: TAG,CONTAINER_USERNAME
+          script: docker service update api-poker-odds --image=$CONTAINER_USERNAME/gtop-api:$TAG
