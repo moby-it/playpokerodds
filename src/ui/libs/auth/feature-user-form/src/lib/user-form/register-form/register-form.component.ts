@@ -2,15 +2,9 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { distinctUntilChanged, map, startWith } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
-// interface RegisterForm {
-//   email: string;
-//   username: string;
-//   password: string;
-// }
 @Component({
   selector: 'ppo-register-form',
   templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.css'],
 })
 export class RegisterFormComponent {
   constructor(

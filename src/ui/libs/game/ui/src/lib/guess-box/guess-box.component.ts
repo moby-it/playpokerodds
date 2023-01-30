@@ -11,7 +11,6 @@ import {
 @Component({
   selector: 'ppo-guess-box',
   templateUrl: './guess-box.component.html',
-  styleUrls: ['./guess-box.component.scss'],
   animations: [Animations.fadeAnimation],
 })
 export class GuessBoxComponent {

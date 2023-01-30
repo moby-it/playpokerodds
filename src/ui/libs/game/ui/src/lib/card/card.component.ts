@@ -4,7 +4,6 @@ import { Animations } from '@ppo/shared/ui';
 @Component({
   selector: 'ppo-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
   animations: [Animations.fadeAnimation],
 })
 export class CardComponent {

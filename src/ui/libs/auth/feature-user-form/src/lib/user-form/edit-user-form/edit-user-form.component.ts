@@ -9,7 +9,6 @@ import { UserFormStore } from '../user-form.store';
 @Component({
   selector: 'ppo-edit-user-form',
   templateUrl: './edit-user-form.component.html',
-  styleUrls: ['./edit-user-form.component.css'],
 })
 export class EditUserFormComponent implements OnInit {
   constructor(
