@@ -17,10 +17,10 @@
       >
         Register
       </button>
-      <span
-        >Already registered?
-        <b class="cursor-pointer" (click)="toSignInForm()">Sign in</b></span
-      >
+      <div>
+        <span class="login-action-label">Already registered?</span>
+        <b class="cursor-pointer" (click)="toSignInForm()"> Sign in</b>
+      </div>
       <ng-content [select]="error"></ng-content>
     </div>
   </form>

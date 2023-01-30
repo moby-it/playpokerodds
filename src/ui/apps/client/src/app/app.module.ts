@@ -17,8 +17,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { UserStatusComponent } from './top-bar/user-status/user-status.component';
 @NgModule({
-  declarations: [AppComponent, TopBarComponent],
+  declarations: [AppComponent, TopBarComponent, UserStatusComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

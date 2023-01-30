@@ -6,6 +6,9 @@
   height: 184px;
   gap: 24px;
 }
+.guess-box ppo-loader {
+  align-self: center;
+}
 .guess-box-label {
   font-size: 24px;
   width: 100%;

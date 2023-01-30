@@ -11,11 +11,17 @@
   gap: 32px;
   border-radius: 18px;
 }
+.user-form-container span {
+  letter-spacing: 0.5px;
+}
 .user-form-container .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+}
+.user-form-container span,.user-form-container b {
+  font-size: 16px;
 }
 .user-form-container .form .label {
   align-self: flex-start;
@@ -25,7 +31,7 @@
   padding: 0 24px;
 }
 .user-form-container .form .control {
-  width: 238px;
+  width: 315px;
   height: 51px;
   display: flex;
   font-size: 16px;
@@ -55,8 +61,8 @@
   align-items: center;
   gap: 12px;
 }
-.user-form-container span {
-  font-size: 12px;
+.user-form-container {
+  font-size: 16px;
   color: var(--neutral--10);
 }
 .user-form-container b {
@@ -69,4 +75,7 @@
   background-color: var(--primary--300);
   border-radius: 18px;
   color: var(--neutral--10);
+}
+.login-action-label {
+  color: var(--neutral--80)
 }
