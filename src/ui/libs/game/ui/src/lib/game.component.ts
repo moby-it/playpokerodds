@@ -19,10 +19,7 @@ export class GameUiComponent implements OnDestroy, OnInit {
       if (!isLoggedIn) {
         const activeToast = this.toastr.info(
           'If you want your score to be saved on the leaderboards you have to be logged in!',
-          '',
-          {
-            timeOut: 5000,
-          }
+          ''
         );
         activeToast.onAction.subscribe((s) => console.log(s));
       }

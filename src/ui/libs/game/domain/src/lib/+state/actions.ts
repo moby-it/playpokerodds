@@ -6,6 +6,8 @@ export const pokerOddsActions = createActionGroup({
   source: 'pokerOdds',
   events: {
     'set Loading': props<{ loading: boolean }>(),
+    'fetch Existing Round': props<{ id: string }>(),
+    'set Round Id': props<{ id: string }>(),
     'start new Round': emptyProps(),
     'set Current Round': props<{ round: Round }>(),
     'set Round Answer': props<{ answer: RoundAnswer }>(),

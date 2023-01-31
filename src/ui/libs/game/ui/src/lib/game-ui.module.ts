@@ -17,6 +17,7 @@ import { HandIsVisiblePipe } from './poker-table/handIsVisible.pipe';
 import { PokerTableComponent } from './poker-table/poker-table.component';
 import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-cards-toggle.component';
 import { PostRoundActionsComponent } from './post-round-actions/post-round-actions.component';
+import { ExistingGameGuard } from './existing-game.guard';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,5 +43,6 @@ import { PostRoundActionsComponent } from './post-round-actions/post-round-actio
     PostRoundActionsComponent,
   ],
   exports: [PokerTableComponent],
+  providers: [ExistingGameGuard],
 })
 export class GameUiModule {}

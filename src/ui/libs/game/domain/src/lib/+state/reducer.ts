@@ -9,6 +9,7 @@ interface GameUiState {
   fetchingRound: boolean;
   calculatingAnswer: boolean;
   fetchingLeaderboards: boolean;
+  roundId: string;
   round: Round | null;
   estimate: number | null;
   answer: RoundAnswerWithEstimate | null;
@@ -20,6 +21,7 @@ const initialState: GameUiState = {
   fetchingRound: false,
   calculatingAnswer: false,
   fetchingLeaderboards: false,
+  roundId: '',
   round: null,
   estimate: null,
   userScores: null,
@@ -40,6 +42,7 @@ export const pokerOddsFeature = createFeature({
       ...state,
       estimate: null,
       fetchingRound: true,
+      roundId: '',
     })),
     on(pokerOddsActions.answerRound, (state, action) => ({
       ...state,
@@ -78,6 +81,10 @@ export const pokerOddsFeature = createFeature({
     on(pokerOddsActions.togglePlayWithRevealedCards, (state) => ({
       ...state,
       playWithRevealedCards: !state.playWithRevealedCards,
+    })),
+    on(pokerOddsActions.setRoundId, (state, action) => ({
+      ...state,
+      roundId: action.id,
     }))
   ),
 });
@@ -90,4 +97,5 @@ export const {
   selectUserScores,
   selectFetchingLeaderboards,
   selectPlayWithRevealedCards,
+  selectRoundId,
 } = pokerOddsFeature;

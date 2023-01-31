@@ -1,19 +1,34 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Round } from '@moby-it/ppo-core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
-import { generateRandomRoundInputs } from '../helpers';
+import {
+  catchError,
+  EMPTY,
+  filter,
+  map,
+  mergeMap,
+  repeat,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs';
 import { GameApiClient } from '../game.api-client.service';
+import { generateRandomRoundInputs } from '../helpers';
 import { pokerOddsActions } from './actions';
-import { selectPlayWithRevealedCards, selectRound } from './reducer';
-
+import {
+  selectPlayWithRevealedCards,
+  selectRound,
+  selectRoundId,
+} from './reducer';
+import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class PokerOddsEffects {
   constructor(
     private actions: Actions,
     private pokerOddsApiClient: GameApiClient,
-    private store: Store
+    private store: Store,
+    private toaster: ToastrService
   ) {}
   fetchRound$ = createEffect(() =>
     this.actions.pipe(
@@ -27,16 +42,43 @@ export class PokerOddsEffects {
       switchMap((round) => [pokerOddsActions.setCurrentRound({ round })])
     )
   );
+  fetchExistingRound$ = createEffect(() => {
+    let roundId = '';
+    return this.actions.pipe(
+      ofType(pokerOddsActions.fetchExistingRound),
+      switchMap(({ id }) => {
+        roundId = id;
+        return this.pokerOddsApiClient.fetchRoundById(id);
+      }),
+      switchMap((round) => [
+        pokerOddsActions.setRoundId({ id: roundId }),
+        pokerOddsActions.setCurrentRound({ round }),
+      ]),
+      catchError((e: HttpErrorResponse) => {
+        if (e.status === 404) {
+          this.toaster.error('Round not found');
+        }
+        return EMPTY;
+      }),
+      repeat()
+    );
+  });
   postAnswer$ = createEffect(() =>
     this.actions.pipe(
       ofType(pokerOddsActions.answerRound),
       withLatestFrom(this.store.select(selectRound)),
       filter(([, round]) => Boolean(round)),
-      mergeMap(([action, round]) =>
-        this.pokerOddsApiClient.postNewRoundAnswer(
-          round as Round,
-          action.estimate
-        )
+      withLatestFrom(this.store.select(selectRoundId)),
+      mergeMap(([[action, round], roundId]) =>
+        roundId
+          ? this.pokerOddsApiClient.postExistingRoundAnswer(
+              roundId,
+              action.estimate
+            )
+          : this.pokerOddsApiClient.postNewRoundAnswer(
+              round as Round,
+              action.estimate
+            )
       ),
       switchMap((answer) => [pokerOddsActions.setRoundAnswer({ answer })])
     )

@@ -4,7 +4,6 @@ import { StoreModule } from '@ngrx/store';
 import { PokerOddsEffects } from './+state/effects';
 import { pokerOddsFeature } from './+state/reducer';
 import { GameApiClient } from './game.api-client.service';
-
 @NgModule({
   imports: [
     StoreModule.forFeature(pokerOddsFeature),

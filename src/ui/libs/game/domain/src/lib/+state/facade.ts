@@ -11,10 +11,17 @@ import {
   selectRoundStatus,
   selectUserScores,
 } from './reducer';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class PokerOddsFacade {
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private clipboard: Clipboard,
+    private toaster: ToastrService
+  ) {}
   // loaders
   fetchingRound$ = this.store.select(selectFetchingRound);
   calculatingAnswer$ = this.store.select(selectCalculatingAnswer);
@@ -31,6 +38,16 @@ export class PokerOddsFacade {
   }
   submitEstimate(estimate: number): void {
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
+  }
+  fetchAndSetExistingRound(id: string): void {
+    this.store.dispatch(pokerOddsActions.fetchExistingRound({ id }));
+  }
+  copyRoundUrlToClipboard(): void {
+    this.answer$.pipe(take(1)).subscribe((answer) => {
+      const url = `${window.origin}/play/${answer?.roundId}`;
+      this.clipboard.copy(url);
+      this.toaster.info('Link copied', '', { timeOut: 2000 });
+    });
   }
   togglePlayRevealedCards(): void {
     this.store.dispatch(pokerOddsActions.togglePlayWithRevealedCards());
