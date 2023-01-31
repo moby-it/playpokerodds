@@ -8,7 +8,7 @@ import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  NewRoundPayloads,
+  NewRoundPayloads
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test post existing round answer endpoint', () => {
@@ -50,8 +50,8 @@ describe('test post existing round answer endpoint', () => {
       .send(NewRoundPayloads.postValidRoundPayload1)
       .expect(200)
       .expect((res) => {
-        expect('id' in res.body).toBeTruthy();
-        roundId = res.body.id;
+        expect('roundId' in res.body).toBeTruthy();
+        roundId = res.body.roundId;
       });
     totalEvents++;
     totalRounds++;
@@ -150,6 +150,28 @@ describe('test post existing round answer endpoint', () => {
     expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
   });
   it('should have correctly updated user score', async () => {
+    const user = await prisma.user.findFirst({
+      where: { username: usernames[1] },
+    });
+    expect(user).toBeDefined();
+    expect(Number(user?.score)).toEqual(userScores[1]);
+  });
+
+  it('should not update user score if user answers the same round more than once', async () => {
+    await request(app)
+      .post('/postExistingRoundAnswer')
+      .send({ ...ExistingRoundPayloads.postValidRoundPayload1, roundId })
+      .auth(tokens[1], { type: 'bearer' })
+      .expect(200)
+      .expect((response) => {
+        expect('score' in response.body).toBeTruthy();
+        userScores.push(response.body.score);
+      });
+    totalEvents++;
+    totalAnswers++;
+    expect(await prisma.event.count()).toEqual(totalEvents);
+    expect(await prisma.round.count()).toEqual(totalRounds);
+    expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
     const user = await prisma.user.findFirst({
       where: { username: usernames[1] },
     });

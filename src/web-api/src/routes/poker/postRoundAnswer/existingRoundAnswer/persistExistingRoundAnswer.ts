@@ -34,7 +34,7 @@ export const persistExistingRound = async (
   await createRoundAnswerModel(dto, user?.userId);
   await prisma.event.create({
     data: {
-      type: EventType.USER_POSTED__EXISTING_ANSWER,
+      type: EventType.USER_POSTED_ANSWER,
       payload: { ...eventPayload },
     },
   });

@@ -1,4 +1,4 @@
-import { pesistUserScore } from '../persistUserScore';
+import { pesistUserScore } from './persistUserScore';
 import { estimateAccuracy } from './estimateAccuracy';
 import { findRoundById } from './findRoundById';
 import { persistExistingRound } from './persistExistingRoundAnswer';

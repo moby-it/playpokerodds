@@ -35,8 +35,8 @@ describe('test round favorite endpoints', () => {
       .auth(token, { type: 'bearer' })
       .expect(200)
       .expect(response => {
-        expect(response.body.id).toBeDefined();
-        roundId = response.body.id;
+        expect(response.body.roundId).toBeDefined();
+        roundId = response.body.roundId;
       });
   });
   afterAll(async () => {

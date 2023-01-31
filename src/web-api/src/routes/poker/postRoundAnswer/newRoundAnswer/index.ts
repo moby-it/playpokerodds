@@ -1,5 +1,5 @@
 import { estimateAccuracy } from './estimateAccuracy';
-import { pesistUserScore } from '../persistUserScore';
+import { pesistUserScore } from './persistUserScore';
 import { calculateWinOdds } from './calculateWinOdds';
 import { pesistNewRound } from './persistNewRound';
 import { validatePayload } from './validatePayload';

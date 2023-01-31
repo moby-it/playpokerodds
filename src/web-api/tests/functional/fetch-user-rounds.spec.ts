@@ -57,8 +57,8 @@ describe('test fetch user rounds endpoint', () => {
       .auth(tokens[0], { type: 'bearer' })
       .expect(200)
       .expect(response => {
-        expect('id' in response.body).toBeTruthy();
-        roundId = response.body.id;
+        expect('roundId' in response.body).toBeTruthy();
+        roundId = response.body.roundId;
       });
     await request(app)
       .post('/postNewRoundAnswer')

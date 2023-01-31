@@ -31,7 +31,7 @@ describe('test leaderboards', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect('token' in response.body).toBeTruthy();
         tokens.push(response.body.token);
       });
@@ -39,7 +39,7 @@ describe('test leaderboards', () => {
       .post('/register')
       .send(mockUserPayload2)
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect('token' in response.body).toBeTruthy();
         tokens.push(response.body.token);
       });
@@ -53,9 +53,9 @@ describe('test leaderboards', () => {
       .send(NewRoundPayloads.postValidRoundPayload2)
       .auth(tokens[0], { type: 'bearer' })
       .expect(200)
-      .expect(response => {
-        expect(response.body.id).toBeDefined();
-        roundId = response.body.id;
+      .expect((response) => {
+        expect(response.body.roundId).toBeDefined();
+        roundId = response.body.roundId;
       });
     await request(app)
       .post('/postNewRoundAnswer')
@@ -74,7 +74,7 @@ describe('test leaderboards', () => {
     await request(app)
       .get('/fetchLeaderboards')
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect(response.body.length).toEqual(1);
       });
   });
