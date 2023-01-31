@@ -12,3 +12,7 @@
   border-radius: 0;
   border-bottom: 1px solid white;
 }
+.user-status .link {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
