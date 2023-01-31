@@ -1,13 +1,13 @@
 <div class="guess-box" *ngrxLet="vm$ as vm" @fade>
   <div class="guess-box-round-completed" *ngIf="vm.answer as answer">
     <span class="body-xl win-odds">{{ answer.odds }}%</span>
-    <div
+    <span
       class="accuracy-description accuracy-description-{{
         vm.answer.didAccurateEstimate ? 'accurate' : 'inaccurate'
       }}"
     >
       {{ answer | formatAnswerMessage }}
-    </div>
+    </span>
     <ppo-post-round-actions></ppo-post-round-actions>
   </div>
   <ppo-loader *ngIf="vm.calculatingAnswer && !vm.fetchingRound"></ppo-loader>

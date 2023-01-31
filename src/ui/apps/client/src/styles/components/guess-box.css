@@ -20,7 +20,7 @@
   color: var(--neutral--10);
 }
 .guess-box span {
-  padding: 8px;
+  padding: 4px;
 }
 .guess-box-form {
   display: flex;
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 .win-odds {
   display: flex;
