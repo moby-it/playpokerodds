@@ -7,16 +7,10 @@ import {
   UserFormComponent,
   RegisterFormComponent,
   SigninFormComponent,
-  EditUserFormComponent,
 } from './user-form';
 
 @NgModule({
-  declarations: [
-    UserFormComponent,
-    RegisterFormComponent,
-    SigninFormComponent,
-    EditUserFormComponent,
-  ],
+  declarations: [UserFormComponent, RegisterFormComponent, SigninFormComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

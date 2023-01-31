@@ -10,10 +10,5 @@
         <span class="error" error *ngIf="vm.error">{{ vm.error }}</span>
       </ppo-signin-form>
     </ng-container>
-    <ng-container *ngSwitchCase="formTypes.EDIT_USER">
-      <ppo-edit-user-form (ppoClickOutside)="clickedOutside.emit()">
-        <span class="error" error *ngIf="vm.error">{{ vm.error }}</span>
-      </ppo-edit-user-form>
-    </ng-container>
   </ng-container>
 </div>

@@ -6,7 +6,7 @@ import { Observable, tap, withLatestFrom } from 'rxjs';
 export enum FormType {
   REGISTER,
   SIGN_IN,
-  EDIT_USER,
+  NONE,
 }
 interface UserFormState {
   formType: FormType;
@@ -30,7 +30,7 @@ export class UserFormStore extends ComponentStore<UserFormState> {
         tap((status) => {
           switch (status) {
             case AuthStatus.AUTHORIZED:
-              this.updateFormType(FormType.EDIT_USER);
+              this.updateFormType(FormType.NONE);
           }
         })
       )
@@ -58,9 +58,6 @@ export class UserFormStore extends ComponentStore<UserFormState> {
             break;
           case FormType.SIGN_IN:
             this.authFacade.signin(formGroup.value);
-            break;
-          case FormType.EDIT_USER:
-            this.authFacade.changeUsername(formGroup.value);
             break;
         }
       })
