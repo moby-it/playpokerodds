@@ -40,7 +40,7 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
     AuthFeatureUserFormModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
-      timeOut: 2000,
+      timeOut: 5000,
       closeButton: true,
     }), // ToastrModule added
   ],
