@@ -97,6 +97,6 @@ describe('test fetch round endpoint', () => {
   });
   it('should fetch existing round by id', async () => {
     const round = await postNewRound(app);
-    await request(app).get(`/fetchRoundById/${round.id}`).expect(200);
+    await request(app).get(`/fetchRoundById/${round.roundId}`).expect(200);
   });
 });

@@ -26,7 +26,7 @@ export const pesistUserScore = async (
   if (!roundId) throw new Error('Round with no id');
   if (!round) throw new Error('No round in answer');
   const responsePayload: RoundAnswerResponse = {
-    id: roundId,
+    roundId: roundId,
     estimate,
     odds,
     score,
