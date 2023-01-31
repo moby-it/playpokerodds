@@ -8,6 +8,7 @@
     >
       {{ answer | formatAnswerMessage }}
     </div>
+    <ppo-post-round-actions></ppo-post-round-actions>
   </div>
   <ppo-loader *ngIf="vm.calculatingAnswer && !vm.fetchingRound"></ppo-loader>
   <div class="guess-box-label" *ngIf="!vm.answer">

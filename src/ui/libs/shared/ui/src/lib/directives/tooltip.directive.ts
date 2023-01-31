@@ -16,7 +16,7 @@ import { TooltipComponent } from '../components/tooltip/tooltip.component';
 })
 export class TooltipDirective implements OnDestroy {
   @Input() ppoTooltip = '';
-
+  @Input() fontSize = '22';
   private componentRef: ComponentRef<TooltipComponent> | null = null;
   @HostListener('mouseenter')
   onMouseEnter(): void {
@@ -57,6 +57,7 @@ export class TooltipDirective implements OnDestroy {
         this.elementRef.nativeElement.getBoundingClientRect();
       this.componentRef.instance.left = (right - left) / 2 + left;
       this.componentRef.instance.top = bottom;
+      this.componentRef.instance.fontSize = this.fontSize + 'px';
     }
   }
 }

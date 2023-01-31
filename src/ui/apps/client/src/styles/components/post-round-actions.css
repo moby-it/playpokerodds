@@ -1,0 +1,13 @@
+.pra-container {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 48px);
+  width: 104px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.pra-container svg:nth-child(2) {
+  cursor: pointer;
+}

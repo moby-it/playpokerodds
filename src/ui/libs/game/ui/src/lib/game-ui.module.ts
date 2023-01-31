@@ -16,6 +16,7 @@ import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.p
 import { HandIsVisiblePipe } from './poker-table/handIsVisible.pipe';
 import { PokerTableComponent } from './poker-table/poker-table.component';
 import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-cards-toggle.component';
+import { PostRoundActionsComponent } from './post-round-actions/post-round-actions.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +39,7 @@ import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-c
     GuessBoxAnswerMessagePipe,
     OpponentHandComponent,
     RevealedCardsToggleComponent,
+    PostRoundActionsComponent,
   ],
   exports: [PokerTableComponent],
 })

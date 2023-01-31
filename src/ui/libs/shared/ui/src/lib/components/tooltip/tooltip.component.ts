@@ -8,6 +8,7 @@ import { fadeAnimation } from '../../animations';
     class="tooltip"
     [style.left]="left + 'px'"
     [style.top]="top + 'px'"
+    [style.fontSize]="fontSize"
   >
     {{ tooltip }}
   </div>`,
@@ -15,6 +16,7 @@ import { fadeAnimation } from '../../animations';
   animations: [fadeAnimation],
 })
 export class TooltipComponent {
+  fontSize = '';
   tooltip = '';
   left = 0;
   top = 0;
