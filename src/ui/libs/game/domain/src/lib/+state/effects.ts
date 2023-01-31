@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Round } from '@moby-it/ppo-core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import {
   catchError,
   EMPTY,
@@ -11,6 +12,7 @@ import {
   mergeMap,
   repeat,
   switchMap,
+  tap,
   withLatestFrom,
 } from 'rxjs';
 import { GameApiClient } from '../game.api-client.service';
@@ -21,7 +23,6 @@ import {
   selectRound,
   selectRoundId,
 } from './reducer';
-import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class PokerOddsEffects {
   constructor(
@@ -88,6 +89,29 @@ export class PokerOddsEffects {
       ofType(pokerOddsActions.fetchLeaderboards),
       switchMap(() => this.pokerOddsApiClient.fetchLeaderboards()),
       map((scores) => pokerOddsActions.setLeaderboards({ scores }))
+    )
+  );
+  addRoundToFavorites$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(pokerOddsActions.addRoundToFavorites),
+      switchMap(({ roundId }) =>
+        this.pokerOddsApiClient.addToFavorites(roundId)
+      ),
+      tap(() => this.toaster.info('Round added to favorites')),
+      map(() => pokerOddsActions.empty()),
+      catchError(() => EMPTY),
+      repeat()
+    )
+  );
+  removeRoundToFavorites$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(pokerOddsActions.removeRoundFromFavorites),
+      switchMap(({ roundId }) =>
+        this.pokerOddsApiClient.removeFromFavorites(roundId)
+      ),
+      map(() => pokerOddsActions.empty()),
+      catchError(() => EMPTY),
+      repeat()
     )
   );
 }

@@ -8,6 +8,7 @@ import {
   selectFetchingRound,
   selectPlayWithRevealedCards,
   selectRound,
+  selectRoundId,
   selectRoundStatus,
   selectUserScores,
 } from './reducer';
@@ -41,6 +42,14 @@ export class PokerOddsFacade {
   }
   fetchAndSetExistingRound(id: string): void {
     this.store.dispatch(pokerOddsActions.fetchExistingRound({ id }));
+  }
+  saveToFavorites(): void {
+    this.store
+      .select(selectRoundId)
+      .pipe(take(1))
+      .subscribe((roundId) => {
+        this.store.dispatch(pokerOddsActions.addRoundToFavorites({ roundId }));
+      });
   }
   copyRoundUrlToClipboard(): void {
     this.answer$.pipe(take(1)).subscribe((answer) => {

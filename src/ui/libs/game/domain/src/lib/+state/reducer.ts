@@ -48,6 +48,7 @@ export const pokerOddsFeature = createFeature({
       ...state,
       estimate: action.estimate,
       loading: true,
+      calculatingAnswer: true,
     })),
     on(pokerOddsActions.setCurrentRound, (state, action) => ({
       ...state,
@@ -56,10 +57,7 @@ export const pokerOddsFeature = createFeature({
       fetchingRound: false,
       roundStatus: 'Playing',
     })),
-    on(pokerOddsActions.answerRound, (state) => ({
-      ...state,
-      calculatingAnswer: true,
-    })),
+
     on(pokerOddsActions.fetchLeaderboards, (state) => ({
       ...state,
       fetchingLeaderboards: true,
@@ -74,6 +72,7 @@ export const pokerOddsFeature = createFeature({
       answer: {
         ...action.answer,
         didAccurateEstimate: estimateWasAccurate(action.answer),
+        roundId: action.answer.roundId,
       },
       calculatingAnswer: false,
       roundStatus: 'Completed',

@@ -18,5 +18,6 @@ export const pokerOddsActions = createActionGroup({
     'set Leaderboards': props<{ scores: UserScore[] }>(),
     'toggle play with Revealed Cards': emptyProps(),
     reset: emptyProps(),
+    EMPTY: emptyProps(),
   },
 });
