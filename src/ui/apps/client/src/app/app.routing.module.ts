@@ -18,6 +18,11 @@ const routes: Routes = [
       import('@ppo/leaderboards').then((m) => m.LeaderboardsModule),
   },
   {
+    path: 'profile',
+    loadChildren: () => import('@ppo/profile').then((m) => m.ProfileModule),
+  },
+
+  {
     path: '**',
     redirectTo: '/',
   },
