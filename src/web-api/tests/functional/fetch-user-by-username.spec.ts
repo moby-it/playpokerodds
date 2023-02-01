@@ -65,6 +65,9 @@ describe('test fetch events endpoint', () => {
         ).toBeTruthy();
 
         expect('rank' in response.body).toBeTruthy();
+        expect('username' in response.body).toBeTruthy();
+        expect(response.body.username).toEqual('gerogesp');
+
         expect(response.body.rank).toEqual(1);
         expect('score' in response.body).toBeTruthy();
         expect(response.body.score).toEqual(userScore);
@@ -78,6 +81,8 @@ describe('test fetch events endpoint', () => {
       .expect((response) => {
         expect('rounds' in response.body).toBeTruthy();
         expect(response.body.rounds).toHaveLength(2);
+        expect('username' in response.body).toBeTruthy();
+        expect(response.body.username).toEqual('gerogesp');
         // should show odds if I look at my profile
         expect(
           response.body.rounds.every((r: { odds: number }) => r.odds != -1)

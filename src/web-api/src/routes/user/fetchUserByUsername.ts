@@ -20,14 +20,14 @@ async function fetchUserProfileByName(req: Request, res: Response) {
     score = leaderboards[rank].score;
     rank++;
   }
-  let rounds = await prisma.round.findMany({
-    include: { RoundAnswer: true },
-    where: { RoundAnswer: { every: { userId } } },
+  let rounds = await prisma.roundAnswer.findMany({
+    include: { round: true },
+    where: { userId },
   });
   if (userData?.userId !== userId) {
     rounds = rounds.map((r) => ({ ...r, odds: new Decimal(-1) }));
   }
-  res.send({ rank, score, rounds });
+  res.send({ rank, score, rounds, username });
 }
 
 export const fetchUserProfileByNameEndpoint = [fetchUserProfileByName];
