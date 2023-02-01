@@ -11,6 +11,7 @@ import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
 import { GameDomainModule } from '@ppo/game/domain';
 import { API_URL } from '@ppo/shared/config';
 import { SharedUiModule } from '@ppo/shared/ui';
+import { UserDomainModule } from '@ppo/user/domain';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
     GameDomainModule,
     AuthDomainModule,
     SharedUiModule,
+    UserDomainModule,
     AuthFeatureUserFormModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { CreateRoundInputs, Round } from '@moby-it/ppo-core';
 import { API_URL } from '@ppo/shared/config';
-import { delay, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RoundAnswer, UserScore } from './dtos';
 
 @Injectable()
@@ -12,9 +12,7 @@ export class GameApiClient {
     private http: HttpClient
   ) {}
   fetchRandomRound(): Observable<Round> {
-    return this.http
-      .get<Round>(`${this.apiUrl}/poker/FetchRandomRound`)
-      .pipe(delay(1000));
+    return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`);
   }
   fetchRound({
     boardState,

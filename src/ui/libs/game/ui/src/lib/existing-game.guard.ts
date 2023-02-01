@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { PokerOddsFacade } from '@ppo/game/domain';
-import { map, Observable, skipWhile, tap } from 'rxjs';
+import { map, Observable, skipWhile } from 'rxjs';
 @Injectable()
 export class ExistingGameGuard implements CanActivate {
   constructor(private pokerFadace: PokerOddsFacade, private router: Router) {}

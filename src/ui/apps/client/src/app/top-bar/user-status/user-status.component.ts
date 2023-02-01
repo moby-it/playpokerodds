@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthFacade } from '@ppo/auth/domain';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'ppo-user-status',
@@ -16,7 +17,9 @@ export class UserStatusComponent {
     this.authFacade.clearErrorMessage();
   }
   navigateToProfile(): void {
-    this.router.navigate(['/profile']);
+    this.username$.pipe(take(1)).subscribe((username) => {
+      this.router.navigate(['/profile', username]);
+    });
   }
   onMouseEnter(): void {
     this.hovering = true;
