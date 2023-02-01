@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { PokerOddsFacade } from '@ppo/game/domain';
-import { filter } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Round } from '@moby-it/ppo-core';
 
 @Component({
   selector: 'ppo-poker-table',
@@ -8,6 +7,5 @@ import { filter } from 'rxjs';
   styleUrls: ['./poker-table.component.css'],
 })
 export class PokerTableComponent {
-  constructor(private pokerFacade: PokerOddsFacade) {}
-  round$ = this.pokerFacade.currentRound$.pipe(filter(Boolean));
+  @Input() round: Round | null | undefined;
 }

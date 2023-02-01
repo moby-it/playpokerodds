@@ -1,5 +1,5 @@
 <div class="poker-table-container">
-  <ng-container *ngrxLet="round$ as round">
+  <ng-container *ngIf="round">
     <ppo-board class="board" [board]="round.board"></ppo-board>
     <ppo-playing-hand [hand]="round.myHand"></ppo-playing-hand>
     <ppo-opponent-hand

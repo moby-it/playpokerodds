@@ -14,6 +14,7 @@ export class GameUiComponent implements OnDestroy, OnInit {
     private authFacade: AuthFacade,
     private toastr: ToastrService
   ) {}
+  round$ = this.pokerOddsFacade.currentRound$;
   ngOnInit(): void {
     this.authFacade.isLoggedIn$.pipe(take(1)).subscribe((isLoggedIn) => {
       if (!isLoggedIn) {
