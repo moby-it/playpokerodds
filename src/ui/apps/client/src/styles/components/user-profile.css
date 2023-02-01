@@ -1,6 +1,51 @@
 .user-profile {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  height: 736px;
+  gap: 24px;
   flex: 1;
   width: 100%;
   background-color: var(--neutral--800);
   border-radius: var(--radius--sm);
+}
+.user-profile .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile .content {
+  display: flex;
+  flex: 1;
+}
+.user-profile .content .main-content {
+  flex-grow: 1;
+  border-radius: var(--radius--sm);
+
+  background-color: var(--neutral--700);
+}
+/* Side menu */
+.user-profile .side-menu {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-profile .side-menu a {
+  width: 100%;
+  cursor: pointer;
+  color: var(--neutral--100);
+  text-align: center;
+  padding: var(--padding--md);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+.user-profile .side-menu .active {
+  color: var(--neutral--10);
+  background-color: var(--neutral--700);
+  padding: var(--padding--md);
+  border-radius: 8px 0 0 8px;
 }
