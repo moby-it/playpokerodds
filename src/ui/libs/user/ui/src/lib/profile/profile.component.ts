@@ -3,6 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ppo-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  standalone: true,
 })
-export class ProfileOldComponent {}
+export class ProfileComponent {}
