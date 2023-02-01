@@ -1,3 +1,4 @@
+import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
@@ -56,8 +57,32 @@ describe('test fetch events endpoint', () => {
       .get('/fetchByUsername/gerogesp')
       .expect(200)
       .expect((response) => {
-        expect('roundsPlayed' in response.body).toBeTruthy();
-        expect(response.body.roundsPlayed).toEqual(2);
+        expect('rounds' in response.body).toBeTruthy();
+        expect(response.body.rounds).toHaveLength(2);
+        // should hide odds for other user
+        expect(
+          response.body.rounds.every((r: { odds: number }) => r.odds == -1)
+        ).toBeTruthy();
+
+        expect('rank' in response.body).toBeTruthy();
+        expect(response.body.rank).toEqual(1);
+        expect('score' in response.body).toBeTruthy();
+        expect(response.body.score).toEqual(userScore);
+      });
+  });
+  it('should get user details my user', async () => {
+    await request(app)
+      .get('/fetchByUsername/gerogesp')
+      .auth(token, { type: 'bearer' })
+      .expect(200)
+      .expect((response) => {
+        expect('rounds' in response.body).toBeTruthy();
+        expect(response.body.rounds).toHaveLength(2);
+        // should show odds if I look at my profile
+        expect(
+          response.body.rounds.every((r: { odds: number }) => r.odds != -1)
+        ).toBeTruthy();
+
         expect('rank' in response.body).toBeTruthy();
         expect(response.body.rank).toEqual(1);
         expect('score' in response.body).toBeTruthy();
