@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('@ppo/user/ui').then((m) => m.ProfileOldModule),
+    loadChildren: () => import('@ppo/user/ui').then((m) => m.profileRoutes),
   },
 
   {

@@ -1,1 +1,1 @@
-export * from './lib/profile_old.module';
+export { profileRoutes } from './lib/profile.routes';
