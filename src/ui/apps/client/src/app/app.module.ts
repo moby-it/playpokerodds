@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthDomainModule } from '@ppo/auth/domain';
 import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
 import { GameDomainModule } from '@ppo/game/domain';
-import { ProfileModule } from '@ppo/profile';
+import { ProfileOldModule } from '@ppo/user/ui';
 import { API_URL } from '@ppo/shared/config';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { ToastrModule } from 'ngx-toastr';

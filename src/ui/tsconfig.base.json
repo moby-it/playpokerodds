@@ -22,9 +22,10 @@
       "@ppo/game/domain": ["libs/game/domain/src/index.ts"],
       "@ppo/game/ui": ["libs/game/ui/src/index.ts"],
       "@ppo/leaderboards": ["libs/leaderboards/src/index.ts"],
-      "@ppo/profile": ["libs/profile/src/index.ts"],
       "@ppo/shared/config": ["libs/shared/config/src/index.ts"],
-      "@ppo/shared/ui": ["libs/shared/ui/src/index.ts"]
+      "@ppo/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@ppo/user/domain": ["libs/user/domain/src/index.ts"],
+      "@ppo/user/ui": ["libs/user/ui/src/index.ts"]
     }
   },
   "exclude": ["tmp"]
