@@ -33,12 +33,12 @@ async function fetchUserProfileByName(req: Request, res: Response) {
   if (userData?.userId !== userId) {
     rounds = rounds.map((r) => ({ ...r, odds: new Decimal(-1) }));
   }
-  const roundFavoritesIds: string[] = await prisma.$queryRaw`
+  const roundFavoritesIds: { id: string }[] = await prisma.$queryRaw`
   select distinct on ("Rounds"."id") "Rounds"."id"
     from "Rounds"
     LEFT JOIN "UserFavoriteRounds" UFR on "Rounds".id = UFR."roundId"
     LEFT JOIN "RoundAnswers" RA on "Rounds".id = RA."roundId"
-    WHERE UFR."userId" = '96e8d28e-a067-4658-88e8-67e4f67e1537'
+    WHERE UFR."userId" = ${user.id}
   `;
 
   res.send({
@@ -46,7 +46,7 @@ async function fetchUserProfileByName(req: Request, res: Response) {
     score,
     rounds,
     username,
-    roundFavoritesIds,
+    roundFavoritesIds: roundFavoritesIds.map((rfi) => rfi.id),
   });
 }
 
