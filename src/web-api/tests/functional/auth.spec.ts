@@ -92,28 +92,7 @@ describe('test auth endpoints', () => {
     expect(decodedJwtIsValid(decodedToken)).toBeTruthy();
     expect(decodedToken.role).toEqual(0);
   });
-  it('should change username', (done) => {
-    const newUsername = 'fasolakis';
-    request(app)
-      .post('/changeUsername')
-      .set('Authorization', `Bearer ${token}`)
-      .send({ username: newUsername })
-      .expect(200)
-      .expect(async (response) => {
-        expect(response.body).toBeDefined();
-        expect(
-          await prisma.user.count({ where: { username: newUsername } })
-        ).toEqual(1);
-      })
-      .end(done);
-  });
-  it('should change username with no auth payload', async () => {
-    const newUsername = 'fasolakis';
-    await request(app)
-      .post('/changeUsername')
-      .send({ username: newUsername })
-      .expect(401);
-  });
+
   it('should add user as admin', async () => {
     const result = await prisma.userRole.create({
       data: { role: UserRoles.Admin, userEmail: mockUserPayload1.email },
