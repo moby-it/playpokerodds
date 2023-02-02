@@ -7,14 +7,16 @@ export interface UserProfileState {
   rank: number;
   username: string;
   score: number;
-  rounds: RoundAnswer[];
+  roundAnswers: RoundAnswer[];
+  roundFavoriteIds: string[];
 }
 const initialState: UserProfileState = {
   username: '',
   score: 0,
   rank: -1,
-  rounds: [],
+  roundAnswers: [],
   error: '',
+  roundFavoriteIds: [],
 };
 export const userProfileFeature = createFeature({
   name: 'userProfile',
@@ -27,10 +29,11 @@ export const userProfileFeature = createFeature({
     })),
     on(userProfileActions.setUserProfile, (state, { userProfile }) => ({
       ...state,
-      rounds: userProfile.rounds,
+      roundAnswers: userProfile.rounds,
       score: Number(userProfile.score),
       username: userProfile.username,
       rank: userProfile.rank,
+      roundFavoriteIds: userProfile.roundFavoritesIds,
       error: '',
     }))
   ),
