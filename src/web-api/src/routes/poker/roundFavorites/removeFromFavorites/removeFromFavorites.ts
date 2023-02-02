@@ -8,10 +8,12 @@ export async function removeFromFavorites(
   next: NextFunction
 ) {
   const { user, roundId } = res.locals;
-  await prisma.roundAnswer.updateMany({
-    where: { roundId, userId: user.userId },
-    data: {
-      isFavorite: false,
+  await prisma.userFavoriteRounds.delete({
+    where: {
+      roundId_userId: {
+        roundId,
+        userId: user.userId,
+      },
     },
   });
   res.sendStatus(204);

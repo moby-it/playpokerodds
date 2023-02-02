@@ -5,4 +5,5 @@ export interface UserProfile {
   rank: number;
   score: string;
   rounds: RoundAnswer[];
+  roundFavoritesIds: string[];
 }

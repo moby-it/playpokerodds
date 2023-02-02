@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
 import { map } from 'rxjs';
 import { AuthStatus } from '../..';
-import { EditUserDto, RegisterDto, SigninDto } from '../dtos';
+import { RegisterDto, SigninDto } from '../dtos';
 import { AuthActions } from './actions';
 import {
   selectErrorMessage,
   selectStatus,
   selectUser,
-  selectUsername,
+  selectUsername
 } from './reducer';
 
 @Injectable({ providedIn: 'root' })
@@ -33,9 +33,7 @@ export class AuthFacade {
   register(dto: RegisterDto): void {
     this.store.dispatch(AuthActions.register(dto));
   }
-  changeUsername(dto: EditUserDto): void {
-    this.store.dispatch(AuthActions.changeUsername(dto));
-  }
+
   clearErrorMessage(): void {
     this.store.dispatch(AuthActions.setErrorMessage({ message: '' }));
   }

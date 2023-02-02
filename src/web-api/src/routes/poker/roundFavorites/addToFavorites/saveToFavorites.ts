@@ -8,10 +8,10 @@ export async function saveToFavorites(
   next: NextFunction
 ) {
   const { user, roundId } = res.locals;
-  await prisma.roundAnswer.updateMany({
-    where: { roundId, userId: user.userId },
+  await prisma.userFavoriteRounds.create({
     data: {
-      isFavorite: true,
+      roundId,
+      userId: user.userId,
     },
   });
   res.sendStatus(204);

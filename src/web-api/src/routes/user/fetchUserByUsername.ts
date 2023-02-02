@@ -27,7 +27,16 @@ async function fetchUserProfileByName(req: Request, res: Response) {
   if (userData?.userId !== userId) {
     rounds = rounds.map((r) => ({ ...r, odds: new Decimal(-1) }));
   }
-  res.send({ rank, score, rounds, username });
+  const roundFavorites = await prisma.userFavoriteRounds.findMany({
+    where: { userId },
+  });
+  res.send({
+    rank,
+    score,
+    rounds,
+    username,
+    roundFavoritesIds: roundFavorites.map((rf) => rf.roundId),
+  });
 }
 
 export const fetchUserProfileByNameEndpoint = [fetchUserProfileByName];

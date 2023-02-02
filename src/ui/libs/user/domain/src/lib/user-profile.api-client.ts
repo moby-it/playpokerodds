@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@ppo/shared/config';
 import { Observable } from 'rxjs';
+import { UpdateUserDto, UserResposeDto } from './dtos';
 import { UserProfile } from './dtos/userProfile.dto';
 
 @Injectable({ providedIn: 'root' })
@@ -14,5 +15,8 @@ export class UserProfileApiClient {
     return this.http.get<UserProfile>(
       `${this.apiUrl}/user/fetchByUsername/${username}`
     );
+  }
+  updateUser(dto: Partial<UpdateUserDto>): Observable<UserResposeDto> {
+    return this.http.put<UserResposeDto>(`${this.apiUrl}/user/update`, dto);
   }
 }

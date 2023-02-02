@@ -53,20 +53,7 @@ export class AuthEffects {
       )
     )
   );
-  changeUsername$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(AuthActions.changeUsername),
-      mergeMap((dto) =>
-        this.authApiClient.changeUsername(dto).pipe(
-          map((response) => AuthActions.setUser({ user: { ...response } })),
-          catchError((e: HttpErrorResponse) => {
-            console.log(e.error);
-            return EMPTY;
-          })
-        )
-      )
-    )
-  );
+
   refreshToken$ = createEffect(() =>
     this.actions.pipe(
       ofType(AuthActions.refresh),

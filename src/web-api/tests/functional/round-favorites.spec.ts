@@ -23,7 +23,7 @@ describe('test round favorite endpoints', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect(res => {
+      .expect((res) => {
         expect('token' in res.body).toBeTruthy();
         token = res.body.token;
         expect('id' in res.body).toBeTruthy();
@@ -34,7 +34,7 @@ describe('test round favorite endpoints', () => {
       .send(NewRoundPayloads.postValidRoundPayload2)
       .auth(token, { type: 'bearer' })
       .expect(200)
-      .expect(response => {
+      .expect((response) => {
         expect(response.body.roundId).toBeDefined();
         roundId = response.body.roundId;
       });
@@ -72,7 +72,9 @@ describe('test round favorite endpoints', () => {
       .auth(token, { type: 'bearer' })
       .expect(204);
     expect(
-      await prisma.roundAnswer.count({ where: { isFavorite: true, userId } })
+      await prisma.userFavoriteRounds.count({
+        where: { userId, roundId },
+      })
     ).toEqual(1);
   });
   it('should remove round from favorite', async () => {
@@ -82,7 +84,7 @@ describe('test round favorite endpoints', () => {
       .auth(token, { type: 'bearer' })
       .expect(204);
     expect(
-      await prisma.roundAnswer.count({ where: { isFavorite: true, userId } })
+      await prisma.userFavoriteRounds.count({ where: { userId, roundId } })
     ).toEqual(0);
   });
 });

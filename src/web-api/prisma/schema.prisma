@@ -11,26 +11,28 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(uuid())
-  email       String        @unique
-  username    String        @unique
-  salt        String
-  hash        String
-  role        UserRole?
-  score       Decimal       @default(0) @db.Decimal(10, 2)
-  RoundAnswer RoundAnswer[]
+  id             String               @id @default(uuid())
+  email          String               @unique
+  username       String               @unique
+  salt           String
+  hash           String
+  role           UserRole?
+  score          Decimal              @default(0) @db.Decimal(10, 2)
+  RoundAnswer    RoundAnswer[]
+  FavoriteRounds UserFavoriteRounds[]
 
   @@map("Users")
 }
 
 model Round {
-  id             String        @id @default(uuid())
+  id             String               @id @default(uuid())
   myHand         Json
   opponentsHands Json
   board          Json
-  odds           Decimal       @db.Decimal(5, 2)
-  timestamp      DateTime      @default(now())
+  odds           Decimal              @db.Decimal(5, 2)
+  timestamp      DateTime             @default(now())
   RoundAnswer    RoundAnswer[]
+  FavoriteRounds UserFavoriteRounds[]
 
   @@map("Rounds")
 }
@@ -41,12 +43,20 @@ model RoundAnswer {
   estimate  Decimal  @db.Decimal(5, 2)
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
-  isFavorite Boolean @default(false)
   round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
   roundId   String
   timestamp DateTime @default(now())
 
   @@map("RoundAnswers")
+}
+
+model UserFavoriteRounds {
+  round   Round  @relation(fields: [roundId], references: [id])
+  roundId String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+
+  @@id([roundId, userId])
 }
 
 model UserRole {

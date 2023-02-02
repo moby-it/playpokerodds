@@ -12,14 +12,3 @@ export interface AuthResposeDto {
   score: number;
   token: string;
 }
-
-export interface UserResposeDto {
-  id: string;
-  username: string;
-  email: string;
-  score: number;
-}
-
-export interface EditUserDto {
-  username: string;
-}

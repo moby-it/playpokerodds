@@ -3,11 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@ppo/shared/config';
 import { Observable } from 'rxjs';
 import {
-  AuthResposeDto,
-  EditUserDto,
-  RegisterDto,
-  SigninDto,
-  UserResposeDto,
+  AuthResposeDto, RegisterDto,
+  SigninDto
 } from './dtos';
 @Injectable()
 export class AuthApiClient {
@@ -23,11 +20,5 @@ export class AuthApiClient {
   }
   refreshToken(): Observable<AuthResposeDto> {
     return this.http.get<AuthResposeDto>(`${this.apiUrl}/auth/refreshToken`);
-  }
-  changeUsername(dto: EditUserDto): Observable<UserResposeDto> {
-    return this.http.post<UserResposeDto>(
-      `${this.apiUrl}/auth/changeUsername`,
-      dto
-    );
   }
 }

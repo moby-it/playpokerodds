@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { EditUserDto, RegisterDto, SigninDto } from '../dtos';
+import { RegisterDto, SigninDto } from '../dtos';
 import { User } from '../models';
 
 export const AuthActions = createActionGroup({
@@ -10,7 +10,6 @@ export const AuthActions = createActionGroup({
     Refresh: emptyProps(),
     Signin: props<SigninDto>(),
     Register: props<RegisterDto>(),
-    'Change Username': props<EditUserDto>(),
     Logout: emptyProps(),
   },
 });
