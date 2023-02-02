@@ -6,6 +6,7 @@ export const userProfileActions = createActionGroup({
   events: {
     reset: emptyProps(),
     'fetch User Profile': props<{ username: string }>(),
+    'set Error': props<{ message: string }>(),
     'set User Profile': props<{ userProfile: UserProfile }>(),
     EMPTY: emptyProps(),
   },

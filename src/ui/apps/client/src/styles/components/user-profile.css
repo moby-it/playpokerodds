@@ -49,3 +49,21 @@
   padding: var(--padding--md);
   border-radius: 8px 0 0 8px;
 }
+.user-profile .profile {
+  padding: 42px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 47px;
+}
+.user-profile .profile .card {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--neutral--600);
+  border-radius: var(--radius--sm);
+}

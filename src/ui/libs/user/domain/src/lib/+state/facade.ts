@@ -8,6 +8,7 @@ export class UserProfileFacade {
   constructor(private store: Store) {}
   userProfile$ = this.store.select(selectUserProfileState);
   fetchUserProfileByUsername(username: string): void {
+    this.store.dispatch(userProfileActions.setError({ message: '' }));
     this.store.dispatch(userProfileActions.fetchUserProfile({ username }));
   }
   reset(): void {

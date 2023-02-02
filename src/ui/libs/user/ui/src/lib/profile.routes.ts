@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Routes } from '@angular/router';
 import { UserProfileFacade } from '@ppo/user/domain';
-import { ca } from 'date-fns/locale';
-import { catchError, map, Observable, of, skipWhile } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, map, Observable, of, repeat, skipWhile } from 'rxjs';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { HistoryListComponent } from './history-list/history-list.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -17,6 +17,8 @@ export const profileRoutes: Routes = [
       (route: ActivatedRouteSnapshot): Observable<boolean> => {
         const router = inject(Router);
         const username = route.params['username'];
+        const toaster = inject(ToastrService);
+
         if (!username) {
           router.navigate(['/']);
           return of(false);
@@ -24,12 +26,18 @@ export const profileRoutes: Routes = [
         const userProfileFacade = inject(UserProfileFacade);
         userProfileFacade.fetchUserProfileByUsername(username);
         return userProfileFacade.userProfile$.pipe(
-          map((p) => p.username),
-          skipWhile((p) => !p),
-          map(() => {
+          skipWhile((p) => !p.username && !p.error),
+          map((profile) => {
+            if (profile.error) {
+              throw new Error(profile.error);
+            }
             return true;
           }),
-          catchError(() => of(false))
+          catchError((e: string) => {
+            toaster.error(e);
+            router.navigate(['/']);
+            return of(false);
+          }),
         );
       },
     ],
