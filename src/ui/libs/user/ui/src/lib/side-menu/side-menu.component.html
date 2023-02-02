@@ -7,5 +7,5 @@
   >
   <a [routerLink]="['history']" routerLinkActive="active">History</a>
   <a [routerLink]="['favorites']" routerLinkActive="active">Favorites</a>
-  <a [routerLink]="['user-settings']" routerLinkActive="active">Settings</a>
+  <a [routerLink]="['user-settings']" routerLinkActive="active" *ngIf="showUserSettingsTab$ | ngrxPush">Settings</a>
 </div>

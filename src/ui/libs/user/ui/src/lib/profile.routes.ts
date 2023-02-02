@@ -1,8 +1,9 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Routes } from '@angular/router';
+import { AuthFacade } from '@ppo/auth/domain';
 import { UserProfileFacade } from '@ppo/user/domain';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, map, Observable, of, repeat, skipWhile } from 'rxjs';
+import { catchError, map, Observable, of, skipWhile, take } from 'rxjs';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { HistoryListComponent } from './history-list/history-list.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -37,14 +38,27 @@ export const profileRoutes: Routes = [
             toaster.error(e);
             router.navigate(['/']);
             return of(false);
-          }),
+          })
         );
       },
     ],
     children: [
       { path: 'history', component: HistoryListComponent },
       { path: 'favorites', component: FavoritesListComponent },
-      { path: 'user-settings', component: UserSettingsComponent },
+      {
+        path: 'user-settings',
+        component: UserSettingsComponent,
+        canActivate: [
+          (route: ActivatedRouteSnapshot): Observable<boolean> => {
+            const loggedInUsername$ = inject(AuthFacade).username$;
+            const requestedUsername = route.parent?.params['username'];
+            return loggedInUsername$.pipe(
+              take(1),
+              map((loggedInUsername) => loggedInUsername === requestedUsername)
+            );
+          },
+        ],
+      },
       { path: '', component: ProfileComponent },
     ],
   },
