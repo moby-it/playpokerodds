@@ -12,8 +12,5 @@ import { map, tap } from 'rxjs';
 })
 export class FavoritesListComponent {
   constructor(private userProfile$: UserProfileFacade) {}
-  favoriteRounds$ = this.userProfile$.userProfile$.pipe(
-    map((p) => p.roundAnswers.filter((r) => p.roundFavoriteIds.includes(r.roundId))),
-    tap(console.log)
-  );
+  favoriteRounds$ = this.userProfile$.favoriteRounds$;
 }

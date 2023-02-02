@@ -12,5 +12,5 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 })
 export class UserProfileContainerComponent {
   constructor(private userProfile: UserProfileFacade) {}
-  username$ = this.userProfile.userProfile$.pipe(map((p) => p.username));
+  username$ = this.userProfile.profile$.pipe(map((p) => p.username));
 }

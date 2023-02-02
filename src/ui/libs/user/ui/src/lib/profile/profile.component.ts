@@ -10,5 +10,5 @@ import { UserProfileFacade } from '@ppo/user/domain';
 })
 export class ProfileComponent {
   constructor(private userProfileFacade: UserProfileFacade) {}
-  profile$ = this.userProfileFacade.userProfile$;
+  profile$ = this.userProfileFacade.profile$;
 }

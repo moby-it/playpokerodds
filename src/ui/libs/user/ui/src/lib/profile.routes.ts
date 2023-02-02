@@ -26,7 +26,7 @@ export const profileRoutes: Routes = [
         }
         const userProfileFacade = inject(UserProfileFacade);
         userProfileFacade.fetchUserProfileByUsername(username);
-        return userProfileFacade.userProfile$.pipe(
+        return userProfileFacade.profile$.pipe(
           skipWhile((p) => !p.username && !p.error),
           map((profile) => {
             if (profile.error) {

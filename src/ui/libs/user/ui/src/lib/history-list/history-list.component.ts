@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PushModule } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
-import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'ppo-history-list',
@@ -12,8 +11,5 @@ import { map, tap } from 'rxjs';
 })
 export class HistoryListComponent {
   constructor(private userProfile$: UserProfileFacade) {}
-  rounds$ = this.userProfile$.userProfile$.pipe(
-    map((p) => p.roundAnswers),
-    tap(console.log)
-  );
+  rounds$ = this.userProfile$.rounds$;
 }

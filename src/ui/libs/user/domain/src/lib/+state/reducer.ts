@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { RoundAnswer } from '@ppo/game/domain';
+import { UserRound } from '../dtos';
 import { userProfileActions } from './actions';
 
 export interface UserProfileState {
@@ -7,14 +7,14 @@ export interface UserProfileState {
   rank: number;
   username: string;
   score: number;
-  roundAnswers: RoundAnswer[];
+  rounds: UserRound[];
   roundFavoriteIds: string[];
 }
 const initialState: UserProfileState = {
   username: '',
   score: 0,
   rank: -1,
-  roundAnswers: [],
+  rounds: [],
   error: '',
   roundFavoriteIds: [],
 };
@@ -29,7 +29,7 @@ export const userProfileFeature = createFeature({
     })),
     on(userProfileActions.setUserProfile, (state, { userProfile }) => ({
       ...state,
-      roundAnswers: userProfile.rounds,
+      rounds: userProfile.rounds,
       score: Number(userProfile.score),
       username: userProfile.username,
       rank: userProfile.rank,
@@ -39,4 +39,9 @@ export const userProfileFeature = createFeature({
   ),
 });
 
-export const { selectUserProfileState } = userProfileFeature;
+export const {
+  selectRounds,
+  selectRoundFavoriteIds,
+  selectUsername,
+  selectUserProfileState,
+} = userProfileFeature;
