@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LetModule, PushModule } from '@ngrx/component';
@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
+import { GlobalErrorHandler } from './errorHandler';
 import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserStatusComponent } from './top-bar/user-status/user-status.component';
@@ -53,6 +54,7 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
       useClass: TokenInterceptor,
       multi: true,
     },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent],
 })

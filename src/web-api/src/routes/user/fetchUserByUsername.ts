@@ -1,3 +1,4 @@
+import { Round, RoundAnswer } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
 import { Request, Response } from 'express';
 import prisma from 'prisma';
@@ -20,22 +21,32 @@ async function fetchUserProfileByName(req: Request, res: Response) {
     score = leaderboards[rank].score;
     rank++;
   }
-  let rounds = await prisma.roundAnswer.findMany({
-    include: { round: true },
-    where: { userId },
-  });
+  let rounds: Array<
+    Pick<RoundAnswer, 'estimate' | 'timestamp' | 'roundId'> & Omit<Round, 'id'>
+  > = await prisma.$queryRaw`
+  select distinct on ("roundId") "RoundAnswers"."roundId" ,
+    "RoundAnswers".timestamp,"myHand","opponentsHands", "board", "estimate","odds" 
+  from "RoundAnswers"
+  LEFT JOIN "Rounds" R on "RoundAnswers"."roundId" = R.id ORDER BY "roundId", timestamp desc;
+  `;
+
   if (userData?.userId !== userId) {
     rounds = rounds.map((r) => ({ ...r, odds: new Decimal(-1) }));
   }
-  const roundFavorites = await prisma.userFavoriteRounds.findMany({
-    where: { userId },
-  });
+  const roundFavoritesIds: string[] = await prisma.$queryRaw`
+  select distinct on ("Rounds"."id") "Rounds"."id"
+    from "Rounds"
+    LEFT JOIN "UserFavoriteRounds" UFR on "Rounds".id = UFR."roundId"
+    LEFT JOIN "RoundAnswers" RA on "Rounds".id = RA."roundId"
+    WHERE UFR."userId" = '96e8d28e-a067-4658-88e8-67e4f67e1537'
+  `;
+
   res.send({
     rank,
     score,
     rounds,
     username,
-    roundFavoritesIds: roundFavorites.map((rf) => rf.roundId),
+    roundFavoritesIds,
   });
 }
 
