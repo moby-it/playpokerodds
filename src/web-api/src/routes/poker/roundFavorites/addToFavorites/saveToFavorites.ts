@@ -8,6 +8,12 @@ export async function saveToFavorites(
   next: NextFunction
 ) {
   const { user, roundId } = res.locals;
+  const isAlreadyFavorite = await prisma.userFavoriteRounds.count({
+    where: { roundId, userId: user.userId },
+  });
+  if (isAlreadyFavorite) {
+    return res.sendStatus(304);
+  }
   await prisma.userFavoriteRounds.create({
     data: {
       roundId,
