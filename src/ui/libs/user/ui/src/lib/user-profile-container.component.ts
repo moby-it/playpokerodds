@@ -7,6 +7,13 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 @Component({
   selector: 'ppo-user-profile-container',
   templateUrl: './user-profile-container.component.html',
+  styles: [
+    `
+      .container {
+        padding: 100px 24px 24px 24px;
+      }
+    `,
+  ],
   standalone: true,
   imports: [RouterModule, SideMenuComponent, PushModule],
 })
