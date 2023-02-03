@@ -4,9 +4,8 @@ import { DecodedJwt, decodedJwtIsValid } from 'shared';
 import { getSecretKey } from './getSecretKey';
 
 export const extractUserDataFromRequest = (req: Request): DecodedJwt | null => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-  const token = authHeader.substring(7, authHeader.length);
+  const token = extractTokenFromRequest(req);
+  if (!token) return null;
   const decodedToken = verifyJwt(token);
   if (!decodedJwtIsValid(decodedToken)) return null;
   return decodedToken;
@@ -17,4 +16,10 @@ function verifyJwt(token: string): string | JwtPayload | null {
   } catch (e) {
     return null;
   }
+}
+export function extractTokenFromRequest(req: Request): string | null {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return null;
+  const token = authHeader.substring(7, authHeader.length);
+  return token;
 }
