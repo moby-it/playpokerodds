@@ -7,7 +7,7 @@ import { extractUserDataFromRequest } from '../auth/common';
 
 const UpdatUserSchema = Joi.object({
   username: Joi.string(),
-  password: Joi.string(),
+  password: Joi.string().allow(''),
   email: Joi.string().email(),
 }).or('username', 'email', 'password');
 

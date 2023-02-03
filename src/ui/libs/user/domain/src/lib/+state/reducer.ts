@@ -43,5 +43,6 @@ export const {
   selectRounds,
   selectRoundFavoriteIds,
   selectUsername,
+  selectError,
   selectUserProfileState,
 } = userProfileFeature;

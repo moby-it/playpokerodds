@@ -1,4 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { UpdateUserDto } from '../dtos';
 import { UserProfile } from '../dtos/userProfile.dto';
 
 export const userProfileActions = createActionGroup({
@@ -8,6 +9,7 @@ export const userProfileActions = createActionGroup({
     'fetch User Profile': props<{ username: string }>(),
     'set Error': props<{ message: string }>(),
     'set User Profile': props<{ userProfile: UserProfile }>(),
+    'update User Profile': props<{ dto: Partial<UpdateUserDto> }>(),
     EMPTY: emptyProps(),
   },
 });

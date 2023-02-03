@@ -9,7 +9,7 @@ import {
   selectErrorMessage,
   selectStatus,
   selectUser,
-  selectUsername
+  selectUsername,
 } from './reducer';
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +18,6 @@ export class AuthFacade {
     if (localStorage.getItem(BEARER_TOKEN_STORAGE_KEY)) {
       this.store.dispatch(AuthActions.refresh());
     }
-    localStorage.clear();
   }
   user$ = this.store.select(selectUser);
   username$ = this.store.select(selectUsername);
@@ -32,6 +31,9 @@ export class AuthFacade {
   }
   register(dto: RegisterDto): void {
     this.store.dispatch(AuthActions.register(dto));
+  }
+  logout(): void {
+    this.store.dispatch(AuthActions.logout());
   }
 
   clearErrorMessage(): void {
