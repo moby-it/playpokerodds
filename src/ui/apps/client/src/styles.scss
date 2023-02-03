@@ -8,19 +8,21 @@
 @import './styles/button.css';
 @import './styles/scrollbar.css';
 @import './styles/custom_toaster.css';
+@import './styles/switch.css';
 
 // components
-@import './styles/components/guess-box.css';
-@import './styles/components/play-button.css';
 @import './styles/components/top-bar.css';
-@import './styles/components/poker-table.css';
-@import './styles/components/board.css';
-@import './styles/components/player-hand.css';
 @import './styles/components/auth-form.css';
 @import './styles/components/leaderboards.css';
-@import './styles/components/opponent-hand.css';
-@import './styles/components/switch.css';
 @import './styles/components/user-status.css';
-@import './styles/components/post-round-actions.css';
 @import './styles/components/user-profile.css';
 @import './styles/components/user-settings.css';
+
+// poker table
+@import './styles/components/poker-table/guess-box.css';
+@import './styles/components/poker-table/play-button.css';
+@import './styles/components/poker-table/poker-table.css';
+@import './styles/components/poker-table/board.css';
+@import './styles/components/poker-table/player-hand.css';
+@import './styles/components/poker-table/opponent-hand.css';
+@import './styles/components/poker-table/post-round-actions.css';
