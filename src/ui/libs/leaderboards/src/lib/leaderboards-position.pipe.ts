@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UserScore } from '@ppo/game/domain';
+import { UserScore } from './dtos/userScores.dto';
 
 @Pipe({
   name: 'leaderboardsPosition',

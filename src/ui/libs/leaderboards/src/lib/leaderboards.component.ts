@@ -1,19 +1,18 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthFacade } from '@ppo/auth/domain';
-import { PokerOddsFacade } from '@ppo/game/domain';
 import { filter, map, withLatestFrom } from 'rxjs';
+import { LeaderboardsStore } from './leaderboards.store';
 @Component({
   selector: 'ppo-leaderboards',
   templateUrl: './leaderboards.component.html',
   styleUrls: ['./leaderboards.component.scss'],
 })
-export class LeaderboardsComponent implements OnDestroy {
+export class LeaderboardsComponent {
   constructor(
-    private pokerOddsFacade: PokerOddsFacade,
-    private auth: AuthFacade
+    private auth: AuthFacade,
+    private leaderboardsStore: LeaderboardsStore
   ) {}
-  userScores$ = this.pokerOddsFacade.userScores$.pipe(filter(Boolean));
-  loading$ = this.pokerOddsFacade.fetchingLeaderboards$;
+  userScores$ = this.leaderboardsStore.userScores$;
   currentUserScore$ = this.auth.user$
     .pipe(withLatestFrom(this.userScores$))
     .pipe(
@@ -23,9 +22,6 @@ export class LeaderboardsComponent implements OnDestroy {
       filter(Boolean)
     );
   refreshScores(): void {
-    this.pokerOddsFacade.refreshLeaderboards();
-  }
-  ngOnDestroy(): void {
-    this.pokerOddsFacade.reset();
+    this.leaderboardsStore.fetchLeaderboards();
   }
 }

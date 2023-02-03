@@ -1,20 +1,18 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { pokerOddsActions } from './actions';
 import {
   selectAnswer,
   selectCalculatingAnswer,
-  selectFetchingLeaderboards,
   selectFetchingRound,
   selectPlayWithRevealedCards,
   selectRound,
   selectRoundId,
-  selectRoundStatus,
-  selectUserScores,
+  selectRoundStatus
 } from './reducer';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { take } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class PokerOddsFacade {
@@ -26,13 +24,11 @@ export class PokerOddsFacade {
   // loaders
   fetchingRound$ = this.store.select(selectFetchingRound);
   calculatingAnswer$ = this.store.select(selectCalculatingAnswer);
-  fetchingLeaderboards$ = this.store.select(selectFetchingLeaderboards);
   // selectors
   currentRound$ = this.store.select(selectRound);
   answer$ = this.store.select(selectAnswer);
 
   roundStatus$ = this.store.select(selectRoundStatus);
-  userScores$ = this.store.select(selectUserScores);
   playingWithRevealedCards$ = this.store.select(selectPlayWithRevealedCards);
   startNewRound(): void {
     this.store.dispatch(pokerOddsActions.startNewRound());
@@ -60,9 +56,6 @@ export class PokerOddsFacade {
   }
   togglePlayRevealedCards(): void {
     this.store.dispatch(pokerOddsActions.togglePlayWithRevealedCards());
-  }
-  refreshLeaderboards(): void {
-    this.store.dispatch(pokerOddsActions.fetchLeaderboards());
   }
   reset(): void {
     this.store.dispatch(pokerOddsActions.reset());

@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { PokerOddsFacade } from '@ppo/game/domain';
 import { LoaderService } from '@ppo/shared/ui';
 import { map, Observable, skipWhile } from 'rxjs';
+import { LeaderboardsStore } from './leaderboards.store';
 
 @Injectable()
 export class LeaderboardsResolver implements Resolve<void> {
   constructor(
-    private pokerOddsFacade: PokerOddsFacade,
+    private leaderboardStore: LeaderboardsStore,
     private loader: LoaderService
   ) {}
   resolve(): Observable<void> {
-    this.pokerOddsFacade.refreshLeaderboards();
     this.loader.setLoading(true);
-    return this.pokerOddsFacade.fetchingLeaderboards$.pipe(
+    return this.leaderboardStore.fetchLeaderboards().pipe(
       skipWhile((loading) => !loading),
       map(() => {
         this.loader.setLoading(false);

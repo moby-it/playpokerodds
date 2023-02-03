@@ -1,6 +1,6 @@
 import { Round } from '@moby-it/ppo-core';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { RoundAnswer, UserScore } from '../dtos';
+import { RoundAnswer } from '../dtos';
 import { estimateWasAccurate } from '../helpers';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
@@ -8,23 +8,19 @@ type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };
 interface GameUiState {
   fetchingRound: boolean;
   calculatingAnswer: boolean;
-  fetchingLeaderboards: boolean;
   roundId: string;
   round: Round | null;
   estimate: number | null;
   answer: RoundAnswerWithEstimate | null;
-  userScores: UserScore[] | null;
   roundStatus: RoundStatus;
   playWithRevealedCards: boolean;
 }
 const initialState: GameUiState = {
   fetchingRound: false,
   calculatingAnswer: false,
-  fetchingLeaderboards: false,
   roundId: '',
   round: null,
   estimate: null,
-  userScores: null,
   answer: null,
   roundStatus: 'Initial',
   playWithRevealedCards: true,
@@ -57,16 +53,6 @@ export const pokerOddsFeature = createFeature({
       fetchingRound: false,
       roundStatus: 'Playing',
     })),
-
-    on(pokerOddsActions.fetchLeaderboards, (state) => ({
-      ...state,
-      fetchingLeaderboards: true,
-    })),
-    on(pokerOddsActions.setLeaderboards, (state, action) => ({
-      ...state,
-      fetchingLeaderboards: false,
-      userScores: action.scores,
-    })),
     on(pokerOddsActions.setRoundAnswer, (state, action) => ({
       ...state,
       answer: {
@@ -93,8 +79,6 @@ export const {
   selectCalculatingAnswer,
   selectFetchingRound,
   selectRoundStatus,
-  selectUserScores,
-  selectFetchingLeaderboards,
   selectPlayWithRevealedCards,
   selectRoundId,
 } = pokerOddsFeature;

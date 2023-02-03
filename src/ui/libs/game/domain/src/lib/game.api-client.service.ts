@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CreateRoundInputs, Round } from '@moby-it/ppo-core';
 import { API_URL } from '@ppo/shared/config';
 import { Observable } from 'rxjs';
-import { RoundAnswer, UserScore } from './dtos';
+import { RoundAnswer } from './dtos';
 
 @Injectable()
 export class GameApiClient {
@@ -64,9 +64,6 @@ export class GameApiClient {
       `${this.apiUrl}/poker/removeFromFavorites/${roundId}`,
       {}
     );
-  }
-  fetchLeaderboards(): Observable<UserScore[]> {
-    return this.http.get<UserScore[]>(`${this.apiUrl}/poker/fetchLeaderboards`);
   }
   fetchUserRounds(): Observable<RoundAnswer[]> {
     return this.http.get<RoundAnswer[]>(`${this.apiUrl}/poker/fetchUserRounds`);

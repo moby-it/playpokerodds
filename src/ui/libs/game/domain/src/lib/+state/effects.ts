@@ -13,7 +13,7 @@ import {
   repeat,
   switchMap,
   tap,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs';
 import { GameApiClient } from '../game.api-client.service';
 import { generateRandomRoundInputs } from '../helpers';
@@ -21,7 +21,7 @@ import { pokerOddsActions } from './actions';
 import {
   selectPlayWithRevealedCards,
   selectRound,
-  selectRoundId,
+  selectRoundId
 } from './reducer';
 @Injectable()
 export class PokerOddsEffects {
@@ -84,13 +84,7 @@ export class PokerOddsEffects {
       switchMap((answer) => [pokerOddsActions.setRoundAnswer({ answer })])
     )
   );
-  fetchLeaderoards$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(pokerOddsActions.fetchLeaderboards),
-      switchMap(() => this.pokerOddsApiClient.fetchLeaderboards()),
-      map((scores) => pokerOddsActions.setLeaderboards({ scores }))
-    )
-  );
+
   addRoundToFavorites$ = createEffect(() =>
     this.actions.pipe(
       ofType(pokerOddsActions.addRoundToFavorites),
