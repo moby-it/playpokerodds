@@ -1,14 +1,19 @@
 <div class="user-form-container">
   <form [formGroup]="signinForm" class="form" (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let control of signinForm.controls | keyvalue">
-      <label class="label"> {{ control.key | titlecase }} </label>
-      <input
-        class="control"
-        [formControlName]="control.key"
-        [name]="control.key"
-        [type]="control.key === 'password' ? 'password' : 'username'"
-      />
-    </ng-container>
+    <label class="label"> {{ 'username' | titlecase }} </label>
+    <input
+      class="control"
+      formControlName="username"
+      name="username"
+      type="username"
+    />
+    <label class="label"> {{ 'password' | titlecase }} </label>
+    <input
+      class="control"
+      formControlName="password"
+      name="password"
+      type="password"
+    />
     <div class="submit-container">
       <button
         type="submit"

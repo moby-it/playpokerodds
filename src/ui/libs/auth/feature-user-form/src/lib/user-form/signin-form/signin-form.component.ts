@@ -12,7 +12,7 @@ export class SigninFormComponent {
     private fb: NonNullableFormBuilder
   ) {}
   signinForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
   formInvalid$ = this.signinForm.statusChanges.pipe(

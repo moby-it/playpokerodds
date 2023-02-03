@@ -1,5 +1,5 @@
 export interface SigninDto {
-  email: string;
+  username: string;
   password: string;
 }
 export interface RegisterDto extends SigninDto {

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { PushModule } from '@ngrx/component';
 import { AuthFacade } from '@ppo/auth/domain';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'ppo-user-settings',
@@ -10,6 +12,15 @@ import { AuthFacade } from '@ppo/auth/domain';
   imports: [PushModule, CommonModule],
 })
 export class UserSettingsComponent {
-  constructor(private auth: AuthFacade) {}
+  constructor(private auth: AuthFacade) {
+    this.auth.isLoggedIn$.pipe(
+      tap((isLoggedIn) => {
+        if (!isLoggedIn) {
+          const router = inject(Router);
+          router.navigate(['/']);
+        }
+      })
+    );
+  }
   currentUser$ = this.auth.user$;
 }

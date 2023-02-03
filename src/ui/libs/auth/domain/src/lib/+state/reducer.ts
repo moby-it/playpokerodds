@@ -1,6 +1,7 @@
 import { User } from '../models';
 import { createReducer, on, createFeature, createSelector } from '@ngrx/store';
 import { AuthActions } from './actions';
+import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
 export const AUTH_STATE_NAME = 'auth';
 export interface AuthState {
   user: User | null;
@@ -27,11 +28,10 @@ export const authFeature = createFeature({
       user: action.user,
       errorMessage: '',
     })),
-    on(AuthActions.logout, (state) => ({
-      ...state,
-      status: Status.UNAUTHORIZED,
-      user: null,
-    })),
+    on(AuthActions.logout, (state) => {
+      localStorage.removeItem(BEARER_TOKEN_STORAGE_KEY);
+      return { ...state, status: Status.UNAUTHORIZED, user: null };
+    }),
     on(AuthActions.setErrorMessage, (state, action) => ({
       ...state,
       errorMessage: action.message,
