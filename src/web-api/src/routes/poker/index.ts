@@ -4,7 +4,7 @@ import { fetchLeaderBoardsEndpoint } from './fetchLeaderboards';
 import { fetchRandomRound } from './fetchRandomRound';
 import { fetchRound } from './fetchRound';
 import { fetchRoundById } from './fetchRoundById';
-import { fetchUserRoundsEndpoint } from './fetchUserRounds';
+
 import { postExistingRoundAnswer, postNewRoundAnswer } from './postRoundAnswer';
 import {
   addToFavoritesEndpoint,
@@ -20,7 +20,6 @@ router.put('/removeFromFavorites/:roundId', ...removeFromFavoritesEndpoint);
 router.get('/fetchRoundById/:id', ...fetchRoundById);
 router.get('/fetchRound', ...fetchRound);
 router.get('/fetchLeaderboards', ...fetchLeaderBoardsEndpoint);
-router.get('/fetchUserRounds', ...fetchUserRoundsEndpoint);
 router.get('/fetchRandomRound', ...fetchRandomRound);
 
 router.get('/fetchEvents', ...fetchEventsEndpoint);
