@@ -113,4 +113,17 @@ describe('test auth endpoints', () => {
         token = response.body.token;
       });
   });
+  it('should not be able to refresh with no token', async () => {
+    await request(app).get('/refreshToken').expect(401);
+  });
+  it('should refresh a user token', async () => {
+    await request(app)
+      .get('/refreshToken')
+      .auth(token, { type: 'bearer' })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toBeDefined();
+        expect(response.body.token).toBeDefined();
+      });
+  });
 });
