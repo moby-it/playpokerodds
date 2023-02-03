@@ -22,16 +22,19 @@ async function fetchUserProfileByName(req: Request, res: Response) {
     rank++;
   }
   let rounds: Array<
-    Pick<RoundAnswer, 'estimate' | 'timestamp' | 'roundId'> & Omit<Round, 'id'>
+    Pick<RoundAnswer, 'estimate' | 'timestamp' | 'roundId'> &
+      Omit<Round, 'id'> & { score?: number }
   > = await prisma.$queryRaw`
   select distinct on ("roundId") "RoundAnswers"."roundId" ,
-    "RoundAnswers".timestamp,"myHand","opponentsHands", "board", "estimate","odds" 
+    "RoundAnswers".timestamp,"myHand","opponentsHands", "board", "estimate","odds", abs("estimate"-"odds") as "score"
   from "RoundAnswers"
   LEFT JOIN "Rounds" R on "RoundAnswers"."roundId" = R.id ORDER BY "roundId", timestamp desc;
   `;
-
   if (userData?.userId !== userId) {
-    rounds = rounds.map((r) => ({ ...r, odds: new Decimal(-1) }));
+    rounds = rounds.map((r) => ({
+      ...r,
+      odds: new Decimal(-1),
+    }));
   }
   const roundFavoritesIds: { id: string }[] = await prisma.$queryRaw`
   select distinct on ("Rounds"."id") "Rounds"."id"
@@ -44,7 +47,12 @@ async function fetchUserProfileByName(req: Request, res: Response) {
   res.send({
     rank,
     score,
-    rounds,
+    rounds: rounds.map((r) => ({
+      ...r,
+      estimate: +Number(r.estimate).toFixed(2),
+      score: +Number(r.score).toFixed(2),
+      odds: +Number(r.odds).toFixed(2),
+    })),
     username,
     roundFavoritesIds: roundFavoritesIds.map((rfi) => rfi.id),
   });

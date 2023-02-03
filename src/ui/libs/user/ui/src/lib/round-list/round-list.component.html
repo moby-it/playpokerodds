@@ -20,7 +20,7 @@
         </div>
         <div class="date">{{ userRound.timestamp | date: 'shortDate' }}</div>
         <div class="time">{{ userRound.timestamp | date: 'HH:mm' }}</div>
-        <div class="score">Score: 42</div>
+        <div class="score">Score: {{ userRound.score }}</div>
       </div>
       <div class="isFavorite">
         <svg

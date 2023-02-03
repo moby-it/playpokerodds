@@ -44,22 +44,27 @@
   gap: 16px;
 }
 .time,
-.date,
-.score {
+.date{
+  flex: 1;
   font-size: 16px;
+
 }
 .time,
 .date {
   line-height: 24px;
 }
+.score {
+  flex: 2;
+  font-size: 16px;
 
+}
 .round-list .list .row .content .hand {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-size: 22px;
-  width: 90px;
+  width: 94px;
 }
 .round-list .list .row .isFavorite {
   display: flex;

@@ -1,4 +1,3 @@
-import { Round } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
@@ -61,7 +60,9 @@ describe('test fetch events endpoint', () => {
         expect(response.body.rounds).toHaveLength(2);
         // should hide odds for other user
         expect(
-          response.body.rounds.every((r: { odds: number }) => r.odds == -1)
+          response.body.rounds.every(
+            (r: { odds: number }) => r.odds == -1 && 'score' in r
+          )
         ).toBeTruthy();
 
         expect('rank' in response.body).toBeTruthy();
@@ -80,6 +81,17 @@ describe('test fetch events endpoint', () => {
       .expect(200)
       .expect((response) => {
         expect('rounds' in response.body).toBeTruthy();
+        expect(
+          response.body.rounds.every(
+            (round: { score: number; odds: number; estimate: number }) => {
+              return (
+                round.score ===
+                Math.abs(+(round.estimate - round.odds).toFixed(2))
+              );
+            }
+          )
+        ).toBeTruthy();
+
         expect(response.body.rounds).toHaveLength(2);
         expect('username' in response.body).toBeTruthy();
         expect(response.body.username).toEqual('gerogesp');

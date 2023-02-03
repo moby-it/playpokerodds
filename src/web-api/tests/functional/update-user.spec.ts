@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
@@ -7,11 +6,11 @@ import { AuthRouter, UserRouter } from 'routes';
 
 import request from 'supertest';
 import {
-  mockUserPayload1,
   INVALID_mockUpdateUserPayload1,
   INVALID_mockUpdateUserPayload2,
-  VALID_mockUpdateUserPayload1,
   INVALID_mockUpdateUserPayload3,
+  mockUserPayload1,
+  VALID_mockUpdateUserPayload1,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test round favorite endpoints', () => {
