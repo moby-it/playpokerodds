@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { UpdateUserDto } from '../dtos';
-import { UserProfile } from '../dtos/userProfile.dto';
+import { UpdateUserDto } from '../models';
+import { UserProfile } from '../models/userProfile';
 
 export const userProfileActions = createActionGroup({
   source: 'userProfule',

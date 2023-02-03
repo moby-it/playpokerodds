@@ -13,7 +13,7 @@ input[data-autocompleted] {
   align-items: center;
   gap: 80px;
   padding: 100px 24px 100px;
-  min-height: 100vh;
+  height: 100vh;
 }
 .flex-1 {
   flex: 1;

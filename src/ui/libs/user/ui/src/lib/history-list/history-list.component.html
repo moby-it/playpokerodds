@@ -1,1 +1,3 @@
-<p>{{ rounds$ | ngrxPush | json }}</p>
+<ng-container *ngrxLet="rounds$ as rounds">
+  <ppo-round-list [rounds]="rounds"></ppo-round-list>
+</ng-container>

@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { UserRound } from '../dtos';
+import { UserRound } from '../models';
 import { userProfileActions } from './actions';
 
 export interface UserProfileState {

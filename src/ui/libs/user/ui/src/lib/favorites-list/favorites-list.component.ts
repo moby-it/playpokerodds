@@ -1,14 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PushModule } from '@ngrx/component';
+import { LetModule } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
-import { map, tap } from 'rxjs';
+import { RoundListComponent } from '../round-list/round-list.component';
 
 @Component({
   selector: 'ppo-favorites-list',
   templateUrl: './favorites-list.component.html',
+  styles: [
+    `
+      :host {
+        display: flex;
+        flex: 1;
+      }
+    `,
+  ],
   standalone: true,
-  imports: [CommonModule, PushModule],
+  imports: [CommonModule, LetModule, RoundListComponent],
 })
 export class FavoritesListComponent {
   constructor(private userProfile$: UserProfileFacade) {}

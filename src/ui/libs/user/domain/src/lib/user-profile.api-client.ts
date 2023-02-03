@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@ppo/shared/config';
 import { Observable } from 'rxjs';
-import { UpdateUserDto, UserResposeDto } from './dtos';
-import { UserProfile } from './dtos/userProfile.dto';
+import { UpdateUserDto, UserResposeDto } from './models';
+import { UserProfile } from './models/userProfile';
 
 @Injectable({ providedIn: 'root' })
 export class UserProfileApiClient {

@@ -6,4 +6,5 @@ export interface RoundAnswer {
   odds: number;
   estimate: number;
   score: number;
+  timestamp: string;
 }

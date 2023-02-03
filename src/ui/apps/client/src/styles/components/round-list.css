@@ -1,0 +1,80 @@
+.round-list {
+  display: flex;
+  padding: 42px 24px;
+  gap: 16px;
+  flex: 1;
+}
+.round-list .list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: 539px;
+  overflow: auto;
+}
+.round-list .list .row:nth-child(odd) {
+  background-color: var(--neutral--500);
+}
+.round-list .list .row:nth-child(even) {
+  background-color: var(--neutral--600);
+}
+
+.round-list .list .row {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 42px;
+  opacity: 0.5;
+  width: 431px;
+  cursor: pointer;
+}
+.row.selected {
+  opacity: 1 !important;
+}
+.round-list .list .row:first-child {
+  border-radius: 8px 8px 0px 0px;
+}
+.round-list .list .row:last-child {
+  border-radius: 0 0 8px 8px;
+}
+.round-list .list .row .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0px;
+  gap: 16px;
+}
+.time,
+.date,
+.score {
+  font-size: 16px;
+}
+.time,
+.date {
+  line-height: 24px;
+}
+
+.round-list .list .row .content .hand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 22px;
+  width: 90px;
+}
+.round-list .list .row .isFavorite {
+  display: flex;
+  align-items: center;
+}
+.round-list .round-preview {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  background: var(--neutral--800);
+  border-radius: var(--radius--sm);
+}
+.round-list .round-preview ppo-poker-table {
+  scale: 0.9;
+}

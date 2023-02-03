@@ -9,4 +9,5 @@ export interface UserProfile {
   roundFavoritesIds: string[];
 }
 export type UserRound = Round &
-  Pick<RoundAnswer, 'estimate' | 'odds' | 'roundId'>;
+  Pick<RoundAnswer, 'estimate' | 'odds' | 'roundId' | 'timestamp'>;
+export type UserRoundViewmodel = UserRound & { isFavorite: boolean };
