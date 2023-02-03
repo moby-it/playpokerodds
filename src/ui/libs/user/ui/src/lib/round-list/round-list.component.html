@@ -5,10 +5,10 @@
     </div>
     <div
       class="row"
-      *ngFor="let userRound of rounds"
+      *ngFor="let userRound of rounds; trackBy: userRoundTrackBy"
       (click)="selectRound(userRound)"
       [ngClass]="{
-        selected: (selectedRound$ | ngrxPush) === userRound
+        selected: (selectedRound$ | ngrxPush)?.roundId === userRound.roundId
       }"
     >
       <div class="content">
@@ -22,7 +22,7 @@
         <div class="time">{{ userRound.timestamp | date: 'HH:mm' }}</div>
         <div class="score">Score: {{ userRound.score }}</div>
       </div>
-      <div class="isFavorite">
+      <div class="isFavorite" (click)="toggleFavorite(userRound, $event)">
         <svg
           width="24"
           height="24"

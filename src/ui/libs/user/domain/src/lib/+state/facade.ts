@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, map, Observable, take, tap } from 'rxjs';
 import { UpdateUserDto, UserRoundViewmodel } from '../models';
 import { userProfileActions } from './actions';
 import {
@@ -34,6 +34,19 @@ export class UserProfileFacade {
   fetchUserProfileByUsername(username: string): void {
     this.store.dispatch(userProfileActions.setError({ message: '' }));
     this.store.dispatch(userProfileActions.fetchUserProfile({ username }));
+  }
+  refreshUserProfile(): void {
+    this.username$
+      .pipe(
+        take(1),
+        tap((username) => {
+          this.store.dispatch(userProfileActions.setError({ message: '' }));
+          this.store.dispatch(
+            userProfileActions.fetchUserProfile({ username })
+          );
+        })
+      )
+      .subscribe();
   }
   updateUser(dto: Partial<UpdateUserDto>): void {
     this.store.dispatch(userProfileActions.updateUserProfile({ dto }));

@@ -2,7 +2,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { GameApiClient } from '../game.api-client.service';
 import { pokerOddsActions } from './actions';
 import {
   selectAnswer,
@@ -11,7 +12,7 @@ import {
   selectPlayWithRevealedCards,
   selectRound,
   selectRoundId,
-  selectRoundStatus
+  selectRoundStatus,
 } from './reducer';
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +20,8 @@ export class PokerOddsFacade {
   constructor(
     private store: Store,
     private clipboard: Clipboard,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private pokerApiClient: GameApiClient
   ) {}
   // loaders
   fetchingRound$ = this.store.select(selectFetchingRound);
@@ -46,6 +48,12 @@ export class PokerOddsFacade {
       .subscribe((roundId) => {
         this.store.dispatch(pokerOddsActions.addRoundToFavorites({ roundId }));
       });
+  }
+  addRoundToFavorites(roundId: string): Observable<unknown> {
+    return this.pokerApiClient.addToFavorites(roundId);
+  }
+  removeRoundFromFavorites(roundId: string): Observable<unknown> {
+    return this.pokerApiClient.removeFromFavorites(roundId);
   }
   copyRoundUrlToClipboard(): void {
     this.answer$.pipe(take(1)).subscribe((answer) => {
