@@ -11,7 +11,7 @@ export class LoginComponent {
   constructor(private store: AuthService, private fb: NonNullableFormBuilder) {}
   error$ = this.store.error$;
   form = this.fb.group({
-    email: ['', Validators.email],
+    username: ['', Validators.required],
     password: ['', Validators.required],
   });
   submit(): void {

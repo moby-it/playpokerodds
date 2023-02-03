@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 export interface AuthPayload {
-  email: string;
+  username: string;
   password: string;
 }
 export enum AuthStatus {
