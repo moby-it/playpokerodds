@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Card } from '@moby-it/ppo-core';
-import { Animations } from '@ppo/shared/ui';
+import { fadeAnimation } from '../../animations';
 @Component({
   selector: 'ppo-card',
   templateUrl: './card.component.html',
-  animations: [Animations.fadeAnimation],
+  animations: [fadeAnimation],
 })
 export class CardComponent {
   @Input() back = false;
