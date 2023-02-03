@@ -37,6 +37,7 @@
   width: 70px;
 }
 .leaderboards-table tbody tr:hover {
+  cursor: pointer;
   box-shadow: var(--shadow);
   border-radius: var(--radius-sm);
 }
