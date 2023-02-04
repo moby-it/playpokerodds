@@ -15,10 +15,9 @@ async function fetchUserProfileByName(req: Request, res: Response) {
   }
   const userId = user.id;
   const leaderboards = await getLeaderboards();
-  let score: number | null = null;
+  const score = Number(user.score.toFixed(2));
   let rank = leaderboards.findIndex((u) => u.username === username);
   if (rank >= 0) {
-    score = leaderboards[rank].score;
     rank++;
   }
   let rounds: Array<

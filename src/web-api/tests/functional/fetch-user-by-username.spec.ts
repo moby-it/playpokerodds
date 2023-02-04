@@ -35,14 +35,6 @@ describe('test fetch events endpoint', () => {
       .expect((response) => {
         userScore += response.body.score;
       });
-    await request(app)
-      .post('/postNewRoundAnswer')
-      .auth(token, { type: 'bearer' })
-      .send(NewRoundPayloads.postValidRoundPayload2)
-      .expect(200)
-      .expect((response) => {
-        userScore += response.body.score;
-      });
   });
   afterAll(async () => {
     await mockDb.tearDown(prisma);
@@ -57,7 +49,7 @@ describe('test fetch events endpoint', () => {
       .expect(200)
       .expect((response) => {
         expect('rounds' in response.body).toBeTruthy();
-        expect(response.body.rounds).toHaveLength(2);
+        expect(response.body.rounds).toHaveLength(1);
         // should hide odds for other user
         expect(
           response.body.rounds.every(
@@ -69,12 +61,36 @@ describe('test fetch events endpoint', () => {
         expect('username' in response.body).toBeTruthy();
         expect(response.body.username).toEqual('gerogesp');
 
-        expect(response.body.rank).toEqual(1);
+        expect(response.body.rank).toEqual(-1);
+        expect('score' in response.body).toBeTruthy();
+        expect(response.body.score).toEqual(userScore);
+      });
+  });
+  it('should get user that has no rank yet', async () => {
+    await request(app)
+      .get('/fetchByUsername/gerogesp')
+      .expect(200)
+      .expect((response) => {
+        expect('rounds' in response.body).toBeTruthy();
+        expect(response.body.rounds).toHaveLength(1);
+        expect('username' in response.body).toBeTruthy();
+        expect(response.body.username).toEqual('gerogesp');
+        expect('rank' in response.body).toBeTruthy();
+        // a negative rank represents a user with no rank
+        expect(response.body.rank).toEqual(-1);
         expect('score' in response.body).toBeTruthy();
         expect(response.body.score).toEqual(userScore);
       });
   });
   it('should get user details my user', async () => {
+    await request(app)
+      .post('/postNewRoundAnswer')
+      .auth(token, { type: 'bearer' })
+      .send(NewRoundPayloads.postValidRoundPayload2)
+      .expect(200)
+      .expect((response) => {
+        userScore += response.body.score;
+      });
     await request(app)
       .get('/fetchByUsername/gerogesp')
       .auth(token, { type: 'bearer' })
