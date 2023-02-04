@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { RoundAnswer } from '@ppo/game/domain';
 const createGoodGuessMessage = (percent: number): string =>
   `You were only ${percent} % off!`;
 const createBadGuessMessage = (percent: number): string =>
@@ -9,8 +8,7 @@ const SPOT_ON_MESSAGE = 'Wow, spot on!';
   name: 'formatAnswerMessage',
 })
 export class GuessBoxAnswerMessagePipe implements PipeTransform {
-  transform(answer: RoundAnswer): string {
-    const score = Math.abs(answer.score);
+  transform(score: number): string {
     if (score === 0) {
       return SPOT_ON_MESSAGE;
     }

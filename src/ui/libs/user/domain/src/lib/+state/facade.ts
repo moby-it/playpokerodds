@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AuthFacade } from '@ppo/auth/domain';
 import { combineLatest, map, Observable, take, tap } from 'rxjs';
 import { UpdateUserDto, UserRoundViewmodel } from '../models';
 import { userProfileActions } from './actions';
@@ -13,10 +14,14 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class UserProfileFacade {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private auth: AuthFacade) {}
   error$ = this.store.select(selectError);
   profile$ = this.store.select(selectUserProfileState);
   username$ = this.store.select(selectUsername);
+  watchingMyOwnProfile$ = combineLatest([
+    this.username$,
+    this.auth.username$,
+  ]).pipe(map(([u1, u2]) => !!u1 && !!u2 && u1 === u2));
   rounds$: Observable<UserRoundViewmodel[]> = combineLatest([
     this.store.select(selectRounds),
     this.store.select(selectRoundFavoriteIds),

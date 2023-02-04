@@ -1,2 +1,2 @@
-export * from './calculateIfEstimateWasAccurate';
+export * from './scoreIsAccurate';
 export * from './generateRandomRoundInputs';

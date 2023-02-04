@@ -14,6 +14,7 @@ import {
   animations: [Animations.fadeAnimation],
 })
 export class GuessBoxComponent {
+  constructor(private pokerFacade: PokerOddsFacade) {}
   private roundStatus$ = this.pokerFacade.roundStatus$;
   private message$ = this.roundStatus$.pipe(
     map((status) => {
@@ -59,7 +60,6 @@ export class GuessBoxComponent {
       })
     )
   );
-  constructor(private pokerFacade: PokerOddsFacade) {}
 
   playButtonHandler(): void {
     this.roundStatus$

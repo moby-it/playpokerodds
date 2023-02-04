@@ -6,7 +6,7 @@
         vm.answer.didAccurateEstimate ? 'accurate' : 'inaccurate'
       }}"
     >
-      {{ answer | formatAnswerMessage }}
+      {{ answer.score | formatAnswerMessage }}
     </span>
     <ppo-post-round-actions></ppo-post-round-actions>
   </div>

@@ -6,7 +6,6 @@ import { PokerTableModule, SharedUiModule } from '@ppo/shared/ui';
 import { ExistingGameGuard } from './existing-game.guard';
 import { GameUiComponent } from './game.component';
 import { PokerOddsRoutingModule } from './game.routing.module';
-import { GuessBoxAnswerMessagePipe } from './guess-box/guess-box-message.pipe';
 import { GuessBoxComponent } from './guess-box/guess-box.component';
 import { PlayButtonComponent } from './play-button/play-button.component';
 import { PostRoundActionsComponent } from './post-round-actions/post-round-actions.component';
@@ -25,8 +24,6 @@ import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-c
     GameUiComponent,
     GuessBoxComponent,
     PlayButtonComponent,
-
-    GuessBoxAnswerMessagePipe,
     RevealedCardsToggleComponent,
     PostRoundActionsComponent,
   ],

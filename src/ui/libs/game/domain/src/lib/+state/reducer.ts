@@ -1,7 +1,7 @@
 import { Round } from '@moby-it/ppo-core';
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { RoundAnswer } from '../dtos';
-import { estimateWasAccurate } from '../helpers';
+import { scoreIsAccurate } from '../helpers';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
 type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };
@@ -57,7 +57,7 @@ export const pokerOddsFeature = createFeature({
       ...state,
       answer: {
         ...action.answer,
-        didAccurateEstimate: estimateWasAccurate(action.answer),
+        didAccurateEstimate: scoreIsAccurate(action.answer.score),
         roundId: action.answer.roundId,
       },
       calculatingAnswer: false,
