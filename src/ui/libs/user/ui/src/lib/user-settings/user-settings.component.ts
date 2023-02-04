@@ -5,14 +5,14 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LetModule, PushModule } from '@ngrx/component';
 import { AuthFacade } from '@ppo/auth/domain';
 import { UserProfileFacade } from '@ppo/user/domain';
-import { tap } from 'rxjs';
+import { filter, skip, take, tap } from 'rxjs';
 @UntilDestroy()
 @Component({
   selector: 'ppo-user-settings',
@@ -40,21 +40,23 @@ export class UserSettingsComponent {
     private userProfile: UserProfileFacade,
     private router: Router
   ) {
+    this.auth.user$.pipe(take(1), filter(Boolean)).subscribe((user) => {
+      this.form = this.fb.group({
+        email: [user.email, [Validators.email]],
+        username: [user.username, [Validators.required]],
+        password: ['', Validators.required],
+      });
+      this.form.disable();
+    });
     this.auth.user$
       .pipe(
         untilDestroyed(this),
+        skip(1),
         tap((user) => {
           if (!user) {
             this.router.navigate(['/']);
             return;
           }
-          this.router.navigate(['/profile', user.username, 'user-settings']);
-          this.form = this.fb.group({
-            email: [user.email, [Validators.email]],
-            username: [user.username, [Validators.required]],
-            password: ['', Validators.required],
-          });
-          this.form.disable();
         })
       )
       .subscribe();

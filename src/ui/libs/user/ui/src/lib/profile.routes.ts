@@ -43,6 +43,7 @@ export const profileRoutes: Routes = [
       },
     ],
     children: [
+      { path: '', component: ProfileComponent, pathMatch: 'full' },
       { path: 'history', component: HistoryListComponent },
       { path: 'favorites', component: FavoritesListComponent },
       {
@@ -59,7 +60,6 @@ export const profileRoutes: Routes = [
           },
         ],
       },
-      { path: '', component: ProfileComponent },
     ],
   },
 ];
