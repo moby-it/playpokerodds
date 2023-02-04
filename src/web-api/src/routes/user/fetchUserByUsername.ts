@@ -28,7 +28,10 @@ async function fetchUserProfileByName(req: Request, res: Response) {
   select distinct on ("roundId") "RoundAnswers"."roundId" ,
     "RoundAnswers".timestamp,"myHand","opponentsHands", "board", "estimate","odds", abs("estimate"-"odds") as "score"
   from "RoundAnswers"
-  LEFT JOIN "Rounds" R on "RoundAnswers"."roundId" = R.id ORDER BY "roundId", timestamp desc;
+  LEFT JOIN "Rounds" R on "RoundAnswers"."roundId" = R.id 
+  WHERE "RoundAnswers"."userId" = ${user.id}
+  ORDER BY "roundId", timestamp desc
+ 
   `;
   if (userData?.userId !== userId) {
     rounds = rounds.map((r) => ({

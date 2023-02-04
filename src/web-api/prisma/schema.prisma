@@ -51,9 +51,9 @@ model RoundAnswer {
 }
 
 model UserFavoriteRounds {
-  round   Round  @relation(fields: [roundId], references: [id])
+  round   Round  @relation(fields: [roundId], references: [id], onDelete: Cascade)
   roundId String
-  user    User   @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  String
 
   @@id([roundId, userId])
