@@ -36,6 +36,7 @@ async function fetchUserProfileByName(req: Request, res: Response) {
     rounds = rounds.map((r) => ({
       ...r,
       odds: new Decimal(-1),
+      estimate: new Decimal(-1),
     }));
   }
   const roundFavoritesIds: { id: string }[] = await prisma.$queryRaw`
