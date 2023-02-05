@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PushModule } from '@ngrx/component';
-import { PokerOddsFacade } from '@ppo/game/domain';
+import { PokerOddsFacade } from '@ppo/play/domain';
 import { PokerTableModule } from '@ppo/shared/ui';
 import { UserProfileFacade, UserRoundViewmodel } from '@ppo/user/domain';
 import { BehaviorSubject, take, tap } from 'rxjs';

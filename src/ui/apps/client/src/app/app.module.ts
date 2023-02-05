@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthDomainModule } from '@ppo/auth/domain';
 import { AuthFeatureUserFormModule } from '@ppo/auth/feature-user-form';
-import { GameDomainModule } from '@ppo/game/domain';
+import { PlayDomainModule } from '@ppo/play/domain';
 import { API_URL } from '@ppo/shared/config';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { UserDomainModule } from '@ppo/user/domain';
@@ -36,7 +36,7 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
-    GameDomainModule,
+    PlayDomainModule,
     AuthDomainModule,
     SharedUiModule,
     UserDomainModule,

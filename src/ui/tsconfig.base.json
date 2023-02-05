@@ -19,9 +19,9 @@
       "@ppo/auth/feature-user-form": [
         "libs/auth/feature-user-form/src/index.ts"
       ],
-      "@ppo/game/domain": ["libs/game/domain/src/index.ts"],
-      "@ppo/game/ui": ["libs/game/ui/src/index.ts"],
       "@ppo/leaderboards": ["libs/leaderboards/src/index.ts"],
+      "@ppo/play/domain": ["libs/play/domain/src/index.ts"],
+      "@ppo/play/ui": ["libs/play/ui/src/index.ts"],
       "@ppo/round/domain": ["libs/round/domain/src/index.ts"],
       "@ppo/round/ui": ["libs/round/ui/src/index.ts"],
       "@ppo/shared/config": ["libs/shared/config/src/index.ts"],

@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'play',
-    loadChildren: () => import('@ppo/game/ui').then((m) => m.GameUiModule),
+    loadChildren: () => import('@ppo/play/ui').then((m) => m.PlayUiModule),
   },
   {
     path: 'leaderboards',

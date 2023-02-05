@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PokerOddsFacade } from '@ppo/game/domain';
+import { PokerOddsFacade } from '@ppo/play/domain';
 import { Animations } from '@ppo/shared/ui';
 import { combineLatest, map, startWith, take, tap } from 'rxjs';
 import {

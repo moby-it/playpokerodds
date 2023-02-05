@@ -1,15 +1,15 @@
 {
-  "name": "game-domain",
+  "name": "play-domain",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/game/domain/src",
+  "sourceRoot": "libs/play/domain/src",
   "prefix": "ppo",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/game/domain"],
+      "outputs": ["{workspaceRoot}/coverage/libs/play/domain"],
       "options": {
-        "jestConfig": "libs/game/domain/jest.config.ts",
+        "jestConfig": "libs/play/domain/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -17,8 +17,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/game/domain/**/*.ts",
-          "libs/game/domain/**/*.html"
+          "libs/play/domain/**/*.ts",
+          "libs/play/domain/**/*.html"
         ]
       }
     }

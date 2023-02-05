@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthFacade } from '@ppo/auth/domain';
-import { PokerOddsFacade } from '@ppo/game/domain';
+import { PokerOddsFacade } from '@ppo/play/domain';
 @Component({
   selector: 'ppo-post-round-actions',
   templateUrl: './post-round-action.component.html',

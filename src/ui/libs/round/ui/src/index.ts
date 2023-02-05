@@ -1,1 +1,1 @@
-export { PokerTableModule } from './lib/poker-table/poker-table.module';
+export { RoundUiModule } from './lib/round-ui.module';

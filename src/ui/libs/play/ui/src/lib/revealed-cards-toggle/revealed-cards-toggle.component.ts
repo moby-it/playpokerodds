@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PokerOddsFacade } from '@ppo/game/domain';
+import { PokerOddsFacade } from '@ppo/play/domain';
 
 @Component({
   selector: 'ppo-revealed-cards-toggle',

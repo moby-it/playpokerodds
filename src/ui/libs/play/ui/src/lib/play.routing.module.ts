@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExistingGameGuard } from './existing-game.guard';
-import { GameUiComponent } from './game.component';
+import { PlayComponent } from './play.component';
 const routes: Routes = [
   {
     path: ':id',
-    component: GameUiComponent,
+    component: PlayComponent,
     canActivate: [ExistingGameGuard],
   },
   {
     path: '',
-    component: GameUiComponent,
+    component: PlayComponent,
     canActivate: [ExistingGameGuard],
   },
 ];

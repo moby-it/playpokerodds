@@ -5,7 +5,7 @@ import { scoreIsAccurate } from '../helpers';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
 type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };
-interface GameUiState {
+interface PlayUiState {
   fetchingRound: boolean;
   calculatingAnswer: boolean;
   roundId: string;
@@ -15,7 +15,7 @@ interface GameUiState {
   roundStatus: RoundStatus;
   playWithRevealedCards: boolean;
 }
-const initialState: GameUiState = {
+const initialState: PlayUiState = {
   fetchingRound: false,
   calculatingAnswer: false,
   roundId: '',

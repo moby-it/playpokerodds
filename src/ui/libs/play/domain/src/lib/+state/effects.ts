@@ -13,7 +13,7 @@ import {
   repeat,
   switchMap,
   tap,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs';
 import { GameApiClient } from '../game.api-client.service';
 import { generateRandomRoundInputs } from '../helpers';
@@ -21,7 +21,7 @@ import { pokerOddsActions } from './actions';
 import {
   selectPlayWithRevealedCards,
   selectRound,
-  selectRoundId
+  selectRoundId,
 } from './reducer';
 @Injectable()
 export class PokerOddsEffects {

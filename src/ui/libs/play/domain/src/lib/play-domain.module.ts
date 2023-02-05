@@ -11,4 +11,4 @@ import { GameApiClient } from './game.api-client.service';
   ],
   providers: [GameApiClient],
 })
-export class GameDomainModule {}
+export class PlayDomainModule {}

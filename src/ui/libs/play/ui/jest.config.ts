@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'game-domain',
+  displayName: 'play-ui',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/game/domain',
+  coverageDirectory: '../../../coverage/libs/play/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
