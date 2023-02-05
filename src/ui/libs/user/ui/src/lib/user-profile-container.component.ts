@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PushModule } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
@@ -17,7 +17,10 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
   standalone: true,
   imports: [RouterModule, SideMenuComponent, PushModule],
 })
-export class UserProfileContainerComponent {
+export class UserProfileContainerComponent implements OnDestroy {
   constructor(private userProfile: UserProfileFacade) {}
   username$ = this.userProfile.profile$.pipe(map((p) => p.username));
+  ngOnDestroy(): void {
+    this.userProfile.reset();
+  }
 }
