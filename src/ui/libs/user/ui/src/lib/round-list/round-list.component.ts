@@ -48,13 +48,17 @@ export class RoundListComponent implements OnChanges, OnInit {
   watchingMyOwnmProfile$ = this.userProfile.watchingMyOwnProfile$;
   username$ = this.userProfile.username$;
   @Input() rounds: UserRoundViewmodel[] = [];
-  selectRound(round: UserRoundViewmodel): void {
-    this.router.navigate([], {
-      queryParams: {
-        selectedRoundId: round.roundId,
-      },
-      relativeTo: this.route,
-    });
+  selectRound(round?: UserRoundViewmodel): void {
+    if (!round) {
+      this.router.navigate([], { relativeTo: this.route });
+    } else {
+      this.router.navigate([], {
+        queryParams: {
+          selectedRoundId: round.roundId,
+        },
+        relativeTo: this.route,
+      });
+    }
   }
   ngOnInit(): void {
     if (this.rounds.length) {
@@ -83,7 +87,7 @@ export class RoundListComponent implements OnChanges, OnInit {
             selectedRound &&
             !newRounds.map((r) => r.roundId).includes(selectedRound?.roundId)
           ) {
-            this.selectRound(selectedRound);
+            this.selectRound(newRounds.length ? newRounds[0] : undefined);
           }
         })
       )
