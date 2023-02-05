@@ -11,6 +11,9 @@ import { PlayingHandComponent } from './playing-hand/playing-hand.component';
 import { HandBadgeGridPositionPipe } from './poker-table/handBadgeGridPosition.pipe';
 import { HandIsVisiblePipe } from './poker-table/handIsVisible.pipe';
 import { PokerTableComponent } from './poker-table/poker-table.component';
+import { CopyRoundLinkButtonComponent } from './round-actions/copy-link/copy-link.component';
+import { FavoriteButtonComponent } from './round-actions/favorite/favorite.component';
+import { PlayRoundButtonComponent } from './round-actions/play/play.component';
 import { RoundResultComponent } from './round-result/round-result.component';
 
 @NgModule({
@@ -24,7 +27,20 @@ import { RoundResultComponent } from './round-result/round-result.component';
     HandBadgeGridPositionPipe,
     RoundResultComponent,
   ],
-  imports: [CommonModule, ScoreIsAccuratePipe, GuessBoxAnswerMessagePipe],
-  exports: [PokerTableComponent, RoundResultComponent],
+  imports: [
+    CommonModule,
+    ScoreIsAccuratePipe,
+    GuessBoxAnswerMessagePipe,
+    CopyRoundLinkButtonComponent,
+    FavoriteButtonComponent,
+    PlayRoundButtonComponent,
+  ],
+  exports: [
+    PokerTableComponent,
+    RoundResultComponent,
+    CopyRoundLinkButtonComponent,
+    FavoriteButtonComponent,
+    PlayRoundButtonComponent,
+  ],
 })
 export class PokerTableModule {}

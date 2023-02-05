@@ -44,9 +44,17 @@
   </div>
   <div class="round-preview" *ngrxLet="selectedRound$ as selectedRound">
     <ppo-poker-table [round]="selectedRound"></ppo-poker-table>
-    <ppo-round-result
-      [header]="selectedRound?.odds"
-      [body]="selectedRound?.score"
-    ></ppo-round-result>
+    <ng-container
+      *ngIf="watchingMyOwnmProfile$ | ngrxPush; else watchingPublicProfile"
+    >
+    </ng-container>
+    <ng-template #watchingPublicProfile>
+      <ppo-round-result
+        [header]="selectedRound?.score"
+        body="{{ username$ | ngrxPush }}'s Score"
+      >
+
+    </ppo-round-result>
+    </ng-template>
   </div>
 </div>

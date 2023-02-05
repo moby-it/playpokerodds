@@ -33,6 +33,8 @@ export class RoundListComponent implements OnChanges, OnInit {
     private userProfile: UserProfileFacade
   ) {}
   selectedRound$ = new BehaviorSubject<UserRoundViewmodel | null>(null);
+  watchingMyOwnmProfile$ = this.userProfile.watchingMyOwnProfile$;
+  username$ = this.userProfile.username$;
   @Input() rounds: UserRoundViewmodel[] = [];
   selectRound(round: UserRoundViewmodel): void {
     this.selectedRound$.next(round);
