@@ -1,4 +1,4 @@
-import { createRound, CreateRoundInputs, Round } from '@moby-it/ppo-core';
+import { createRound, CreateRoundInputs, Round } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 export async function createNewRound(
   req: Request,

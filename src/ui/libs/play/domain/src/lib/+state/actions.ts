@@ -1,4 +1,4 @@
-import { Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/poker-core';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { RoundAnswer } from '@ppo/round/domain';
 

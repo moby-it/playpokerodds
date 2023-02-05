@@ -1,4 +1,4 @@
-import { Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/poker-core';
 
 export interface NewAnswerDto {
   round: Round;

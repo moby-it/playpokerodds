@@ -1,4 +1,4 @@
-import { Board, Hand, Round } from '@moby-it/ppo-core';
+import { Board, Hand, Round } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 import prisma from 'prisma';
 import { ExistingAnswerDto } from './existingAnswer.dto';

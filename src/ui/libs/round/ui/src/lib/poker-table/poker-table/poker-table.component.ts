@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/poker-core';
 
 @Component({
   selector: 'ppo-poker-table',

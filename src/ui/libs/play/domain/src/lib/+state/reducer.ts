@@ -1,4 +1,4 @@
-import { Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/poker-core';
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { RoundAnswer, scoreIsAccurate } from '@ppo/round/domain';
 import { pokerOddsActions } from './actions';

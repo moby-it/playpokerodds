@@ -1,4 +1,4 @@
-import { calculateGuessScore } from '@moby-it/ppo-core';
+import { calculateGuessScore } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 import { NewAnswerDto } from './newAnswer.dto';
 export const estimateAccuracy = (

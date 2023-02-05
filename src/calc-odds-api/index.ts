@@ -1,4 +1,4 @@
-import { calculateOdds, validateRound } from '@moby-it/ppo-core';
+import { calculateOdds, validateRound } from '@moby-it/poker-core';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';

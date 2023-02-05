@@ -1,4 +1,4 @@
-import { BoardState, CreateRoundInputs } from '@moby-it/ppo-core';
+import { BoardState, CreateRoundInputs } from '@moby-it/poker-core';
 
 export function generateRandomRoundInputs(): CreateRoundInputs {
   const boardState = rng(BoardState.PreFlop, BoardState.Turn);

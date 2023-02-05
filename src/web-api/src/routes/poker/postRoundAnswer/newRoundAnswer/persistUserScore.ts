@@ -1,4 +1,4 @@
-import { Round } from '@moby-it/ppo-core';
+import { Round } from '@moby-it/poker-core';
 import { NextFunction, Request, Response } from 'express';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
