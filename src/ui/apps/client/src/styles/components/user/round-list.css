@@ -1,5 +1,6 @@
 .round-list {
   display: flex;
+  justify-content: center;
   padding: 42px 24px;
   gap: 16px;
   flex: 1;
@@ -44,10 +45,9 @@
   gap: 16px;
 }
 .time,
-.date{
+.date {
   flex: 1;
   font-size: 16px;
-
 }
 .time,
 .date {
@@ -56,7 +56,6 @@
 .score {
   flex: 2;
   font-size: 16px;
-
 }
 .round-list .list .row .content .hand {
   display: flex;
@@ -69,17 +68,4 @@
 .round-list .list .row .isFavorite {
   display: flex;
   align-items: center;
-}
-.round-list .round-preview {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px;
-  background: var(--neutral--800);
-  border-radius: var(--radius--sm);
-}
-.round-list .round-preview ppo-poker-table {
-  scale: 0.8;
 }

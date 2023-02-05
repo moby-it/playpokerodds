@@ -12,12 +12,9 @@
 
 // components
 @import './styles/components/top-bar.css';
-@import './styles/components/auth-form.css';
 @import './styles/components/leaderboards.css';
-@import './styles/components/user-status.css';
-@import './styles/components/user-profile.css';
-@import './styles/components/user-settings.css';
-@import './styles/components/round-list.css';
+@import './styles/components/auth-form.css';
+
 
 // poker table
 @import './styles/components/poker-table/guess-box.css';
@@ -28,3 +25,10 @@
 @import './styles/components/poker-table/player-hand.css';
 @import './styles/components/poker-table/opponent-hand.css';
 @import './styles/components/poker-table/post-round-actions.css';
+
+// user-profile
+@import './styles/components/user/user-status.css';
+@import './styles/components/user/user-profile.css';
+@import './styles/components/user/user-settings.css';
+@import './styles/components/user/round-list.css';
+@import './styles/components/user/round-preview.css';

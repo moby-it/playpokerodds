@@ -1,6 +1,6 @@
 <div class="round-result" *ngIf="header && body">
   <span class="body-xl header">{{ header }}</span>
-  <span class="body" [ngClass]="classes">
+  <span class="body body-sm" [ngClass]="classes">
     {{ body }}
   </span>
   <ng-content select="[actions]"></ng-content>

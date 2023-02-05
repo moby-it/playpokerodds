@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { createRouteUrl } from '@ppo/round/domain';
 import { SharedUiModule } from '@ppo/shared/ui';
 @Component({
   selector: 'ppo-play-round-button',
   template: `<svg
+    ppoTooltip="Play round"
+    fontSize="14"
     (click)="playRound()"
     width="40"
     height="41"
@@ -39,8 +40,7 @@ export class PlayRoundButtonComponent {
   @Input() roundId: string | undefined;
   playRound(): void {
     if (this.roundId) {
-      const url = createRouteUrl(this.roundId);
-      this.router.navigateByUrl(url);
+      this.router.navigate(['/', 'play', this.roundId]);
     }
   }
 }
