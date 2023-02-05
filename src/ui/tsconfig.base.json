@@ -22,6 +22,8 @@
       "@ppo/game/domain": ["libs/game/domain/src/index.ts"],
       "@ppo/game/ui": ["libs/game/ui/src/index.ts"],
       "@ppo/leaderboards": ["libs/leaderboards/src/index.ts"],
+      "@ppo/round/domain": ["libs/round/domain/src/index.ts"],
+      "@ppo/round/ui": ["libs/round/ui/src/index.ts"],
       "@ppo/shared/config": ["libs/shared/config/src/index.ts"],
       "@ppo/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@ppo/user/domain": ["libs/user/domain/src/index.ts"],
