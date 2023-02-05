@@ -4,7 +4,7 @@ import { HealthRouter } from './health';
 import { PokerRouter } from './poker';
 import { UserRouter } from './user';
 export { RoundAnswerResponse } from './poker';
-export { AuthRouter, PokerRouter, UserRouter };
+export { AuthRouter, PokerRouter, UserRouter, HealthRouter };
 export function registerAppRoutes(app: Application) {
   app.use('/auth', AuthRouter);
   app.use('/poker', PokerRouter);

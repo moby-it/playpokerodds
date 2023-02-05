@@ -43,6 +43,6 @@ async function updateUser(req: Request, res: Response) {
     data: { ...updatedUser },
     where: { id: userData?.userId },
   });
-  res.send(204);
+  res.sendStatus(204);
 }
 export const updateUserEndpoint = [updateUser];

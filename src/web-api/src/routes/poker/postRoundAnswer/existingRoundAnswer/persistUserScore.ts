@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
 import { decodedJwtIsValid } from 'shared';
+import { countUniqueRoundsPlayed } from '../countRoundsPlayed';
 import { ExistingAnswerDto } from '../existingRoundAnswer/existingAnswer.dto';
 import { RoundAnswerResponse } from '../RoundAnswerResponse';
 export const pesistUserScore = async (
@@ -49,10 +50,11 @@ export const pesistUserScore = async (
         },
       });
       if (userHasAlreadyPlayedRound === 1) {
+        const roundsPlayed = await countUniqueRoundsPlayed(userId);
         await prisma.user.update({
           where: { id: userId },
           data: {
-            score: { increment: res.locals.score },
+            score: { increment: res.locals.score / roundsPlayed },
           },
         });
       }

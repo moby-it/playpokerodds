@@ -3,9 +3,9 @@ import { NextFunction, Request, Response } from 'express';
 import { decode } from 'jsonwebtoken';
 import prisma from 'prisma';
 import { decodedJwtIsValid } from 'shared';
-import { ExistingAnswerDto } from '../existingRoundAnswer/existingAnswer.dto';
-import { NewAnswerDto } from './newAnswer.dto';
+import { countUniqueRoundsPlayed } from '../countRoundsPlayed';
 import { RoundAnswerResponse } from '../RoundAnswerResponse';
+import { NewAnswerDto } from './newAnswer.dto';
 export const pesistUserScore = async (
   req: Request,
   res: Response<
@@ -41,10 +41,11 @@ export const pesistUserScore = async (
     const decodedToken = decode(token);
     if (decodedJwtIsValid(decodedToken)) {
       const id = decodedToken.userId;
+      const roundsPlayed = await countUniqueRoundsPlayed(id);
       await prisma.user.update({
         where: { id },
         data: {
-          score: { increment: res.locals.score },
+          score: { increment: res.locals.score / roundsPlayed },
         },
       });
     }
