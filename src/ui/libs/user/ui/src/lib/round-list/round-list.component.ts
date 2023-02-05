@@ -6,6 +6,8 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LetModule, PushModule } from '@ngrx/component';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { ScoreIsAccuratePipe } from '@ppo/round/domain';
@@ -13,7 +15,7 @@ import { RoundUiModule } from '@ppo/round/ui';
 import { UserProfileFacade, UserRoundViewmodel } from '@ppo/user/domain';
 import { BehaviorSubject, filter, switchMap, take, tap } from 'rxjs';
 import { SuitToSvgPipe } from './suitToSvg.pipe';
-
+@UntilDestroy()
 @Component({
   selector: 'ppo-round-list',
   templateUrl: './round-list.component.html',
@@ -38,19 +40,37 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
 export class RoundListComponent implements OnChanges, OnInit {
   constructor(
     private pokerOdds: PokerOddsFacade,
-    private userProfile: UserProfileFacade
+    private userProfile: UserProfileFacade,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   selectedRound$ = new BehaviorSubject<UserRoundViewmodel | null>(null);
   watchingMyOwnmProfile$ = this.userProfile.watchingMyOwnProfile$;
   username$ = this.userProfile.username$;
   @Input() rounds: UserRoundViewmodel[] = [];
   selectRound(round: UserRoundViewmodel): void {
-    this.selectedRound$.next(round);
+    this.router.navigate([], {
+      queryParams: {
+        selectedRoundId: round.roundId,
+      },
+      relativeTo: this.route,
+    });
   }
   ngOnInit(): void {
     if (this.rounds.length) {
-      this.selectedRound$.next(this.rounds[0]);
+      if (!this.route.snapshot.queryParamMap.has('selectedRoundId')) {
+        this.selectRound(this.rounds[0]);
+      }
     }
+    this.route.queryParamMap.pipe(untilDestroyed(this)).subscribe((params) => {
+      const selectedRoundId = params.get('selectedRoundId');
+      const selectedRoundIdx = this.rounds.findIndex(
+        (r) => r.roundId === selectedRoundId
+      );
+      if (selectedRoundIdx >= 0) {
+        this.selectedRound$.next(this.rounds[selectedRoundIdx]);
+      }
+    });
   }
   ngOnChanges(changes: SimpleChanges): void {
     // if selected round not in new rounds, clear selected round
@@ -63,7 +83,7 @@ export class RoundListComponent implements OnChanges, OnInit {
             selectedRound &&
             !newRounds.map((r) => r.roundId).includes(selectedRound?.roundId)
           ) {
-            this.selectedRound$.next(newRounds[0]);
+            this.selectRound(selectedRound);
           }
         })
       )
