@@ -1,9 +1,13 @@
 {
-  "name": "@moby-it/ppo-core",
-  "version": "4.1.0",
+  "name": "@moby-it/poker-core",
+  "version": "1.0.0",
   "description": "Play Poker Odds - Core domain",
   "main": "dist/index.js",
   "private": false,
+  "repository": "https://github.com/moby-it/playpokerodds",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "jest",

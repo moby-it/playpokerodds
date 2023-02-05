@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@moby-it/ppo-core": "^4.1.0",
+    "@moby-it/poker-core": "^1.0.0",
     "@prisma/client": "^4.9.0",
     "@types/morgan": "^1.9.3",
     "axios": "^1.2.3",
