@@ -1,3 +1,4 @@
+import { calculateGuessScore } from '@moby-it/ppo-core';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
@@ -101,8 +102,7 @@ describe('test fetch events endpoint', () => {
           response.body.rounds.every(
             (round: { score: number; odds: number; estimate: number }) => {
               return (
-                round.score ===
-                Math.abs(+(round.estimate - round.odds).toFixed(2))
+                round.score === calculateGuessScore(round.estimate, round.odds)
               );
             }
           )
