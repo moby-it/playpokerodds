@@ -1,8 +1,9 @@
 FROM node:18.13.0-alpine as dependencies
 WORKDIR /src
-COPY package*.json /
+ARG NPM_TOKEN
+COPY package*.json .npmrc /
 RUN npm ci
-
+RUN rm -f .npmrc
 FROM dependencies as build
 RUN apk --no-cache add curl
 WORKDIR /src

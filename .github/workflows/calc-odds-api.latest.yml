@@ -30,3 +30,5 @@ jobs:
           push: true
           tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:latest
           context: ./src/calc-odds-api
+          build-args: |
+            NPM_TOKEN=${{ secrets.NPM_TOKEN }}

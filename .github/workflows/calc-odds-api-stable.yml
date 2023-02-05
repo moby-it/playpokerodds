@@ -30,6 +30,8 @@ jobs:
           push: true
           tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:stable
           context: ./src/calc-odds-api
+          build-args: |
+            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
   deploy:
     runs-on: ubuntu-latest
     needs: build
