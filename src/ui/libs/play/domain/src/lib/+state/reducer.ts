@@ -1,7 +1,6 @@
 import { Round } from '@moby-it/ppo-core';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { RoundAnswer } from '../dtos';
-import { scoreIsAccurate } from '../helpers';
+import { RoundAnswer, scoreIsAccurate } from '@ppo/round/domain';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
 type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };

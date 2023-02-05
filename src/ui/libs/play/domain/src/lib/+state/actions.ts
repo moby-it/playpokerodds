@@ -1,6 +1,6 @@
 import { Round } from '@moby-it/ppo-core';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { RoundAnswer } from '../dtos';
+import { RoundAnswer } from '@ppo/round/domain';
 
 export const pokerOddsActions = createActionGroup({
   source: 'pokerOdds',

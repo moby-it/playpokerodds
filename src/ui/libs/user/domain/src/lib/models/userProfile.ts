@@ -1,5 +1,5 @@
 import { Round } from '@moby-it/ppo-core';
-import { RoundAnswer } from '@ppo/play/domain';
+import { RoundAnswer } from '@ppo/round/domain';
 
 export interface UserProfile {
   username: string;

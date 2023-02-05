@@ -1,0 +1,11 @@
+<div class="round-result" *ngIf="answer">
+  <span class="body-xl win-odds">{{ answer.odds }}%</span>
+  <span
+    class="accuracy-description accuracy-description-{{
+      (answer.score | scoreIsAccurate) ? 'accurate' : 'inaccurate'
+    }}"
+  >
+    {{ answer.score | formatAnswerMessage }}
+  </span>
+  <ng-content select="[actions]"></ng-content>
+</div>

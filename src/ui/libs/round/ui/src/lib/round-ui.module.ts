@@ -5,8 +5,8 @@ import { PokerTableComponent } from './poker-table/poker-table/poker-table.compo
 import { RoundResultComponent } from './poker-table/round-result/round-result.component';
 
 @NgModule({
-  declarations: [RoundResultComponent],
+  declarations: [],
   imports: [CommonModule, PokerTableModule],
-  exports: [PokerTableComponent],
+  exports: [PokerTableComponent, RoundResultComponent],
 })
 export class RoundUiModule {}

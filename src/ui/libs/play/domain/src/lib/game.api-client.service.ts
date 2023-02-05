@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CreateRoundInputs, Round } from '@moby-it/ppo-core';
 import { API_URL } from '@ppo/shared/config';
 import { Observable } from 'rxjs';
-import { RoundAnswer } from './dtos';
+import { RoundAnswer } from '@ppo/round/domain';
 
 @Injectable()
 export class GameApiClient {

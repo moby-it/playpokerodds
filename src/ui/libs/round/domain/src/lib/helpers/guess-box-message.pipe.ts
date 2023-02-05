@@ -6,6 +6,7 @@ const createBadGuessMessage = (percent: number): string =>
 const SPOT_ON_MESSAGE = 'Wow, spot on!';
 @Pipe({
   name: 'formatAnswerMessage',
+  standalone: true,
 })
 export class GuessBoxAnswerMessagePipe implements PipeTransform {
   transform(score: number): string {

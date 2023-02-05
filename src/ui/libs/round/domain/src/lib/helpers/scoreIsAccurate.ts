@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { RoundAnswer } from '@ppo/round/domain';
 import { map, Observable } from 'rxjs';
-import { RoundAnswer } from '../dtos';
 
 export const scoreIsAccurate = (score: number): boolean => Math.abs(score) < 5;
 
