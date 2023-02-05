@@ -6,7 +6,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { PushModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { RoundUiModule } from '@ppo/round/ui';
 import { UserProfileFacade, UserRoundViewmodel } from '@ppo/user/domain';
@@ -25,7 +25,7 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
     `,
   ],
   standalone: true,
-  imports: [RoundUiModule, CommonModule, PushModule, SuitToSvgPipe],
+  imports: [RoundUiModule, CommonModule, PushModule, LetModule, SuitToSvgPipe],
 })
 export class RoundListComponent implements OnChanges, OnInit {
   constructor(

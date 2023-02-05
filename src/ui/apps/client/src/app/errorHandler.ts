@@ -7,6 +7,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   http = inject(HttpClient);
   apiUrl = inject(API_URL);
   handleError(error: Error): void {
+    console.error(error);
     this.http
       .post<void>(
         `${this.apiUrl}/health/logError`,

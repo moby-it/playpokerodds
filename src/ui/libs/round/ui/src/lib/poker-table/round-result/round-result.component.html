@@ -1,11 +1,7 @@
-<div class="round-result" *ngIf="answer">
-  <span class="body-xl win-odds">{{ answer.odds }}%</span>
-  <span
-    class="accuracy-description accuracy-description-{{
-      (answer.score | scoreIsAccurate) ? 'accurate' : 'inaccurate'
-    }}"
-  >
-    {{ answer.score | formatAnswerMessage }}
+<div class="round-result" *ngIf="header && body">
+  <span class="body-xl header">{{ header }}</span>
+  <span class="body" [ngClass]="classes">
+    {{ body }}
   </span>
   <ng-content select="[actions]"></ng-content>
 </div>

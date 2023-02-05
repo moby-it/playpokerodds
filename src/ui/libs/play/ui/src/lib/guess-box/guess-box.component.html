@@ -1,5 +1,14 @@
 <div class="guess-box" *ngrxLet="vm$ as vm" @fade>
-  <ppo-round-result [answer]="vm.answer">
+  <ppo-round-result
+    *ngIf="vm.answer"
+    [header]="vm.answer.odds + '%'"
+    [body]="vm.answer.score | formatAnswerMessage"
+    [classes]="
+      (vm.answer.score | scoreIsAccurate)
+        ? ['result-accurate']
+        : ['result-inaccurate']
+    "
+  >
     <ppo-post-round-actions actions></ppo-post-round-actions>
   </ppo-round-result>
   <ppo-loader *ngIf="vm.calculatingAnswer && !vm.fetchingRound"></ppo-loader>

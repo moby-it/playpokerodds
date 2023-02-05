@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LetModule, PushModule } from '@ngrx/component';
+import {
+  GuessBoxAnswerMessagePipe,
+  ScoreIsAccuratePipe,
+} from '@ppo/round/domain';
 import { RoundUiModule } from '@ppo/round/ui';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { ExistingGameGuard } from './existing-game.guard';
@@ -20,6 +24,8 @@ import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-c
     PushModule,
     SharedUiModule,
     RoundUiModule,
+    GuessBoxAnswerMessagePipe,
+    ScoreIsAccuratePipe,
   ],
   declarations: [
     PlayComponent,

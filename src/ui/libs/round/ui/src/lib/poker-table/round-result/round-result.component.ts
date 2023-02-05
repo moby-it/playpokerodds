@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { RoundAnswer } from '@ppo/round/domain';
 
 @Component({
   selector: 'ppo-round-result',
   templateUrl: './round-result.component.html',
 })
 export class RoundResultComponent {
-  @Input() answer: RoundAnswer | undefined | null;
+  @Input() header: string | number | undefined | null;
+  @Input() body: string | number | undefined | null;
+  @Input() classes: string[] = [];
 }

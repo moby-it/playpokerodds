@@ -42,7 +42,11 @@
       </div>
     </div>
   </div>
-  <div class="round-preview">
-    <ppo-poker-table [round]="selectedRound$ | ngrxPush"></ppo-poker-table>
+  <div class="round-preview" *ngrxLet="selectedRound$ as selectedRound">
+    <ppo-poker-table [round]="selectedRound"></ppo-poker-table>
+    <ppo-round-result
+      [header]="selectedRound?.odds"
+      [body]="selectedRound?.score"
+    ></ppo-round-result>
   </div>
 </div>
