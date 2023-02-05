@@ -3,6 +3,7 @@
     *ngIf="vm.answer"
     [header]="vm.answer.odds + '%'"
     [body]="vm.answer.score | formatAnswerMessage"
+    [size]="'lg'"
     [classes]="
       (vm.answer.score | scoreIsAccurate)
         ? ['result-accurate']

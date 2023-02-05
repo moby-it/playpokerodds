@@ -1,6 +1,6 @@
 <div class="round-list">
   <div class="list">
-    <div class="row" *ngIf="!rounds.length">
+    <div class="row row-empty" *ngIf="!rounds.length">
       <span>No items found.</span>
     </div>
     <div
@@ -44,10 +44,32 @@
   </div>
   <div class="round-preview" *ngrxLet="selectedRound$ as selectedRound">
     <ppo-poker-table [round]="selectedRound"></ppo-poker-table>
-    <div class="round-results">
+    <div class="round-results" *ngIf="selectedRound">
       <ng-container
         *ngIf="watchingMyOwnmProfile$ | ngrxPush; else watchingPublicProfile"
       >
+        <ppo-round-result
+          [header]="selectedRound?.odds + '%'"
+          body="Winning Odds"
+        ></ppo-round-result>
+        <ppo-round-result
+          [header]="selectedRound?.estimate + '%'"
+          body="Your Guess"
+          [classes]="
+            (selectedRound?.score | scoreIsAccurate)
+              ? ['result-accurate']
+              : ['result-inaccurate']
+          "
+        ></ppo-round-result>
+        <ppo-round-result [header]="selectedRound?.score" body="Your score">
+          <ng-container actions>
+            <div class="pra-container">
+              <ppo-copy-round-link-button
+                [roundId]="selectedRound?.roundId"
+              ></ppo-copy-round-link-button>
+            </div>
+          </ng-container>
+        </ppo-round-result>
       </ng-container>
       <ng-template #watchingPublicProfile>
         <ppo-round-result

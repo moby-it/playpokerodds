@@ -8,9 +8,10 @@ import {
 } from '@angular/core';
 import { LetModule, PushModule } from '@ngrx/component';
 import { PokerOddsFacade } from '@ppo/play/domain';
+import { ScoreIsAccuratePipe } from '@ppo/round/domain';
 import { RoundUiModule } from '@ppo/round/ui';
 import { UserProfileFacade, UserRoundViewmodel } from '@ppo/user/domain';
-import { BehaviorSubject, take, tap } from 'rxjs';
+import { BehaviorSubject, filter, switchMap, take, tap } from 'rxjs';
 import { SuitToSvgPipe } from './suitToSvg.pipe';
 
 @Component({
@@ -25,7 +26,14 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
     `,
   ],
   standalone: true,
-  imports: [RoundUiModule, CommonModule, PushModule, LetModule, SuitToSvgPipe],
+  imports: [
+    RoundUiModule,
+    CommonModule,
+    PushModule,
+    LetModule,
+    SuitToSvgPipe,
+    ScoreIsAccuratePipe,
+  ],
 })
 export class RoundListComponent implements OnChanges, OnInit {
   constructor(
@@ -55,7 +63,7 @@ export class RoundListComponent implements OnChanges, OnInit {
             selectedRound &&
             !newRounds.map((r) => r.roundId).includes(selectedRound?.roundId)
           ) {
-            this.selectedRound$.next(null);
+            this.selectedRound$.next(newRounds[0]);
           }
         })
       )
@@ -63,10 +71,18 @@ export class RoundListComponent implements OnChanges, OnInit {
   }
   toggleFavorite(userRound: UserRoundViewmodel, event: Event): void {
     event.stopPropagation();
-    const op$ = userRound.isFavorite
-      ? this.pokerOdds.removeRoundFromFavorites(userRound.roundId)
-      : this.pokerOdds.addRoundToFavorites(userRound.roundId);
-    op$.pipe(tap(() => this.userProfile.refreshUserProfile())).subscribe();
+    this.watchingMyOwnmProfile$
+      .pipe(
+        take(1),
+        filter(Boolean),
+        switchMap(() => {
+          const op$ = userRound.isFavorite
+            ? this.pokerOdds.removeRoundFromFavorites(userRound.roundId)
+            : this.pokerOdds.addRoundToFavorites(userRound.roundId);
+          return op$.pipe(tap(() => this.userProfile.refreshUserProfile()));
+        })
+      )
+      .subscribe();
   }
   userRoundTrackBy(id: number, item: UserRoundViewmodel): string {
     return id + String(item.isFavorite);

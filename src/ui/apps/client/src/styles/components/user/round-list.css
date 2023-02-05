@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: flex-start;
   max-height: 539px;
+  width: 445px;
   overflow: auto;
 }
 .round-list .list .row:nth-child(odd) {
@@ -36,6 +37,9 @@
 }
 .round-list .list .row:last-child {
   border-radius: 0 0 8px 8px;
+}
+.round-list .list .row.row-empty {
+  border-radius: 8px;
 }
 .round-list .list .row .content {
   display: flex;
