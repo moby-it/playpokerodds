@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { PushModule } from '@ngrx/component';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { RoundUiModule } from '@ppo/round/ui';
@@ -21,7 +27,7 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
   standalone: true,
   imports: [RoundUiModule, CommonModule, PushModule, SuitToSvgPipe],
 })
-export class RoundListComponent implements OnChanges {
+export class RoundListComponent implements OnChanges, OnInit {
   constructor(
     private pokerOdds: PokerOddsFacade,
     private userProfile: UserProfileFacade
@@ -30,6 +36,11 @@ export class RoundListComponent implements OnChanges {
   @Input() rounds: UserRoundViewmodel[] = [];
   selectRound(round: UserRoundViewmodel): void {
     this.selectedRound$.next(round);
+  }
+  ngOnInit(): void {
+    if (this.rounds.length) {
+      this.selectedRound$.next(this.rounds[0]);
+    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     // if selected round not in new rounds, clear selected round
