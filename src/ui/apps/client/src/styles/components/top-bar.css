@@ -28,14 +28,19 @@
   gap: 8px;
   border-radius: 8px;
   cursor: pointer;
+  color: var(--neutral--100);
 }
-.nav-item:hover {
+.nav-item:hover,
+.nav-item.active {
   border-radius: 0;
   border-bottom: 1px solid white;
+  color: var(--neutral--10);
 }
+
 .nav-item svg path {
   stroke: var(--neutral--100);
 }
-.nav-item:hover svg path {
+.nav-item:hover svg path,
+.nav-item.active svg path{
   stroke: var(--neutral--10);
 }

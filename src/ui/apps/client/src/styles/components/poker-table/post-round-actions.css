@@ -11,3 +11,9 @@
 .pra-container svg {
   cursor: pointer;
 }
+.pra-container svg path {
+  stroke: var(--neutral--100);
+}
+.pra-container svg:hover path {
+  stroke: var(--neutral--10);
+}

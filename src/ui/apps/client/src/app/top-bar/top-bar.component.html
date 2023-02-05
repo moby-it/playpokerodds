@@ -1,6 +1,11 @@
 <div class="top-bar">
   <div class="nav-menu">
-    <div class="nav-item" (click)="navigateTo('')">
+    <div
+      class="nav-item"
+      [routerLink]="['/']"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <svg
         width="40"
         height="40"
@@ -33,7 +38,11 @@
       </svg>
       <span class="link">HOME</span>
     </div>
-    <div class="nav-item" (click)="navigateTo('play')">
+    <div
+      class="nav-item"
+      [routerLink]="['/play']"
+      [routerLinkActive]="'active'"
+    >
       <svg
         width="40"
         height="40"
@@ -54,7 +63,11 @@
       </svg>
       <span class="link">PLAY</span>
     </div>
-    <div class="nav-item" (click)="navigateTo('leaderboards')">
+    <div
+      class="nav-item"
+      [routerLink]="['/leaderboards']"
+      [routerLinkActive]="'active'"
+    >
       <svg
         width="40"
         height="40"

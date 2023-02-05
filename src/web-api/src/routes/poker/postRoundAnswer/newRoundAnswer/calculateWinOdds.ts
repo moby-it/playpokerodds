@@ -12,8 +12,8 @@ export const calculateWinOdds = async (
       round: res.locals.dto.round,
     })
     .then((response) => {
-      if(typeof response.data.odds !== 'number') {
-        throw new Error("3303: invalid response type")
+      if (typeof response.data.odds !== 'number') {
+        throw new Error('3303: invalid response type');
       }
       res.locals.odds = response.data.odds;
       next();
