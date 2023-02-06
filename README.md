@@ -12,9 +12,7 @@ Code of this repo is found inside the `src` folder. This folder includes the fol
 - calc-odds-api - Contains a solution that currently only contains the `calculateWinningOdds` operation which is the most critical operation **and the most cpu expensive**. This is why it's deployed seperately, even if it's a single endpoint.
 # How To Run
 
-Simply build the docker compose file found in the root of the repo. 
-
-**Steps:**
-- Make sure you have docker installed.
-- Run "docker compsose build"
-- Run "docker compose up"
+- Make sure you have [docker installed](https://docs.docker.com/desktop/) 
+- This project you need access to a private npm registry. Ask the org admin for an npm token that reads from this registry.
+- Create a file called `npm_token` at the project root. Copy the token in the `npm_token` file.
+- Run `run.sh` script.
