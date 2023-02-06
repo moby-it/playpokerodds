@@ -85,7 +85,7 @@ describe('New round answer', () => {
         });
       const user = await prisma.user.findFirst({ where: { username } });
       expect(user).toBeDefined();
-      expect(user?.score).toEqual(totalScore);
+      expect(Number(user?.score)).toEqual(totalScore);
       expect(
         await prisma.event.count({
           where: { type: EventType.USER_POSTED_ANSWER },
@@ -102,19 +102,19 @@ describe('New round answer', () => {
         .auth(token, { type: 'bearer' })
         .expect(200)
         .expect((response) => {
-          totalScore = response.body.score;
+          totalScore += +(response.body.score / 2).toFixed(2);
           totalEvents++;
           totalRounds++;
           totalAnswers++;
         });
       const user = await prisma.user.findFirst({ where: { username } });
       expect(user).toBeDefined();
-      expect(user?.score).toEqual(totalScore);
+      expect(Number(user?.score)).toBeCloseTo(totalScore, 3);
       expect(
         await prisma.event.count({
           where: { type: EventType.USER_POSTED_ANSWER },
         })
-      ).toEqual(2);
+      ).toEqual(3);
       expect(await prisma.event.count()).toEqual(totalEvents);
       expect(await prisma.round.count()).toEqual(totalRounds);
       expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);

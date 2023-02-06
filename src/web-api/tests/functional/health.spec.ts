@@ -5,6 +5,7 @@ import prisma from 'prisma';
 import { HealthRouter } from 'routes';
 import { EventType } from 'shared';
 import request from 'supertest';
+import { mockDb } from '../helpers';
 describe('test health endpoints', () => {
   let app: Application;
   beforeAll(async () => {
@@ -13,6 +14,9 @@ describe('test health endpoints', () => {
     registerMiddleware(app);
     app.use(HealthRouter);
     registerErrorHandlers(app);
+  });
+  afterAll(async () => {
+    await mockDb.tearDown(prisma);
   });
   it('should test liveness endpoint', async () => {
     await request(app).get('/liveness').expect(200);

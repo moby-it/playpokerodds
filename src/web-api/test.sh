@@ -1,0 +1,1 @@
+npm run build:test -- --build-arg NPM_TOKEN=$(cat ../../npm_token) && npm run docker:test
