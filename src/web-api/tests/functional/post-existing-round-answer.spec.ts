@@ -8,7 +8,7 @@ import {
   ExistingRoundPayloads,
   mockUserPayload1,
   mockUserPayload2,
-  NewRoundPayloads
+  NewRoundPayloads,
 } from '../fixtures';
 import { mockDb } from '../helpers';
 describe('test post existing round answer endpoint', () => {
@@ -104,7 +104,7 @@ describe('test post existing round answer endpoint', () => {
       .expect(200)
       .expect((response) => {
         expect('score' in response.body).toBeTruthy();
-        userScores.push(Math.abs(response.body.score));
+        userScores.push(response.body.score);
       });
     totalEvents++;
     totalAnswers++;
@@ -117,7 +117,7 @@ describe('test post existing round answer endpoint', () => {
       where: { username: usernames[0] },
     });
     expect(user).toBeDefined();
-    expect(Math.abs(Number(user?.score))).toEqual(Math.abs(userScores[0]));
+    expect(Number(user?.score)).toEqual(userScores[0]);
   });
   it('should post valid round payload', async () => {
     await request(app)

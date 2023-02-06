@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { config } from 'dotenv';
 import express, { Application } from 'express';
 import { registerErrorHandlers, registerMiddleware } from 'middleware';
@@ -75,6 +74,30 @@ describe('New round answer', () => {
     it('should validate user score, total events, total rounds, and total rounds answers', async () => {
       await request(app)
         .post('/postNewRoundAnswer')
+        .send(NewRoundPayloads.postValidRoundPayload1)
+        .auth(token, { type: 'bearer' })
+        .expect(200)
+        .expect((response) => {
+          totalScore = response.body.score;
+          totalEvents++;
+          totalRounds++;
+          totalAnswers++;
+        });
+      const user = await prisma.user.findFirst({ where: { username } });
+      expect(user).toBeDefined();
+      expect(user?.score).toEqual(totalScore);
+      expect(
+        await prisma.event.count({
+          where: { type: EventType.USER_POSTED_ANSWER },
+        })
+      ).toEqual(2);
+      expect(await prisma.event.count()).toEqual(totalEvents);
+      expect(await prisma.round.count()).toEqual(totalRounds);
+      expect(await prisma.roundAnswer.count()).toEqual(totalAnswers);
+    });
+    it('should test increments correctly for logged in user', async () => {
+      await request(app)
+        .post('/postNewRoundAnswer')
         .send(NewRoundPayloads.postValidRoundPayload2)
         .auth(token, { type: 'bearer' })
         .expect(200)
@@ -86,7 +109,7 @@ describe('New round answer', () => {
         });
       const user = await prisma.user.findFirst({ where: { username } });
       expect(user).toBeDefined();
-      expect(Math.abs(Number(user?.score))).toEqual(Math.abs(totalScore));
+      expect(user?.score).toEqual(totalScore);
       expect(
         await prisma.event.count({
           where: { type: EventType.USER_POSTED_ANSWER },

@@ -64,7 +64,7 @@ describe('test fetch events endpoint', () => {
 
         expect(response.body.rank).toEqual(-1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 3);
       });
   });
   it('should get user that has no rank yet', async () => {
@@ -80,7 +80,7 @@ describe('test fetch events endpoint', () => {
         // a negative rank represents a user with no rank
         expect(response.body.rank).toEqual(-1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 3);
       });
   });
   it('should get user details my user', async () => {
@@ -90,7 +90,7 @@ describe('test fetch events endpoint', () => {
       .send(NewRoundPayloads.postValidRoundPayload2)
       .expect(200)
       .expect((response) => {
-        userScore = userScore + +(response.body.score / 2).toFixed(2);
+        userScore += response.body.score;
       });
     await request(app)
       .get('/fetchByUsername/gerogesp')
@@ -119,7 +119,7 @@ describe('test fetch events endpoint', () => {
         expect('rank' in response.body).toBeTruthy();
         expect(response.body.rank).toEqual(1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 3);
       });
   });
 });
