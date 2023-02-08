@@ -90,7 +90,7 @@ describe('test fetch events endpoint', () => {
       .send(NewRoundPayloads.postValidRoundPayload2)
       .expect(200)
       .expect((response) => {
-        userScore = userScore + +(response.body.score / 2).toFixed(2);
+        userScore = Number(((userScore + response.body.score) / 2).toFixed(2));
       });
     await request(app)
       .get('/fetchByUsername/gerogesp')

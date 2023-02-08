@@ -42,10 +42,15 @@ export const pesistUserScore = async (
     if (decodedJwtIsValid(decodedToken)) {
       const id = decodedToken.userId;
       const roundsPlayed = await countUniqueRoundsPlayed(id);
+      const currentScore = Number(
+        (await prisma.user.findFirst({ where: { id } }))?.score
+      );
       await prisma.user.update({
         where: { id },
         data: {
-          score: { increment: res.locals.score / roundsPlayed },
+          score:
+            (currentScore * (roundsPlayed - 1) + res.locals.score) /
+            roundsPlayed,
         },
       });
     }

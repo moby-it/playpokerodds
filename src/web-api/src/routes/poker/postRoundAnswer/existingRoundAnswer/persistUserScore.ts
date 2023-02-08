@@ -50,11 +50,17 @@ export const pesistUserScore = async (
         },
       });
       if (userHasAlreadyPlayedRound === 1) {
+        const id = decodedToken.userId;
         const roundsPlayed = await countUniqueRoundsPlayed(userId);
+        const currentScore = Number(
+          (await prisma.user.findFirst({ where: { id } }))?.score
+        );
         await prisma.user.update({
-          where: { id: userId },
+          where: { id },
           data: {
-            score: { increment: res.locals.score / roundsPlayed },
+            score:
+              (currentScore * (roundsPlayed - 1) + res.locals.score) /
+              roundsPlayed,
           },
         });
       }

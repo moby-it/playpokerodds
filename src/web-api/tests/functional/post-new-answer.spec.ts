@@ -102,7 +102,10 @@ describe('New round answer', () => {
         .auth(token, { type: 'bearer' })
         .expect(200)
         .expect((response) => {
-          totalScore += +(response.body.score / 2).toFixed(2);
+          totalScore = Number(
+            ((totalScore + response.body.score) / 2).toFixed(2)
+          );
+
           totalEvents++;
           totalRounds++;
           totalAnswers++;
