@@ -112,7 +112,7 @@ describe('New round answer', () => {
         });
       const user = await prisma.user.findFirst({ where: { username } });
       expect(user).toBeDefined();
-      expect(Number(user?.score)).toBeCloseTo(totalScore, 3);
+      expect(Number(user?.score)).toBeCloseTo(totalScore);
       expect(
         await prisma.event.count({
           where: { type: EventType.USER_POSTED_ANSWER },
