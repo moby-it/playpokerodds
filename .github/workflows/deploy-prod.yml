@@ -15,7 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Change docker stack tag
-        run: sed -i "s/\${TAG}/${{github.refname}}/g" docker-stack.yml
+        run: |
+          echo {{ github.github.ref_name }}
+          sed -i "s/\${TAG}/${{ github.ref_name} }/g" docker-stack.yml
       - name: Deploy Stack
         uses: kitconcept/docker-stack-deploy@v1.0.1
         with:
