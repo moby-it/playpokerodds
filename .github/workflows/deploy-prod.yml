@@ -1,0 +1,30 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Deploy Stack
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Change docker stack tag
+        run: sed -i "s/\${TAG}/${{github.refname}}/g" docker-stack.yml
+      - name: Deploy Stack
+        uses: kitconcept/docker-stack-deploy@v1.0.1
+        with:
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_private_key: ${{ secrets.KEY }}
+          registry: "docker.io"
+          deploy_timeout: 180
+          username: georgespanos
+          password: ${{ secrets.CONTAINER_PASSWORD }}
+          stack_file: "docker-stack.yml"
+          stack_name: "playpokerodds"
