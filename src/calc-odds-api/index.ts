@@ -8,10 +8,11 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 7071;
-const iterations = Number(process.env["ITERATIONS"]);
+let iterations = Number(process.env["ITERATIONS"]);
 console.log("Iterations: ", iterations);
 if (!iterations || iterations <= 0) {
   console.error("iterations invalid value. Will use default value: 30_000");
+  iterations = 30_000;
 }
 app.use(bodyParser.json());
 startCpuProfile();
