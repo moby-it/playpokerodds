@@ -19,7 +19,7 @@ jobs:
         run: |
           npm run build:test -- --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} && npm run docker:test
   build:
-
+    needs: test
     runs-on: ubuntu-22.04
     steps:
     - name: Admin UI - Build and Push
@@ -59,6 +59,7 @@ jobs:
         build-args: |
           NPM_TOKEN=${{ secrets.NPM_TOKEN }}
   migrate-db:
+    needs: build
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -68,6 +69,7 @@ jobs:
           DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
         run: npx prisma migrate deploy
   deploy:
+    needs: migrate-db
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
