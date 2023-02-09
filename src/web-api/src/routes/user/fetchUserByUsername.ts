@@ -30,7 +30,7 @@ async function fetchUserProfileByName(req: Request, res: Response) {
         from "RoundAnswers"
         LEFT JOIN "Rounds" R on "RoundAnswers"."roundId" = R.id 
         WHERE "RoundAnswers"."userId" = ${user.id}
-        ORDER BY "roundId", timestamp desc) t
+        ORDER BY "roundId", timestamp) t
   order by timestamp desc
   `;
   if (userData?.userId !== userId) {

@@ -19,7 +19,7 @@ services:
       - 7071:7071
   db:
     container_name: playpokerodds-db
-    image: postgres
+    image: postgres:15.1
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
