@@ -1,0 +1,88 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Deploy Stack
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+  
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test api
+        working-directory: ./src/web-api
+        run: |
+          npm run build:test -- --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} && npm run docker:test
+  build:
+
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Admin UI - Build and Push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:stable
+        context: ./src/ui
+        file: ./src/ui/admin.Dockerfile
+        build-args: |
+          NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+  
+    - name: UI - Build and Push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-ui:stable
+        context: ./src/ui
+        build-args: |
+          NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+
+    - name: CalcOdds Api - Build and Push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:stable
+        context: ./src/calc-odds-api
+        build-args: |
+          NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+
+    - name: Web Api - Build and Push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-api:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-api:stable
+        context: ./src/web-api
+        build-args: |
+          NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+  migrate-db:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run migrations
+        working-directory: ./src/web-api
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+        run: npx prisma migrate deploy
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Change docker stack tag
+        run: |
+          sed -i "s/\${TAG}/${{ github.ref_name }}/g" docker-stack.yml
+      - name: Deploy Stack
+        uses: kitconcept/docker-stack-deploy@v1.0.1
+        with:
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_private_key: ${{ secrets.KEY }}
+          registry: "docker.io"
+          deploy_timeout: 180
+          username: georgespanos
+          password: ${{ secrets.CONTAINER_PASSWORD }}
+          stack_file: "docker-stack.yml"
+          stack_name: "playpokerodds"
