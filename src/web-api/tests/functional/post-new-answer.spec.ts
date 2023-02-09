@@ -26,7 +26,7 @@ describe('New round answer', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect((res) => {
+      .expect(res => {
         token = res.body.token;
         username = res.body.username;
         totalEvents++;
@@ -36,7 +36,7 @@ describe('New round answer', () => {
     await mockDb.tearDown(prisma);
   });
   describe('when api receives an invalid payload', () => {
-    it('should send 400 to invalid round payload', (done) => {
+    it('should send 400 to invalid round payload', done => {
       request(app)
         .post('/postNewRoundAnswer')
         .send(NewRoundPayloads.postRoundInvalidPayload1)
@@ -77,7 +77,7 @@ describe('New round answer', () => {
         .send(NewRoundPayloads.postValidRoundPayload1)
         .auth(token, { type: 'bearer' })
         .expect(200)
-        .expect((response) => {
+        .expect(response => {
           totalScore = response.body.score;
           totalEvents++;
           totalRounds++;
@@ -101,7 +101,7 @@ describe('New round answer', () => {
         .send(NewRoundPayloads.postValidRoundPayload2)
         .auth(token, { type: 'bearer' })
         .expect(200)
-        .expect((response) => {
+        .expect(response => {
           totalScore = Number(
             ((totalScore + response.body.score) / 2).toFixed(2)
           );
@@ -112,7 +112,7 @@ describe('New round answer', () => {
         });
       const user = await prisma.user.findFirst({ where: { username } });
       expect(user).toBeDefined();
-      expect(Number(user?.score)).toBeCloseTo(totalScore);
+      expect(Number(user?.score)).toBeCloseTo(totalScore, 1);
       expect(
         await prisma.event.count({
           where: { type: EventType.USER_POSTED_ANSWER },

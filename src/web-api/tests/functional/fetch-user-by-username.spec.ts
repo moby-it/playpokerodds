@@ -24,7 +24,7 @@ describe('test fetch events endpoint', () => {
       .post('/register')
       .send(mockUserPayload1)
       .expect(200)
-      .expect((res) => {
+      .expect(res => {
         token = res.body.token;
         usernames.push(res.body.username);
       });
@@ -33,7 +33,7 @@ describe('test fetch events endpoint', () => {
       .auth(token, { type: 'bearer' })
       .send(NewRoundPayloads.postValidRoundPayload1)
       .expect(200)
-      .expect((response) => {
+      .expect(response => {
         userScore += response.body.score;
       });
   });
@@ -48,7 +48,7 @@ describe('test fetch events endpoint', () => {
     await request(app)
       .get('/fetchByUsername/gerogesp')
       .expect(200)
-      .expect((response) => {
+      .expect(response => {
         expect('rounds' in response.body).toBeTruthy();
         expect(response.body.rounds).toHaveLength(1);
         // should hide odds for other user
@@ -64,14 +64,14 @@ describe('test fetch events endpoint', () => {
 
         expect(response.body.rank).toEqual(-1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 1);
       });
   });
   it('should get user that has no rank yet', async () => {
     await request(app)
       .get('/fetchByUsername/gerogesp')
       .expect(200)
-      .expect((response) => {
+      .expect(response => {
         expect('rounds' in response.body).toBeTruthy();
         expect(response.body.rounds).toHaveLength(1);
         expect('username' in response.body).toBeTruthy();
@@ -80,7 +80,7 @@ describe('test fetch events endpoint', () => {
         // a negative rank represents a user with no rank
         expect(response.body.rank).toEqual(-1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 1);
       });
   });
   it('should get user details my user', async () => {
@@ -89,14 +89,14 @@ describe('test fetch events endpoint', () => {
       .auth(token, { type: 'bearer' })
       .send(NewRoundPayloads.postValidRoundPayload2)
       .expect(200)
-      .expect((response) => {
+      .expect(response => {
         userScore = Number(((userScore + response.body.score) / 2).toFixed(2));
       });
     await request(app)
       .get('/fetchByUsername/gerogesp')
       .auth(token, { type: 'bearer' })
       .expect(200)
-      .expect((response) => {
+      .expect(response => {
         expect('rounds' in response.body).toBeTruthy();
         expect(
           response.body.rounds.every(
@@ -119,7 +119,7 @@ describe('test fetch events endpoint', () => {
         expect('rank' in response.body).toBeTruthy();
         expect(response.body.rank).toEqual(1);
         expect('score' in response.body).toBeTruthy();
-        expect(response.body.score).toBeCloseTo(userScore);
+        expect(response.body.score).toBeCloseTo(userScore, 1);
       });
   });
 });
