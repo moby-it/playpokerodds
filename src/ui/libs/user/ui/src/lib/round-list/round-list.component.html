@@ -61,7 +61,12 @@
               : ['result-inaccurate']
           "
         ></ppo-round-result>
-        <ppo-round-result [header]="selectedRound?.score" body="Your score">
+        <ppo-round-result
+          [header]="
+            selectedRound?.score === 0 ? 'Spot on!' : selectedRound?.score
+          "
+          body="Your score"
+        >
           <ng-container actions>
             <div class="pra-container">
               <ppo-copy-round-link-button
