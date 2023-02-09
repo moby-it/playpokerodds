@@ -6,11 +6,11 @@ export async function getLeaderboards(): Promise<
   const leaderboardMinGames = Number(process.env['LEADERBOARD_MIN_GAMES']) ?? 0;
   const users = await prisma.user.findMany({
     include: { _count: { select: { RoundAnswer: true } } },
+    orderBy: { score: 'asc' },
   });
   return users
-    .filter(user => user._count.RoundAnswer >= leaderboardMinGames)
-    .sort((a, b) => (a.score < b.score ? 1 : -1))
-    .map(user => ({
+    .filter((user) => user._count.RoundAnswer >= leaderboardMinGames)
+    .map((user) => ({
       username: user.username,
       score: Number(user.score),
     }));
