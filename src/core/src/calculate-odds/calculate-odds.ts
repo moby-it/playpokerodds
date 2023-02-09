@@ -2,7 +2,7 @@ import { Round } from '../round';
 
 import { Calculator, Input } from './calculator';
 
-const transformRoundToInput = (round: Round): Input => {
+const transformRoundToInput = (round: Round, iterations: number): Input => {
   const input: Input = {};
   input.hands = [
     round.myHand.join(','),
@@ -14,11 +14,11 @@ const transformRoundToInput = (round: Round): Input => {
     input.board = round.board.join(',');
   }
   input.numPlayers = round.opponentsHands.length + 1;
-  input.iterations = 30000;
+  input.iterations = iterations;
   return input;
 };
-export function calculateOdds(round: Round): number {
-  const input = transformRoundToInput(round);
+export function calculateOdds(round: Round, iterations: number): number {
+  const input = transformRoundToInput(round, iterations);
   const calculator = new Calculator(input);
   const results = calculator.simulate();
   const result = results[round.myHand.join(',')].winPercent as number;
