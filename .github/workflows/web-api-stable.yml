@@ -51,7 +51,7 @@ jobs:
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Deploy to VPS
