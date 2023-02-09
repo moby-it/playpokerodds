@@ -48,7 +48,6 @@ services:
       - source: ppoapi.conf-v2
         target: /src/.env
     deploy:
-      replicas: 1
       rollback_config:
         failure_action: pause
         monitor: 5s
