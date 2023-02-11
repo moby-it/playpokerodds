@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   client-ui:
     ports:
@@ -48,7 +48,6 @@ services:
       - source: ppoapi.conf-v2
         target: /src/.env
     deploy:
-      replicas: 1
       rollback_config:
         failure_action: pause
         monitor: 5s
@@ -72,7 +71,6 @@ services:
       - source: ppocalc.conf
         target: /src/.env
     deploy:
-      replicas: 1
       rollback_config:
         failure_action: pause
         monitor: 5s
