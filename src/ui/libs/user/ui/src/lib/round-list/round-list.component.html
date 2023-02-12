@@ -78,7 +78,9 @@
       </ng-container>
       <ng-template #watchingPublicProfile>
         <ppo-round-result
-          [header]="selectedRound?.score"
+          [header]="
+            selectedRound?.score === 0 ? 'Spot on!' : selectedRound?.score
+          "
           body="{{ username$ | ngrxPush }}'s Score"
         >
           <ng-container actions>
