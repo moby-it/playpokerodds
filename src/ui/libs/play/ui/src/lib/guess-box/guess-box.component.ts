@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { Animations } from '@ppo/shared/ui';
 import { combineLatest, map, startWith, take, tap } from 'rxjs';
@@ -14,7 +15,7 @@ import {
   animations: [Animations.fadeAnimation],
 })
 export class GuessBoxComponent {
-  constructor(private pokerFacade: PokerOddsFacade) {}
+  constructor(private pokerFacade: PokerOddsFacade, private router: Router) {}
   private roundStatus$ = this.pokerFacade.roundStatus$;
   private message$ = this.roundStatus$.pipe(
     map((status) => {
@@ -72,6 +73,7 @@ export class GuessBoxComponent {
           } else if (status === 'Completed' || status === 'Initial') {
             this.pokerFacade.startNewRound();
             this.guessForm.reset();
+            this.router.navigate(['play']);
           }
         })
       )
