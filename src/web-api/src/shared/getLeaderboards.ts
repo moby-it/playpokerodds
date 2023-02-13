@@ -1,7 +1,7 @@
 import prisma from 'prisma';
 
 export async function getLeaderboards(): Promise<
-  { username: string; score: number }[]
+  { username: string; score: number; gamesPlayed: number }[]
 > {
   const leaderboardMinGames = Number(process.env['LEADERBOARD_MIN_GAMES']) ?? 0;
   const users = await prisma.user.findMany({
@@ -13,5 +13,6 @@ export async function getLeaderboards(): Promise<
     .map((user) => ({
       username: user.username,
       score: Number(user.score),
+      gamesPlayed: user._count.RoundAnswer,
     }));
 }

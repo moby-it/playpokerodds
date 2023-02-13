@@ -3,10 +3,15 @@
     <table class="leaderboards-table my-score">
       <tbody>
         <ng-container *ngrxLet="currentUserScore$ as currentUserScore">
-          <tr *ngIf="currentUserScore" class="m-1">
+          <tr
+            *ngIf="currentUserScore"
+            class="m-1"
+            (click)="navigateToUser(currentUserScore)"
+          >
             <td>#{{ userScores | leaderboardsPosition: currentUserScore }}</td>
             <td>{{ currentUserScore.username }}</td>
             <td>{{ currentUserScore.score }}</td>
+            <td>{{ currentUserScore.gamesPlayed }}</td>
           </tr>
         </ng-container>
       </tbody>
@@ -17,6 +22,7 @@
           <th>#</th>
           <th>Username</th>
           <th>Score</th>
+          <th>Total Games</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +33,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ userScore.username }}</td>
           <td>{{ userScore.score }}</td>
+          <td>{{ userScore.gamesPlayed }}</td>
         </tr>
       </tbody>
     </table>

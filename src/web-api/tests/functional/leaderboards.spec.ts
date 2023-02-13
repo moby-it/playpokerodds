@@ -70,12 +70,21 @@ describe('test leaderboards', () => {
     const roundAnswers = await prisma.roundAnswer.findMany();
     expect(roundAnswers.length).toEqual(3);
   });
-  it('should have 1 user on the leaderboards', async () => {
-    await request(app)
-      .get('/fetchLeaderboards')
-      .expect(200)
-      .expect((response) => {
-        expect(response.body.length).toEqual(1);
-      });
+  describe('test leaderboards', () => {
+    let response: request.Response;
+    beforeAll(async () => {
+      await request(app)
+        .get('/fetchLeaderboards')
+        .expect(200)
+        .expect((r) => {
+          response = r;
+        });
+    });
+    it('should have 1 user on the leaderboards', () => {
+      expect(response.body.length).toEqual(1);
+    });
+    it('have a user that has played 2 games', async () => {
+      expect(response.body[0].gamesPlayed).toEqual(2);
+    });
   });
 });
