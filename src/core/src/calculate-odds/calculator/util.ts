@@ -170,3 +170,16 @@ export function shuffle(arr: any[]): void {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+export function calculateMaxIterations(input: Input): number {
+  const boardLength = input.board.split(',').length;
+  const knownHands = input.hands.length;
+  const hiddenBoardCards = input.boardSize - boardLength;
+  const hiddenPlayerCards = (input.numPlayers - knownHands) * 2;
+  const hiddenCards = hiddenBoardCards + hiddenPlayerCards;
+  const remainingDeckCards = 52 - boardLength - knownHands * 2;
+  let maxIterations = 1;
+  for (let i = 0; i < hiddenCards; i++) {
+    maxIterations *= remainingDeckCards - i;
+  }
+  return maxIterations;
+}

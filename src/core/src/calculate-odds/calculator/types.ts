@@ -273,7 +273,11 @@ export class CardGroup {
             this.addCards(card);
         }
     }
-
+    equals(cardGroup: CardGroup): boolean {
+        if (cardGroup.cards.length !== this._cards.length)
+            return false;
+        return this.toString() === cardGroup.toString();
+    }
 }
 
 export class Deck extends CardGroup {
