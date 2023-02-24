@@ -45,7 +45,7 @@ services:
       - 9300:3000
     image: georgespanos/gtop-api:${TAG}
     configs:
-      - source: ppoapi.conf-v2
+      - source: ppoapi-v2.conf
         target: /src/.env
     deploy:
       rollback_config:
@@ -68,7 +68,7 @@ services:
     ports:
       - 9400:7071
     configs:
-      - source: ppocalc.conf
+      - source: ppocalc-v2.conf
         target: /src/.env
     deploy:
       rollback_config:
@@ -86,7 +86,7 @@ services:
         parallelism: 1
         order: stop-first
 configs:
-  ppoapi.conf-v2:
+  ppoapi-v2.conf:
     external: true
-  ppocalc.conf:
+  ppocalc-v2.conf:
     external: true
