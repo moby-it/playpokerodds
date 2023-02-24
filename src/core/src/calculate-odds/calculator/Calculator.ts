@@ -107,15 +107,25 @@ export class Calculator {
     this.input.hands.forEach((h) =>
       new CardGroup(h).cards.forEach((c) => deck.removeCard(c))
     );
-    for (let i = 0; i < deck.cards.length; i++) {
-      const cardGroups: CardGroup[] = [];
-      for (let j = 0; j < deck.cards.length; j++) {
-        if (i === j) continue;
-        cardGroups.push(new CardGroup([deck.cards[i], deck.cards[j]]));
+    const remainingCards = 5 - this.input.board.split(',').length;
+    const cardGroups: CardGroup[] = [];
+    if (remainingCards === 1) {
+      for (let i = 0; i < deck.cards.length; i++) {
+        cardGroups.push(new CardGroup([deck.cards[i]]));
       }
-      this.boardScenarios.push(...cardGroups);
+    } else if (remainingCards === 2) {
+      for (let i = 0; i < deck.cards.length; i++) {
+        for (let j = 0; j < deck.cards.length; j++) {
+          if (i === j) continue;
+          cardGroups.push(new CardGroup([deck.cards[i], deck.cards[j]]));
+        }
+      }
+    } else {
+      throw new Error('Cannot handle more than 2 remaining cards');
     }
+    this.boardScenarios.push(...cardGroups);
   }
+
   private evaluateBoardScenarios() {
     // create players out of input
     const players: Player[] = [];
@@ -125,8 +135,14 @@ export class Calculator {
       p.dealt.addCardGroup(dealtCards);
       players.push(p);
     }
-    for (const player of players) {
-      // player.evaluate(this.input.board);
+    for (const scenario of this.boardScenarios) {
+      const game = new Game({
+        ...this.input,
+        board: [...this.input.board.split(','), ...scenario.cards].join(','),
+      });
+      const winners = game.play();
+      this.addToCount(winners);
+      this.iterations++;
     }
   }
   private calculatePercent(count: number) {

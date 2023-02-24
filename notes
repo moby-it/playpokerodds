@@ -1,1 +1,0 @@
-core v2 breaks the main functionalities. We should not work with excluded cards and then recalculating if set was existing. We should create all possible combinations and run them manually.
