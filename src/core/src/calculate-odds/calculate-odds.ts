@@ -3,7 +3,7 @@ import { Round } from '../round';
 import { Calculator, Input } from './calculator';
 
 const transformRoundToInput = (round: Round, iterations: number): Input => {
-  const input: Input = {};
+  const input = {} as Input;
   input.hands = [
     round.myHand.join(','),
     ...round.opponentsHands
