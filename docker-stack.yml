@@ -64,7 +64,7 @@ services:
         order: stop-first
 
   calc-odds-api:
-    image: georgespanos/gtop-calc-odds:v1.1.3
+    image: georgespanos/gtop-calc-odds:${TAG}
     ports:
       - 9400:7071
     configs:
