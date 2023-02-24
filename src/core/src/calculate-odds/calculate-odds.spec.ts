@@ -55,4 +55,12 @@ describe('test calculate odds ', () => {
     const odds = calculateOdds(round, iterations);
     expect(odds).toBeCloseTo(13.64);
   });
+  test('should expect hand with flop to be calced', () => {
+    const myHand: Hand = ['Qc', '8h'];
+    const opponentsHands: Hand[] = [['9d', 'Jh']];
+    const board: Board = ['5d', 'Qd', '7h'];
+    const round = { myHand, opponentsHands, board };
+    const odds = calculateOdds(round, iterations);
+    expect(odds).toBeCloseTo(90.2);
+  });
 });

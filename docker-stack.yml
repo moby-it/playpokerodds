@@ -64,11 +64,11 @@ services:
         order: stop-first
 
   calc-odds-api:
-    image: georgespanos/gtop-calc-odds:${TAG}
+    image: georgespanos/gtop-calc-odds:v1.1.3
     ports:
       - 9400:7071
     configs:
-      - source: ppocalc-v2.conf
+      - source: ppocalc-v3.conf
         target: /src/.env
     deploy:
       rollback_config:
@@ -88,5 +88,5 @@ services:
 configs:
   ppoapi-v2.conf:
     external: true
-  ppocalc-v2.conf:
+  ppocalc-v3.conf:
     external: true
