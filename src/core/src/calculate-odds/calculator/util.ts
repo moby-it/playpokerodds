@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CardGroup, Input } from './types';
 
 export function validateInput(input: Input): void {
@@ -77,7 +76,7 @@ export function validateInput(input: Input): void {
     } else {
       if (cardGroup.cards.length > 5)
         throw new Error(
-          `"board" cannot contain more than 5 cards. Invalid: ${input.board}`
+          `"board" cannot contain more than 5 cards. Invalid: ${input}`
         );
     }
   }
@@ -156,7 +155,10 @@ export function cleanInput(input: Input): void {
   if (!input.handSize) input.handSize = 2;
 }
 
-export function uniqWith(arr: any[], comparator: (a, b) => boolean) {
+export function uniqWith<T>(
+  arr: T[],
+  comparator: (a: T, b: T) => boolean
+) {
   const uniques = [];
   for (const a of arr) {
     if (uniques.findIndex((u) => comparator(a, u)) === -1) uniques.push(a);
@@ -164,7 +166,7 @@ export function uniqWith(arr: any[], comparator: (a, b) => boolean) {
   return uniques;
 }
 
-export function shuffle(arr: any[]): void {
+export function shuffle(arr: unknown[]): void {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];

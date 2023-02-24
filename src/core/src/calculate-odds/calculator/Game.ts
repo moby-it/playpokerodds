@@ -1,16 +1,10 @@
-// @ts-nocheck
-import { Input, HandRanks, CardGroup, Deck, BestHand, Stats } from './types';
-import {
-  cleanInput,
-  validateInput,
-  shuffle,
-  calculateMaxIterations,
-} from './util';
 import { evaluate } from './evaluate';
+import { BestHand, CardGroup, Deck, Input } from './types';
+import { shuffle } from './util';
 
-class Player {
+export class Player {
   dealt = new CardGroup();
-  bestHand: BestHand;
+  bestHand!: BestHand;
 
   readonly name: string;
 
@@ -26,6 +20,9 @@ class Player {
   }
 
   compare(p: Player) {
+    if (!p.bestHand || !this.bestHand) {
+      throw new Error('Player has not been evaluated');
+    }
     if (p.bestHand.handRank === this.bestHand.handRank) {
       for (let i = 0; i < this.bestHand.hand.cards.length; i++) {
         if (
@@ -44,23 +41,15 @@ class Player {
   }
 }
 
-class Game {
+export class Game {
   private input: Input;
-  private board: CardGroup;
+  private board: CardGroup = new CardGroup();
   private deck: Deck;
-  private excludedBoardCards: CardGroup[];
-  private shouldRemoveExcludedCards = false;
-  private maxIterations: number;
   players: Player[] = [];
 
-  constructor(input: Input, excludedBoardCards: CardGroup[]) {
+  constructor(input: Input) {
     this.input = input;
-    this.excludedBoardCards = excludedBoardCards;
-    this.maxIterations = calculateMaxIterations(this.input);
-    this.shouldRemoveExcludedCards =
-      this.maxIterations < input.iterations &&
-      this.input.hands?.length === this.input.numPlayers;
-    this.deck = new Deck(this.input.numDecks);
+    this.deck = new Deck(this.input.numDecks ?? 1);
 
     this.deck.shuffle();
 
@@ -103,20 +92,8 @@ class Game {
   }
   private buildRestOfBoard() {
     const currentBoardSize = this.board.cards.length;
-    const boardCards = new CardGroup();
     for (let i = 0; i < this.input.boardSize - currentBoardSize; i++) {
-      const card = this.deck.pop();
-      boardCards.addCards(card);
-    }
-    if (this.shouldRemoveExcludedCards) {
-      if (this.excludedBoardCards.some((c) => c.equals(boardCards))) {
-        this.buildRestOfBoard();
-      } else {
-        this.board.addCardGroup(boardCards);
-        this.excludedBoardCards.push(boardCards);
-      }
-    } else {
-      this.board.addCardGroup(boardCards);
+      this.board.addCards(this.deck.pop());
     }
   }
 
@@ -148,112 +125,5 @@ class Game {
       p.dealt.addCardGroup(dealtCards);
       this.players.push(p);
     }
-  }
-}
-
-export class Calculator {
-  private stats: Record<string, Partial<Stats>> = {};
-  private input: Input;
-  excludedBoardCards: CardGroup[] = [];
-  excludedHandCards: CardGroup[] = [];
-  iterations = 0;
-  constructor(input: Input) {
-    validateInput(input);
-    cleanInput(input);
-
-    this.input = input;
-
-    for (const e of this.input.hands) {
-      this.setupStatsObj(e);
-    }
-
-    for (let i = 0; i < this.input.numPlayers - this.input.hands.length; i++) {
-      this.setupStatsObj(Game.getNpcName(i + 1));
-    }
-  }
-
-  simulate() {
-    const maxIterations = calculateMaxIterations(this.input);
-    for (
-      let i = 0;
-      i < this.input.iterations &&
-      this.excludedBoardCards.length < maxIterations;
-      i++
-    ) {
-      const g = new Game(this.input, this.excludedBoardCards);
-      const winners = g.play();
-      this.addToCount(winners);
-      this.iterations++;
-    }
-
-    this.calculateStats();
-
-    return this.stats;
-  }
-
-  private addToCount(winners: Player[]) {
-    if (winners.length > 1) {
-      for (const winner of winners) {
-        this.stats[winner.name].tieCount++;
-        if (this.input.returnTieHandStats)
-          this.stats[winner.name].tieHandStats[
-            HandRanks[winner.bestHand.handRank]
-          ].count++;
-      }
-    } else {
-      for (const winner of winners) {
-        this.stats[winner.name].winCount++;
-        if (this.input.returnHandStats)
-          this.stats[winner.name].handStats[HandRanks[winner.bestHand.handRank]]
-            .count++;
-      }
-    }
-  }
-
-  private calculateStats() {
-    for (const name in this.stats) {
-      // winner percent
-      this.stats[name].winPercent = this.calculatePercent(
-        this.stats[name].winCount
-      );
-      this.stats[name].tiePercent = this.calculatePercent(
-        this.stats[name].tieCount
-      );
-
-      // hand percent
-      if (this.input.returnHandStats) {
-        for (const rank in this.stats[name].handStats) {
-          this.stats[name].handStats[rank].percent = this.calculatePercent(
-            this.stats[name].handStats[rank].count
-          );
-        }
-      }
-      if (this.input.returnTieHandStats) {
-        for (const rank in this.stats[name].tieHandStats) {
-          this.stats[name].tieHandStats[rank].percent = this.calculatePercent(
-            this.stats[name].tieHandStats[rank].count
-          );
-        }
-      }
-    }
-  }
-
-  private setupStatsObj(name: string) {
-    this.stats[name] = { winCount: 0, tieCount: 0 };
-    if (this.input.returnHandStats) this.stats[name].handStats = {};
-    if (this.input.returnTieHandStats) this.stats[name].tieHandStats = {};
-
-    for (const r in HandRanks) {
-      if (typeof HandRanks[r] !== 'number') continue;
-
-      if (this.input.returnHandStats)
-        this.stats[name].handStats[r] = <any>{ count: 0 };
-      if (this.input.returnTieHandStats)
-        this.stats[name].tieHandStats[r] = <any>{ count: 0 };
-    }
-  }
-
-  private calculatePercent(count: number) {
-    return +((count / this.iterations) * 100).toFixed(4);
   }
 }

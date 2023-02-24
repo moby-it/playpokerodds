@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BestHand, CardGroup, HandRanks, Ranks } from './types';
 import { uniqWith } from './util';
 
@@ -14,8 +13,8 @@ export function evaluate(cardGroup: CardGroup): BestHand {
     const tripRanks: number[] = [];
     const pairRanks: number[] = [];
     let straightCardsCount = 0;
-    let straightMaxCardRank: number;
-    let straightLastCardRank: number;
+    let straightMaxCardRank = 0;
+    let straightLastCardRank = 0;
     const allRanks = Object.keys(rankCount).reverse();
 
     for (const rank of allRanks) {
@@ -42,7 +41,7 @@ export function evaluate(cardGroup: CardGroup): BestHand {
     // group by suit
     const suitCount = cardGroup.countBy('suit');
 
-    let flushSuit: number;
+    let flushSuit = 0;
     for (const suit in suitCount) {
         if (suitCount[suit] >= 5) {
             flushSuit = Number(suit);

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { shuffle } from "./util";
 
 export enum Suits {
@@ -38,13 +36,13 @@ export enum HandRanks {
 }
 
 export type Input = {
-    numPlayers?: number;
-    numDecks?: number;
-    hands?: string[];
-    handSize?: number;
-    board?: string;
-    boardSize?: number;
-    iterations?: number;
+    numPlayers: number;
+    numDecks: number;
+    hands: string[];
+    handSize: number;
+    board: string;
+    boardSize: number;
+    iterations: number;
     returnHandStats?: boolean;
     returnTieHandStats?: boolean;
 }
@@ -120,12 +118,13 @@ class Rank {
             case 'A':
                 return Ranks.ace;
             default:
-                const n = Number(s);
-
-                if (isNaN(n) || n < Ranks.two || n > Ranks.nine)
-                    throw new Error(`Invalid card rank string: ${s}`);
-                
-                return n;
+                {
+                    const n = Number(s);
+                    if (isNaN(n) || n < Ranks.two || n > Ranks.nine)
+                        throw new Error(`Invalid card rank string: ${s}`);
+                    return n;
+                }
+         
         }
     }
 
@@ -291,7 +290,7 @@ export class Deck extends CardGroup {
     pop(): Card {
         if (this._cards.length === 0)
             throw new Error('Deck is empty. There are either too many players, or the boardSize is too large');
-        return this._cards.pop();
+        return this._cards.pop() as Card;
     }
 
     removeCard(cardToRemove: Card): Card {
