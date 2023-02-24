@@ -57,10 +57,11 @@ class Game {
     this.input = input;
     this.excludedBoardCards = excludedBoardCards;
     this.maxIterations = calculateMaxIterations(this.input);
-    if (this.maxIterations < input.iterations) {
-      this.shouldRemoveExcludedCards = true;
-    }
+    this.shouldRemoveExcludedCards =
+      this.maxIterations < input.iterations &&
+      this.input.hands?.length === this.input.numPlayers;
     this.deck = new Deck(this.input.numDecks);
+
     this.deck.shuffle();
 
     this.buildKnownBoard();
@@ -113,7 +114,6 @@ class Game {
       } else {
         this.board.addCardGroup(boardCards);
         this.excludedBoardCards.push(boardCards);
-        return;
       }
     } else {
       this.board.addCardGroup(boardCards);
