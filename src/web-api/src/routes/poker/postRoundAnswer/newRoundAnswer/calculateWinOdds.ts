@@ -7,6 +7,11 @@ export const calculateWinOdds = async (
   next: NextFunction
 ) => {
   const calcOddsUrl = process.env['CALC_ODDS_URL'] ?? '';
+  if (calcOddsUrl === '') {
+    console.error('3301: calc odds url not set');
+    res.status(500).send('3301: calc odds url not set');
+    return;
+  }
   return axios
     .post(calcOddsUrl, {
       round: res.locals.dto.round,
