@@ -155,10 +155,7 @@ export function cleanInput(input: Input): void {
   if (!input.handSize) input.handSize = 2;
 }
 
-export function uniqWith<T>(
-  arr: T[],
-  comparator: (a: T, b: T) => boolean
-) {
+export function uniqWith<T>(arr: T[], comparator: (a: T, b: T) => boolean) {
   const uniques = [];
   for (const a of arr) {
     if (uniques.findIndex((u) => comparator(a, u)) === -1) uniques.push(a);
