@@ -36,6 +36,8 @@ services:
   calc-odds-api:
     build:
       context: src/calc-odds-api
+    env_file:
+      - src/calc-odds-api/.env
     ports:
       - 7071:7071
     depends_on:
