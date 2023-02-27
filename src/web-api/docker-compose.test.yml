@@ -4,6 +4,7 @@ services:
       - 3000:3000
     build:
       dockerfile: Dockerfile
+      target: build
     command: npm test
     env_file:
       - docker.env
