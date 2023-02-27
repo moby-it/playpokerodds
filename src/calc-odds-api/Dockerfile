@@ -7,18 +7,15 @@ RUN rm -f .npmrc
 
 
 FROM dependencies as build
-RUN apk --no-cache add curl
 WORKDIR /src
 COPY . ./
 RUN npm run build
 
 
 FROM node:18.13.0-alpine
-
+RUN apk --no-cache add curl
 EXPOSE 7071
-
 WORKDIR /src
-
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:7071/liveness || exit 1
 
