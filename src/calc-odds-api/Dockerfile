@@ -17,11 +17,10 @@ FROM node:18.13.0-alpine
 
 EXPOSE 7071
 
+WORKDIR /src
+
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:7071/liveness || exit 1
-
-
-WORKDIR /src
 
 COPY --from=dependencies /src/node_modules ./node_modules
 COPY --from=build /src/dist ./
