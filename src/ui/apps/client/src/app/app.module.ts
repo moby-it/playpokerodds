@@ -17,11 +17,17 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { GlobalErrorHandler } from './errorHandler';
+import { FooterComponent } from './footer.component';
 import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserStatusComponent } from './top-bar/user-status/user-status.component';
 @NgModule({
-  declarations: [AppComponent, TopBarComponent, UserStatusComponent],
+  declarations: [
+    AppComponent,
+    TopBarComponent,
+    UserStatusComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

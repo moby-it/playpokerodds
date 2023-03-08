@@ -2,6 +2,7 @@
   flex-grow: 1;
   background: url('/assets/home-background.png');
   background-size: cover;
+  min-height: 100vh;
 }
 .homepage-content {
   padding-top: 92px;
