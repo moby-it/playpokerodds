@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   template: `
     <div class="footer" id="footer">
       <div>
-        <img src="assets/game.svg" width="25" height="25" alt="" srcset="" />
         <span>
           PlayPokerOdds © is an collaborative idea of
           <a href="https://moby-it.com" target="_blank">Moby IT</a> and
