@@ -1,7 +1,5 @@
-import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { GameApiClient } from '../game.api-client.service';
 import { pokerOddsActions } from './actions';
@@ -13,15 +11,14 @@ import {
   selectRound,
   selectRoundStatus,
 } from './reducer';
-
+declare let gtag: (
+  action: string,
+  eventName: string,
+  options?: unknown
+) => void;
 @Injectable({ providedIn: 'root' })
 export class PokerOddsFacade {
-  constructor(
-    private store: Store,
-    private clipboard: Clipboard,
-    private toaster: ToastrService,
-    private pokerApiClient: GameApiClient
-  ) {}
+  constructor(private store: Store, private pokerApiClient: GameApiClient) {}
   // loaders
   fetchingRound$ = this.store.select(selectFetchingRound);
   calculatingAnswer$ = this.store.select(selectCalculatingAnswer);
@@ -35,6 +32,7 @@ export class PokerOddsFacade {
     this.store.dispatch(pokerOddsActions.startNewRound());
   }
   submitEstimate(estimate: number): void {
+    gtag('event', 'round_played');
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
   }
   fetchAndSetExistingRound(id: string): void {
