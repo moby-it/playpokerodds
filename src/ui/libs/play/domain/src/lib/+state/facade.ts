@@ -18,7 +18,7 @@ declare let gtag: (
 ) => void;
 @Injectable({ providedIn: 'root' })
 export class PokerOddsFacade {
-  constructor(private store: Store, private pokerApiClient: GameApiClient) {}
+  constructor(private store: Store, private pokerApiClient: GameApiClient) { }
   // loaders
   fetchingRound$ = this.store.select(selectFetchingRound);
   calculatingAnswer$ = this.store.select(selectCalculatingAnswer);
@@ -32,7 +32,8 @@ export class PokerOddsFacade {
     this.store.dispatch(pokerOddsActions.startNewRound());
   }
   submitEstimate(estimate: number): void {
-    gtag('event', 'round_played');
+    if (gtag)
+      gtag('event', 'round_played');
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
   }
   fetchAndSetExistingRound(id: string): void {
