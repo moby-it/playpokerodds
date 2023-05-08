@@ -6,14 +6,15 @@ input[data-autocompleted] {
   background-color: transparent !important;
 }
 .container {
-  background-color: var(--neutral--900);
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 80px;
-  padding: 100px 24px 160px;
-  height: 100vh;
+  padding: 100px 24px;
+  min-height: 100vh;
+  background-color: var(--neutral--900);
+
 }
 .flex-1 {
   flex: 1;
