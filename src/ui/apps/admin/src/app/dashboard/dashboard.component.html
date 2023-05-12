@@ -38,9 +38,14 @@
       </td>
     </tr>
   </table>
-
-  <mat-paginator
-    [pageSizeOptions]="[10, 25, 100]"
-    aria-label="Select page of users"
-  ></mat-paginator>
+  <ng-container *ngrxLet="pagination$ as pagination">
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 100]"
+      aria-label="Select page of users"
+      (page)="changePage($event)"
+      [pageIndex]="pagination.pageIndex"
+      [pageSize]="pagination.pageSize"
+      [length]="pagination.total"
+    ></mat-paginator>
+  </ng-container>
 </div>
