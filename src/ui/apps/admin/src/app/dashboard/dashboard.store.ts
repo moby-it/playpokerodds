@@ -60,39 +60,6 @@ export class DashboardStore extends ComponentStore<DashboardEventsState> {
     ...state, filters: { ...state.filters, page: pagination.page, pageSize: pagination.pageSize }
   }));
   private updateTotal = this.updater((state, total: number) => ({ ...state, total }));
-  last24hRoundsPlayed$ = this.events$.pipe(
-    map(
-      (events) =>
-        events
-          .filter((e) => e.type === EventType.USER_POSTED_ANSWER)
-          .filter(
-            (e) =>
-              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
-          ).length
-    )
-  );
-  last24hUsersLoggedIn$ = this.events$.pipe(
-    map(
-      (events) =>
-        events
-          .filter((e) => e.type === EventType.USER_LOGGED_IN)
-          .filter(
-            (e) =>
-              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
-          ).length
-    )
-  );
-  last24hUsersRegistered$ = this.events$.pipe(
-    map(
-      (events) =>
-        events
-          .filter((e) => e.type === EventType.USER_REGISTERED)
-          .filter(
-            (e) =>
-              Date.now() - new Date(e.timestamp).getTime() < 24 * 60 * 60 * 1000
-          ).length
-    )
-  );
   tableReady$ = this.select((state) => state.tableReady);
   private setEvents = this.updater((state, events: AppEvent[]) => ({
     ...state,

@@ -1,8 +1,3 @@
-<div class="stats" *ngrxLet="stats$ as stats">
-  <span>Last 24h Rounds Played: {{ stats.roundsPlayed }}</span>
-  <span>Last 24h Logins: {{ stats.usersLoggedIn }}</span>
-  <span>Last 24h Registers: {{ stats.usersRegistered }}</span>
-</div>
 <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
