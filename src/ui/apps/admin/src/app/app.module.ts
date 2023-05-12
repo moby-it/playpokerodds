@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LetModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { TokenInterceptor } from './token.interceptor';
     MaterialModule,
     AppRoutingModule,
     LetModule,
+    PushModule,
     NgxJsonViewerModule,
     ReactiveFormsModule,
   ],
@@ -36,4 +37,4 @@ import { TokenInterceptor } from './token.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
