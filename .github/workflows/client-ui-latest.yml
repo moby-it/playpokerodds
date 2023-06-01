@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.CONTAINER_USERNAME }}/gtop-ui:latest
+          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-ui:latest
           context: ./src/ui
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
