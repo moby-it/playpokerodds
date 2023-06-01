@@ -1,9 +1,9 @@
 import { calculateOdds, validateRound } from '@moby-it/poker-core';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import { interval, startCpuProfile } from './monitor.mjs';
-
+import cors from 'cors';
 dotenv.config();
 
 const app: Express = express();
@@ -14,7 +14,9 @@ if (!iterations || iterations <= 0) {
   console.error('iterations invalid value. Will use default value: 30_000');
   iterations = 30_000;
 }
+const apiKey = process.env['APIKEY'] || '';
 app.use(bodyParser.json());
+app.use(validateClient);
 startCpuProfile();
 app.post('/api/calcOdds', (req: Request, res: Response) => {
   const body = req.body.round;
@@ -43,3 +45,9 @@ process.on('SIGTERM', () => {
     console.debug('HTTP server closed');
   });
 });
+
+function validateClient(req: Request, res: Response, next: NextFunction) {
+  if (!apiKey) next();
+  else if (apiKey === req.headers['x-api-key']) next();
+  else res.sendStatus(403);
+}

@@ -3,9 +3,10 @@ import { NextFunction, Request, Response } from 'express';
 import { NewAnswerDto } from './newAnswer.dto';
 export const calculateWinOdds = async (
   req: Request,
-  res: Response<unknown, { dto: NewAnswerDto; odds: number }>,
+  res: Response<unknown, { dto: NewAnswerDto; odds: number; }>,
   next: NextFunction
 ) => {
+  const apiKey = process.env['CALC_ODDS_KEY'] ?? '';
   const calcOddsUrl = process.env['CALC_ODDS_URL'] ?? '';
   if (calcOddsUrl === '') {
     console.error('3301: calc odds url not set');
@@ -15,7 +16,7 @@ export const calculateWinOdds = async (
   return axios
     .post(calcOddsUrl, {
       round: res.locals.dto.round,
-    })
+    }, { headers: { 'x-api-key': apiKey } })
     .then((response) => {
       if (typeof response.data.odds !== 'number') {
         throw new Error('3303: invalid response type');
