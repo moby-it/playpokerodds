@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { interval, startCpuProfile } from './monitor.mjs';
-import cors from 'cors';
 dotenv.config();
 
 const app: Express = express();
@@ -16,9 +15,8 @@ if (!iterations || iterations <= 0) {
 }
 const apiKey = process.env['APIKEY'] || '';
 app.use(bodyParser.json());
-app.use(validateClient);
 startCpuProfile();
-app.post('/api/calcOdds', (req: Request, res: Response) => {
+app.post('/api/calcOdds', validateClient, (req: Request, res: Response) => {
   const body = req.body.round;
   if (!validateRound(body)) {
     res.status(400).send('invalid body payload');
