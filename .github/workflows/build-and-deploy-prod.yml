@@ -117,7 +117,7 @@ jobs:
           remote_user: ${{ secrets.USERNAME }}
           remote_private_key: ${{ secrets.KEY }}
           registry: "docker.io"
-          deploy_timeout: 180
+          deploy_timeout: 300
           username: ${{ secrets.CONTAINER_USERNAME }}
           password: ${{ secrets.CONTAINER_PASSWORD }}
           stack_file: "docker-stack.yml"
