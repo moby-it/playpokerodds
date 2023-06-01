@@ -6,7 +6,6 @@ COPY package*.json decorate-angular-cli.js .npmrc ./
 RUN npm ci
 RUN rm -f .npmrc
 
-
 FROM dependencies as build
 ARG TARGET=prod
 COPY . ./
