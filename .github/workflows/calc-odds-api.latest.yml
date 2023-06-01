@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-calc-odds:latest
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:latest
           context: ./src/calc-odds-api
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}

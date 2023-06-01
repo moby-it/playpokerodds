@@ -3,7 +3,7 @@ services:
   client-ui:
     ports:
       - 9500:80
-    image: georgespanos/gtop-ui:${TAG}
+    image: georgespanos/ppo-ui:${TAG}
     deploy:
       rollback_config:
         failure_action: pause
@@ -23,7 +23,7 @@ services:
   admin-ui:
     ports:
       - 9600:80
-    image: georgespanos/gtop-admin-ui:${TAG}
+    image: georgespanos/ppo-admin-ui:${TAG}
     deploy:
       rollback_config:
         failure_action: pause
@@ -43,7 +43,7 @@ services:
   web-api:
     ports:
       - 9300:3000
-    image: georgespanos/gtop-api:${TAG}
+    image: georgespanos/ppo-api:${TAG}
     configs:
       - source: ppoapi-v3.conf
         target: /src/.env
@@ -64,7 +64,7 @@ services:
         order: stop-first
 
   calc-odds-api:
-    image: georgespanos/gtop-calc-odds:${TAG}
+    image: georgespanos/ppo-calc-odds:${TAG}
     ports:
       - 9400:7071
     configs:

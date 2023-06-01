@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-admin-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-admin-ui:stable
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-admin-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/ppo-admin-ui:stable
           context: ./src/ui
           file: ./src/ui/admin.Dockerfile
           build-args: |
@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-ui:stable
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-ui:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/ppo-ui:stable
           context: ./src/ui
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-calc-odds:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-calc-odds:stable
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/ppo-calc-odds:stable
           context: ./src/calc-odds-api
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
@@ -87,7 +87,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-api:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/gtop-api:stable
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-api:${{ github.ref_name }},${{ secrets.CONTAINER_USERNAME }}/ppo-api:stable
           context: ./src/web-api
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}

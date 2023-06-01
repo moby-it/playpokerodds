@@ -32,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ${{ secrets.REPOSITORY_NAME }}/gtop-admin-ui:latest
+        tags: ${{ secrets.REPOSITORY_NAME }}/ppo-admin-ui:latest
         context: ./src/ui
         file: ./src/ui/admin.Dockerfile
         build-args: |

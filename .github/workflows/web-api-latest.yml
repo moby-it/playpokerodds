@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/gtop-api:latest
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-api:latest
           context: ./src/web-api
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
