@@ -15,7 +15,7 @@
 .moto {
   text-align: center;
 }
-video {
+.demo {
   width: 650px;
   border-radius: var(--radius);
   height: 531px;
