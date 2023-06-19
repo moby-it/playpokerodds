@@ -18,7 +18,7 @@ services:
         failure_action: rollback
         delay: 5s
         parallelism: 1
-        order: stop-first
+        order: start-first
 
   admin-ui:
     ports:
@@ -38,7 +38,7 @@ services:
         failure_action: rollback
         delay: 5s
         parallelism: 1
-        order: stop-first
+        order: start-first
 
   web-api:
     ports:
@@ -61,7 +61,7 @@ services:
         failure_action: rollback
         delay: 5s
         parallelism: 1
-        order: stop-first
+        order: start-first
 
   calc-odds-api:
     image: ${REPOSITORY_NAME}/ppo-calc-odds:${TAG}
@@ -84,7 +84,7 @@ services:
         failure_action: rollback
         delay: 5s
         parallelism: 1
-        order: stop-first
+        order: start-first
 configs:
   ppoapi-v4.conf:
     external: true
