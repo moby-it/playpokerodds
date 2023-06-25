@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div class="footer" id="footer">
       <div>
         <span>
-          PlayPokerOdds © is an collaborative idea of
+          PlayPokerOdds © is a collaborative idea of
           <a href="https://moby-it.com" target="_blank">Moby IT</a> and
           <a href="https://www.linkedin.com/in/farazbarmpar/" target="_blank"
             >Faraz Barbar</a
