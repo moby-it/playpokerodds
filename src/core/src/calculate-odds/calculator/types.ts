@@ -208,11 +208,7 @@ export class CardGroup {
   constructor(cards?: Card);
   constructor(cards?: string | Card | Card[]) {
     if (!cards) return;
-
-    // todo: why are these conditions necessary to call function?
-    if (Array.isArray(cards)) this.addCards(cards);
-    else if (typeof cards === 'string') this.addCards(cards);
-    else this.addCards(cards);
+    this.addCards(cards as any);
   }
 
   static validateCardGroupString(s: string) {
