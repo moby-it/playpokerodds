@@ -1,0 +1,2 @@
+[install.scopes]
+"@moby-it" = { token = "{NPM_TOKEN}", url = "https://npm.pkg.github.com/" }
