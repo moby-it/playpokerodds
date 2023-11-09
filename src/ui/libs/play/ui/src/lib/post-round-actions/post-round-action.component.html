@@ -1,5 +1,6 @@
 <div class="pra-container" *ngrxLet="roundId$ as roundId">
   <ppo-add-round-to-favorites-button
+    *ngIf="showFavoriteIcon$ | ngrxPush"
     [roundId]="roundId"
   ></ppo-add-round-to-favorites-button>
   <ppo-copy-round-link-button [roundId]="roundId"></ppo-copy-round-link-button>
