@@ -68,6 +68,11 @@ services:
       - source: ppocalc-v4.conf
         target: /src/.env
     deploy:
+      resources:
+        limits:
+          cpus: '1.00' # Maximum and minimum of 1 CPU
+        reservations:
+          cpus: '1.00' # Reserve 1 CPU to ensure it's always allocated
       rollback_config:
         failure_action: pause
         monitor: 5s
