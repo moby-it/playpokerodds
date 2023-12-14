@@ -4,10 +4,10 @@ import { HealthRouter } from './health';
 import { PokerRouter } from './poker';
 import { UserRouter } from './user';
 export { RoundAnswerResponse } from './poker';
-export { AuthRouter, PokerRouter, UserRouter, HealthRouter };
+export { AuthRouter, HealthRouter, PokerRouter, UserRouter };
 export function registerAppRoutes(app: Application) {
-  app.use('/auth', AuthRouter);
-  app.use('/poker', PokerRouter);
-  app.use('/health', HealthRouter);
-  app.use('/user', UserRouter);
+  app.use('/api/auth', AuthRouter);
+  app.use('/api/poker', PokerRouter);
+  app.use('/api/health', HealthRouter);
+  app.use('/api/user', UserRouter);
 }
