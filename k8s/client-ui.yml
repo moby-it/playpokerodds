@@ -1,13 +1,7 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: playpokerodds
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-ui-deployment
+  name: client-ui-deployment
   namespace: playpokerodds
   labels:
     app: playpokerodds
@@ -15,15 +9,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ppo-admin-ui
+      app: ppo-client-ui
   template:
     metadata:
       labels:
-        app: ppo-admin-ui
+        app: ppo-client-ui
     spec:
       containers:
-      - image: mobyit/ppo-admin-ui:stable
-        name: admin-ui
+      - image: ghcr.io/moby-it/ppo-client-ui
+        name: client-ui
         ports:
           - containerPort: 80
             name: http-port
@@ -33,13 +27,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: admin-ui-service
+  name: client-ui-service
   namespace: playpokerodds
 spec:
   selector:
-    app: ppo-admin-ui
+    app: ppo-client-ui
   ports:
-    - name: admin-ui-port
+    - name: client-ui-port
       port: 80
       targetPort: http-port
       protocol: TCP

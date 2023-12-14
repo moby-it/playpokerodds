@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calc-api-deployment
+  namespace: playpokerodds
+  labels:
+    app: playpokerodds
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ppo-calc-odds
+  template:
+    metadata:
+      labels:
+        app: ppo-calc-odds
+    spec:
+      containers:
+      - image: mobyit/ppo-calc-odds:stable
+        name: calc-odds
+        ports:
+          - containerPort: 7171
+            name: http-port
+        resources:
+          requests:
+            cpu: 1
+        envFrom:
+          - configMapRef:
+              name: ppo-calc-api-config
+          - secretRef:
+              name: ppo-calc-odds-key
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calc-odds-service
+  namespace: playpokerodds
+spec:
+  selector:
+    app: ppo-calc-odds
+  ports:
+    - name: calc-odds-port
+      port: 80
+      targetPort: 7071
+      protocol: TCP

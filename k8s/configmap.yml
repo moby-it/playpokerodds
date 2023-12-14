@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ppo-calc-api-config
+data:
+  ITERATIONS: "50000"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ppo-web-api-config
+data:
+  LEADERBOARD_MIN_GAMES: "2"  
+  CALC_ODDS_URL: http://calc-odds-service/api/calcOdds

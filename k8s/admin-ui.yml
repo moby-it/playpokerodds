@@ -1,31 +1,25 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: playpokerodds
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calc-api-deployment
+  name: admin-ui
   namespace: playpokerodds
   labels:
     app: playpokerodds
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
-      app: ppo-calc-odds
+      app: ppo-admin-ui
   template:
     metadata:
       labels:
-        app: ppo-calc-odds
+        app: ppo-admin-ui
     spec:
       containers:
-      - image: mobyit/ppo-calc-odds:stable
-        name: calc-odds
+      - image: mobyit/ppo-admin-ui:stable
+        name: admin-ui
         ports:
-          - containerPort: 7171
+          - containerPort: 80
             name: http-port
       imagePullSecrets:
         - name: regcred
@@ -33,13 +27,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: calc-odds
+  name: admin-ui-service
   namespace: playpokerodds
 spec:
   selector:
-    app: ppo-calc-odds
+    app: ppo-admin-ui
   ports:
-    - name: calc-odds-port
+    - name: admin-ui-port
       port: 80
       targetPort: http-port
       protocol: TCP
+  type: LoadBalancer
