@@ -5,6 +5,9 @@
     }
   ],
   "settings": {
+    "yaml.schemas": {
+      "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json": "k8s/*.yml"
+    },
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#266c4a",
       "activityBar.background": "#266c4a",
@@ -30,7 +33,6 @@
       "src/ui",
       "src/calc-odds-api"
     ],
-    "peacock.color": "#194630",
     "prettier.configPath": "./src/ui/.prettierrc",
     "[html]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
