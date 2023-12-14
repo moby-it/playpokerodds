@@ -87,7 +87,7 @@ services:
         parallelism: 1
         order: start-first
 configs:
-  ppoapi-v4.conf:
+  ppoapi-v5.conf:
     external: true
   ppocalc-v4.conf:
     external: true
