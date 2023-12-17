@@ -17,6 +17,12 @@ spec:
       containers:
       - image: ghcr.io/moby-it/ppo-client-ui
         name: client-ui
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
         ports:
           - containerPort: 80
             name: http-port

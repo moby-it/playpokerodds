@@ -27,6 +27,18 @@ spec:
           ports:
             - containerPort: 3000
               name: http-port
+          livenessProbe:
+            httpGet:
+              path: /api/health/liveness
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /api/health/readiness
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 20
           envFrom:
             - configMapRef:
                 name: ppo-web-api-config
