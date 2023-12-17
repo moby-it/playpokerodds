@@ -8,7 +8,7 @@
     "dev": "nodemon ./src/app.ts",
     "start": "node ./dist/app.js",
     "test": "prisma migrate deploy && jest -i",
-    "build:test":"docker compose -f docker-compose.test.yml build",
+    "build:test": "docker compose -f docker-compose.test.yml build",
     "docker:test": "docker compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from api",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
@@ -29,7 +29,8 @@
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "prom-client": "^15.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
