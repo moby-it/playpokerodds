@@ -5,7 +5,6 @@ metadata:
   labels:
     app: playpokerodds
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: ppo-web-api
@@ -32,13 +31,14 @@ spec:
               path: /api/health/liveness
               port: 3000
             initialDelaySeconds: 3
-            periodSeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 10
           readinessProbe:
             httpGet:
               path: /api/health/readiness
               port: 3000
             initialDelaySeconds: 3
-            periodSeconds: 20
+            periodSeconds: 30
           envFrom:
             - configMapRef:
                 name: ppo-web-api-config

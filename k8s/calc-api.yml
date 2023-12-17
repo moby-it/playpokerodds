@@ -5,7 +5,7 @@ metadata:
   labels:
     app: playpokerodds
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ppo-calc-odds
@@ -15,25 +15,21 @@ spec:
         app: ppo-calc-odds
     spec:
       containers:
-      - image: mobyit/ppo-calc-odds:stable
-        name: calc-odds
-        ports:
-          - containerPort: 7171
-            name: http-port
-        resources:
-          requests:
-            cpu: 1
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7071
-          initialDelaySeconds: 3
-          periodSeconds: 3
-        envFrom:
-          - configMapRef:
-              name: ppo-calc-api-config
-          - secretRef:
-              name: ppo-calc-odds-key
+        - image: mobyit/ppo-calc-odds:stable
+          name: calc-odds
+          ports:
+            - containerPort: 7171
+              name: http-port
+          resources:
+            requests:
+              cpu: 200m
+            limits:
+              cpu: 1
+          envFrom:
+            - configMapRef:
+                name: ppo-calc-api-config
+            - secretRef:
+                name: ppo-calc-odds-key
       imagePullSecrets:
         - name: regcred
 ---
