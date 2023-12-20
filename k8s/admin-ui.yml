@@ -4,23 +4,24 @@ metadata:
   name: admin-ui
   namespace: playpokerodds
   labels:
-    app.kubernetes.io/name: playpokerodds
+    app.kubernetes.io/part-of: playpokerodds
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ppo-admin-ui
+      app.kubernetes.io/name: ppo-admin-ui
   template:
     metadata:
       labels:
         app.kubernetes.io/name: ppo-admin-ui
+        app.kubernetes.io/part-of: playpokerodds
     spec:
       containers:
-      - image: mobyit/ppo-admin-ui:stable
-        name: admin-ui
-        ports:
-          - containerPort: 80
-            name: http-port
+        - image: mobyit/ppo-admin-ui:stable
+          name: admin-ui
+          ports:
+            - containerPort: 80
+              name: http-port
       imagePullSecrets:
         - name: regcred
 ---
@@ -31,7 +32,7 @@ metadata:
   namespace: playpokerodds
 spec:
   selector:
-    app: ppo-admin-ui
+    app.kubernetes.io/name: ppo-admin-ui
   ports:
     - name: admin-ui-port
       port: 80

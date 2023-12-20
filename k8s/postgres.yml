@@ -34,11 +34,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: postgres
+      app.kubernetes.io/name: postgres
   template:
     metadata:
       labels:
-        app: postgres
+        app.kubernetes.io/name: postgres
     spec:
       containers:
       - name: postgres
@@ -72,4 +72,4 @@ spec:
   ports:
   - port: 5432
   selector:
-    app: postgres
+    app.kubernetes.io/name: postgres

@@ -3,16 +3,17 @@ kind: Deployment
 metadata:
   name: client-ui-deployment
   labels:
-    app.kubernetes.io/name: playpokerodds
+    app.kubernetes.io/part-of: playpokerodds
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ppo-client-ui
+      app.kubernetes.io/name: ppo-client-ui
   template:
     metadata:
       labels:
         app.kubernetes.io/name: ppo-client-ui
+        app.kubernetes.io/part-of: playpokerodds
     spec:
       containers:
       - image: ghcr.io/moby-it/ppo-client-ui
@@ -35,7 +36,7 @@ metadata:
   name: client-ui-service
 spec:
   selector:
-    app: ppo-client-ui
+    app.kubernetes.io/name: ppo-client-ui
   ports:
     - name: client-ui-port
       port: 80

@@ -3,15 +3,16 @@ kind: Deployment
 metadata:
   name: web-api-deployment
   labels:
-    app.kubernetes.io/name: playpokerodds
+    app.kubernetes.io/part-of: playpokerodds
 spec:
   selector:
     matchLabels:
-      app: ppo-web-api
+      app.kubernetes.io/name: ppo-web-api
   template:
     metadata:
       labels:
         app.kubernetes.io/name: ppo-web-api
+        app.kubernetes.io/part-of: playpokerodds
     spec:
       initContainers:
         - image: ghcr.io/moby-it/ppo-web-api
@@ -55,7 +56,7 @@ metadata:
   name: web-api-service
 spec:
   selector:
-    app: ppo-web-api
+    app.kubernetes.io/name: ppo-web-api
   ports:
     - name: web-api-port
       port: 80
