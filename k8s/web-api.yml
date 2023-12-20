@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: web-api-deployment
   labels:
-    app: playpokerodds
+    app.kubernetes.io/name: playpokerodds
 spec:
   selector:
     matchLabels:
@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: ppo-web-api
+        app.kubernetes.io/name: ppo-web-api
     spec:
       initContainers:
         - image: ghcr.io/moby-it/ppo-web-api

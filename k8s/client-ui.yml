@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client-ui-deployment
   labels:
-    app: playpokerodds
+    app.kubernetes.io/name: playpokerodds
 spec:
   replicas: 1
   selector:
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: ppo-client-ui
+        app.kubernetes.io/name: ppo-client-ui
     spec:
       containers:
       - image: ghcr.io/moby-it/ppo-client-ui

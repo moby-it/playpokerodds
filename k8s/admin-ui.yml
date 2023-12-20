@@ -4,7 +4,7 @@ metadata:
   name: admin-ui
   namespace: playpokerodds
   labels:
-    app: playpokerodds
+    app.kubernetes.io/name: playpokerodds
 spec:
   replicas: 1
   selector:
@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: ppo-admin-ui
+        app.kubernetes.io/name: ppo-admin-ui
     spec:
       containers:
       - image: mobyit/ppo-admin-ui:stable
