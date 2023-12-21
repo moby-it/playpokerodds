@@ -1,10 +1,8 @@
-import express from 'express';
 import { Histogram, collectDefaultMetrics, register } from 'prom-client';
 
-export function registerMetricsServer() {
+export function registerMetricsServer(app) {
   const port = process.env.PORT || 9090;
 
-  const app = express();
   collectDefaultMetrics();
   const httpRequestDurationMicroseconds = new Histogram({
     name: 'http_request_duration_ms',
@@ -16,10 +14,6 @@ export function registerMetricsServer() {
   app.use((req, res, next) => {
     res.locals.startEpoch = Date.now();
     next();
-  });
-  app.get('/metrics', (req, res) => {
-    res.set('Content-Type', register.contentType);
-    res.end(register.metrics());
   });
 
   // Error handler
@@ -35,10 +29,14 @@ export function registerMetricsServer() {
     const responseTimeInMs = Date.now() - res.locals.startEpoch;
 
     httpRequestDurationMicroseconds
-      .labels(req.method, req.route.path, res.statusCode.toString())
+      .labels(req.method, req.path, res.statusCode.toString())
       .observe(responseTimeInMs);
 
     next();
+  });
+  app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.send(await register.metrics());
   });
 
   const server = app.listen(port, () => {

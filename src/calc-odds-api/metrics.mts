@@ -1,14 +1,12 @@
-import express from 'express';
-import { Histogram, collectDefaultMetrics, register } from 'prom-client';
+import { collectDefaultMetrics, register } from 'prom-client';
 
-export function registerMetricsServer() {
-  const port = process.env.PORT || 9090;
-
-  const app = express();
+export function registerMetricsServer(app) {
+  const port = process.env.PORT || 9091;
   collectDefaultMetrics();
-  app.get('/metrics', (req, res) => {
+
+  app.get('/metrics', async (req, res) => {
     res.set('Content-Type', register.contentType);
-    res.end(register.metrics());
+    res.send(await register.metrics());
   });
 
   const server = app.listen(port, () => {

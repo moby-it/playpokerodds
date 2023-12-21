@@ -17,8 +17,8 @@ app.use((req, res, next) => {
 registerMiddleware(app);
 registerRoutes(app);
 const PORT = 3000;
+registerMetricsServer(app);
 registerErrorHandlers(app);
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
-registerMetricsServer();

@@ -24,6 +24,7 @@ services:
   web-api:
     ports:
       - 3000:3000
+      - 9090:9090
     build:
       context: src/web-api
     env_file:
@@ -40,6 +41,7 @@ services:
       - src/calc-odds-api/.env
     ports:
       - 7071:7071
+      - 9091:9091
     depends_on:
       - db
   db:
