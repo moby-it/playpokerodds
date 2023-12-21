@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ppo-backup-cron
+  labels:
+    app.kubernetes.io/name: ppo-backup-cron
+    app.kubernetes.io/component: cron
+spec:
+  schedule: "* * * * *" # This schedule runs the job every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: ps-backup
+              image: ghcr.io/moby-it/ps-backup:moby-mini # Replace with your container image
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: OnFailure

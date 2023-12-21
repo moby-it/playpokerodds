@@ -397,7 +397,7 @@ config:
         Logstash_Format On
         Retry_Limit False
         HTTP_User elastic
-        HTTP_Passwd Z2nnHQhH04bO9YRZ16pR0345
+        HTTP_Passwd Y1tW1DY69c5W0G9j01K7jLmW
         Trace_Error On
         tls On
         tls.verify Off
@@ -412,7 +412,7 @@ config:
         Logstash_Prefix node
         Retry_Limit False
         HTTP_User elastic
-        HTTP_Passwd Z2nnHQhH04bO9YRZ16pR0345
+        HTTP_Passwd Y1tW1DY69c5W0G9j01K7jLmW
         tls On
         tls.verify Off
         Suppress_Type_Name On
