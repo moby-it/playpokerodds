@@ -62,7 +62,8 @@
         },
         "development": {
           "port": 4300,
-          "browserTarget": "admin:build:development"
+          "browserTarget": "admin:build:development",
+          "proxyConfig": "proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"
