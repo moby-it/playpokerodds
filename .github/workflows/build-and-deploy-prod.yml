@@ -18,26 +18,6 @@ jobs:
         working-directory: ./src/web-api
         run: |
           npm run build:test -- --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} && npm run docker:test
-  build-admin-ui:
-    needs: test
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Log in to registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.CONTAINER_USERNAME }}
-          password: ${{ secrets.CONTAINER_PASSWORD }}
-      - name: Admin UI - Build and Push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-admin-ui:${{ github.ref_name }},${{ secrets.REPOSITORY_NAME }}/ppo-admin-ui:stable
-          context: ./src/ui
-          file: ./src/ui/admin.Dockerfile
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
   build-client-ui:
     needs: test
     runs-on: ubuntu-22.04
