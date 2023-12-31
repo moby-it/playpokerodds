@@ -13,6 +13,9 @@ RUN npm run build
 
 
 FROM node:18.13.0-alpine
+
+LABEL org.opencontainers.image.source=https://github.com/moby-it/playpokerodds
+
 RUN apk --no-cache add curl
 EXPOSE 7071
 WORKDIR /src
