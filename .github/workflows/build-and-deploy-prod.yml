@@ -110,20 +110,29 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - name: Change docker stack tag
-        run: |
-          sed -i "s/\${TAG}/${{ github.ref_name }}/g" docker-stack.yml
-          sed -i "s/\${REPOSITORY_NAME}/${{ secrets.REPOSITORY_NAME }}/g" docker-stack.yml
-      - name: Deploy Stack
-        uses: kitconcept/docker-stack-deploy@v1.2.0
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Log in to registry
+        uses: docker/login-action@v2
         with:
-          remote_host: ${{ secrets.HOST }}
-          remote_user: ${{ secrets.USERNAME }}
-          remote_port: ${{ secrets.PORT }}
-          remote_private_key: ${{ secrets.KEY }}
           registry: ghcr.io
-          deploy_timeout: 300
           username: ${{ secrets.CONTAINER_USERNAME }}
           password: ${{ secrets.CONTAINER_PASSWORD }}
-          stack_file: "docker-stack.yml"
-          stack_name: "playpokerodds"
+      - run: |
+          docker pull ${{ secrets.REPOSITORY_NAME }}/ppo-ui:${{ github.ref_name }}
+          docker pull ${{ secrets.REPOSITORY_NAME }}/ppo-api:${{ github.ref_name }}
+          docker pull ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.ref_name }}
+      - name: deploy ui
+        run: |
+          flyctl deploy --image ${{ secrets.REPOSITORY_NAME }}/ppo-ui:${{ github.ref_name }} \
+            --local-only src/ui \
+            --image-label ${{ github.ref_name }}
+      - name: deploy api
+        run: | 
+          flyctl deploy --image ${{ secrets.REPOSITORY_NAME }}/ppo-api:${{ github.ref_name }} \
+             --local-only src/web-api \
+             --image-label ${{ github.ref_name }}
+      - name: deploy calc-odds
+        run: | 
+          flyctl deploy --image ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.ref_name }} \
+             --local-only src/calc-odds-api \
+             --image-label ${{ github.ref_name }}
