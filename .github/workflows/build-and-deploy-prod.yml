@@ -76,7 +76,7 @@ jobs:
           build-args: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
   migrate-db:
-    needs: [build-admin-ui, build-client-ui, build-web-api, build-calc-odds-api]
+    needs: [build-client-ui, build-web-api, build-calc-odds-api]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -107,12 +107,12 @@ jobs:
             --local-only src/ui \
             --image-label ${{ github.ref_name }}
       - name: deploy api
-        run: | 
+        run: |
           flyctl deploy --image ${{ secrets.REPOSITORY_NAME }}/ppo-api:${{ github.ref_name }} \
              --local-only src/web-api \
              --image-label ${{ github.ref_name }}
       - name: deploy calc-odds
-        run: | 
+        run: |
           flyctl deploy --image ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.ref_name }} \
              --local-only src/calc-odds-api \
              --image-label ${{ github.ref_name }}
