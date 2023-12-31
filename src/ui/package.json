@@ -7,8 +7,6 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "start:admin": "nx serve admin",
-    "build:admin:prod": "nx build admin",
-    "build:admin:dev": "nx build admin --configuration development",
     "build:prod": "nx build",
     "build:dev": "nx build --configuration development",
     "test": "nx test"
