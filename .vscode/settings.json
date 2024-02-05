@@ -1,0 +1,18 @@
+{
+  "eslint.workingDirectories": [
+    "src/web-api",
+    "src/core",
+    "src/ui",
+    "src/calc-odds-api"
+  ],
+  "prettier.configPath": "./src/ui/.prettierrc",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
