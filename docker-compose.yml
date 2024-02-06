@@ -10,17 +10,6 @@ services:
         - TARGET=dev
     depends_on:
       - web-api
-  admin-ui:
-    ports:
-      - 4300:80
-    build:
-      context: src/ui
-      dockerfile: admin.Dockerfile
-      args:
-        - TARGET=dev
-    depends_on:
-      - web-api
-
   web-api:
     ports:
       - 3000:3000
