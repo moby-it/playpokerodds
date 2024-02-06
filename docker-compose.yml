@@ -10,6 +10,16 @@ services:
         - TARGET=dev
     depends_on:
       - web-api
+  migrate:
+    build:
+      context: src/web-api
+      target: build
+    command: ['npx', 'prisma', 'migrate', 'deploy']
+    env_file:
+      - src/web-api/docker.env
+    depends_on:
+      db:
+        condition: service_healthy
   web-api:
     ports:
       - 3000:3000
@@ -18,8 +28,8 @@ services:
     env_file:
       - src/web-api/docker.env
     depends_on:
-      db:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       calc-odds-api:
         condition: service_started
   calc-odds-api:

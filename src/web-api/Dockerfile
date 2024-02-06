@@ -24,7 +24,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/health/liveness || exit 1
 
 COPY --from=build /src/node_modules ./node_modules
-COPY --from=build /src/dist ./
+COPY --from=build /src/dist ./dist
+COPY --from=build /src/prisma ./prisma
 COPY ./package*.json ./
-
-CMD ["node","app.js"]
+CMD ["npm","start"]
