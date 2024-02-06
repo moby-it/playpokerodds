@@ -4,7 +4,7 @@ export enum BoardState {
   Turn,
   River,
 }
-export function openBoardCardsFromState(state: BoardState): BoardState {
+export function openBoardCardsFromState(state: BoardState): number {
   switch (state) {
     case BoardState.PreFlop:
       return 0;
