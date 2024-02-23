@@ -3,7 +3,7 @@ FROM node:18.13.0-alpine as dependencies
 WORKDIR /app
 ARG NPM_TOKEN
 COPY package*.json decorate-angular-cli.js .npmrc ./
-RUN npm ci
+RUN npm ci -f
 RUN rm -f .npmrc
 
 
