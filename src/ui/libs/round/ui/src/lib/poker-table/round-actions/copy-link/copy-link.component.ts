@@ -1,5 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { createRouteUrl } from '@ppo/round/domain';
 import { SharedUiModule } from '@ppo/shared/ui';
@@ -39,7 +39,7 @@ import { ToastrService } from 'ngx-toastr';
     `,
   ],
   standalone: true,
-  imports: [CommonModule, SharedUiModule],
+  imports: [SharedUiModule],
 })
 export class CopyRoundLinkButtonComponent {
   @Input() roundId: string | undefined;

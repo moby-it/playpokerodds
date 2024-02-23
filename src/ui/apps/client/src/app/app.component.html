@@ -1,3 +1,5 @@
 <ppo-top-bar></ppo-top-bar>
 <router-outlet></router-outlet>
-<ppo-loader *ngIf="loading$ | ngrxPush"></ppo-loader>
+@if (loading$ | ngrxPush) {
+  <ppo-loader></ppo-loader>
+}

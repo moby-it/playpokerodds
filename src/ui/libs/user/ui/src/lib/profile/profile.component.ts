@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LetModule } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
 
 @Component({
@@ -15,7 +15,7 @@ import { UserProfileFacade } from '@ppo/user/domain';
       }
     `,
   ],
-  imports: [LetModule],
+  imports: [LetDirective],
 })
 export class ProfileComponent {
   constructor(private userProfileFacade: UserProfileFacade) {}

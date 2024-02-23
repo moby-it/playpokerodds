@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
 import { map } from 'rxjs';
 import { SideMenuComponent } from './side-menu/side-menu.component';
@@ -15,7 +15,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     `,
   ],
   standalone: true,
-  imports: [RouterModule, SideMenuComponent, PushModule],
+  imports: [RouterModule, SideMenuComponent, PushPipe],
 })
 export class UserProfileContainerComponent implements OnDestroy {
   constructor(private userProfile: UserProfileFacade) {}

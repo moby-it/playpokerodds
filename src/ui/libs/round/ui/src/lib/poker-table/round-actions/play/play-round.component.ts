@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SharedUiModule } from '@ppo/shared/ui';
@@ -33,7 +33,7 @@ import { SharedUiModule } from '@ppo/shared/ui';
     `,
   ],
   standalone: true,
-  imports: [CommonModule, SharedUiModule, RouterModule],
+  imports: [SharedUiModule, RouterModule],
 })
 export class PlayRoundButtonComponent {
   constructor(private router: Router) {}

@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/config"],
       "options": {
-        "jestConfig": "libs/shared/config/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/config/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/config/**/*.ts",
-          "libs/shared/config/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

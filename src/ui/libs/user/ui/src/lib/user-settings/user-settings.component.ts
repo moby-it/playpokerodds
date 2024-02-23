@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
@@ -8,31 +9,29 @@ import {
   Validators
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { LetModule, PushModule } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { AuthFacade } from '@ppo/auth/domain';
 import { UserProfileFacade } from '@ppo/user/domain';
 import { filter, skip, take, tap } from 'rxjs';
-@UntilDestroy()
 @Component({
   selector: 'ppo-user-settings',
   templateUrl: './user-settings.component.html',
   standalone: true,
   imports: [
-    PushModule,
+    PushPipe,
     CommonModule,
     ReactiveFormsModule,
-    LetModule,
+    LetDirective,
     RouterModule,
   ],
 })
 export class UserSettingsComponent {
   form:
     | FormGroup<{
-        email: FormControl<string>;
-        username: FormControl<string>;
-        password: FormControl<string>;
-      }>
+      email: FormControl<string>;
+      username: FormControl<string>;
+      password: FormControl<string>;
+    }>
     | undefined;
   constructor(
     private auth: AuthFacade,
@@ -50,7 +49,7 @@ export class UserSettingsComponent {
     });
     this.auth.user$
       .pipe(
-        untilDestroyed(this),
+        takeUntilDestroyed(),
         skip(1),
         tap((user) => {
           if (!user) {

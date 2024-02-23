@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'ppo-play-button',
   templateUrl: './play-button.component.html',
+  standalone: true
 })
 export class PlayButtonComponent {
   @Input() disabled = false;

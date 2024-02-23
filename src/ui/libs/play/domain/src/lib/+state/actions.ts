@@ -16,6 +16,6 @@ export const pokerOddsActions = createActionGroup({
     'answer Round': props<{ estimate: number }>(),
     'toggle play with Revealed Cards': emptyProps(),
     reset: emptyProps(),
-    EMPTY: emptyProps(),
+    empty: emptyProps(),
   },
 });

@@ -1,1 +1,1 @@
-export * from './lib/auth-feature-user-form.module';
+export * from './lib/user-form';

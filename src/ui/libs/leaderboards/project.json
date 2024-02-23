@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/leaderboards"],
       "options": {
-        "jestConfig": "libs/leaderboards/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/leaderboards/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/leaderboards/**/*.ts",
-          "libs/leaderboards/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

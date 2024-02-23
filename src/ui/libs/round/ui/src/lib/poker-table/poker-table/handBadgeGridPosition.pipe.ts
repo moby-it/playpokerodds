@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'handBadgeGridPosition',
+  standalone: true
 })
 export class HandBadgeGridPositionPipe implements PipeTransform {
   transform(

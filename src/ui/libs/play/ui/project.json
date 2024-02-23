@@ -9,15 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/play/ui"],
       "options": {
-        "jestConfig": "libs/play/ui/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/play/ui/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/play/ui/**/*.ts", "libs/play/ui/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

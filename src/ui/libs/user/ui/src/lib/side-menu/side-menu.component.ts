@@ -1,24 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { AuthFacade } from '@ppo/auth/domain';
 import { combineLatest, map, tap } from 'rxjs';
-@UntilDestroy()
 @Component({
   selector: 'ppo-user-profile-side-menu',
   templateUrl: './side-menu.component.html',
   standalone: true,
-  imports: [RouterModule, PushModule, CommonModule],
+  imports: [RouterModule, PushPipe, CommonModule],
 })
 export class SideMenuComponent {
-  constructor(private authFacade: AuthFacade, private route: ActivatedRoute) {}
+  destroy = inject(DestroyRef);
+  constructor(private authFacade: AuthFacade, private route: ActivatedRoute) { }
   showUserSettingsTab$ = combineLatest([
     this.authFacade.username$,
     this.route.params,
   ]).pipe(
-    untilDestroyed(this),
+    takeUntilDestroyed(),
     map(([username, params]) => username === params['username'])
   );
 }

@@ -1,8 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ppo-round-result',
   templateUrl: './round-result.component.html',
+  standalone: true,
+  imports: [CommonModule]
 })
 export class RoundResultComponent implements OnInit {
   headerClass = 'lg';
@@ -14,7 +17,7 @@ export class RoundResultComponent implements OnInit {
   ngOnInit(): void {
     if (this.size === 'lg') {
       this.headerClass = 'xl';
-      this.bodyClass = 'md'
+      this.bodyClass = 'md';
     }
   }
 }

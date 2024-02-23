@@ -3,16 +3,17 @@
     <table class="leaderboards-table my-score">
       <tbody>
         <ng-container *ngrxLet="currentUserScore$ as currentUserScore">
-          <tr
-            *ngIf="currentUserScore"
-            class="m-1"
-            (click)="navigateToUser(currentUserScore)"
-          >
-            <td>#{{ userScores | leaderboardsPosition: currentUserScore }}</td>
-            <td>{{ currentUserScore.username }}</td>
-            <td>{{ currentUserScore.score }}</td>
-            <td>{{ currentUserScore.gamesPlayed }}</td>
-          </tr>
+          @if (currentUserScore) {
+            <tr
+              class="m-1"
+              (click)="navigateToUser(currentUserScore)"
+              >
+              <td>#{{ userScores | leaderboardsPosition: currentUserScore }}</td>
+              <td>{{ currentUserScore.username }}</td>
+              <td>{{ currentUserScore.score }}</td>
+              <td>{{ currentUserScore.gamesPlayed }}</td>
+            </tr>
+          }
         </ng-container>
       </tbody>
     </table>
@@ -26,15 +27,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="let userScore of userScores; let i = index"
-          (click)="navigateToUser(userScore)"
-        >
-          <td>{{ i + 1 }}</td>
-          <td>{{ userScore.username }}</td>
-          <td>{{ userScore.score }}</td>
-          <td>{{ userScore.gamesPlayed }}</td>
-        </tr>
+        @for (userScore of userScores; track userScore; let i = $index) {
+          <tr
+            (click)="navigateToUser(userScore)"
+            >
+            <td>{{ i + 1 }}</td>
+            <td>{{ userScore.username }}</td>
+            <td>{{ userScore.score }}</td>
+            <td>{{ userScore.gamesPlayed }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

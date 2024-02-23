@@ -1,1 +1,3 @@
-export * from './lib/play-ui.module';
+import { PlayComponent } from "./lib/play.component";
+
+export { PlayComponent };

@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { SharedUiModule } from '@ppo/shared/ui';
 import { BehaviorSubject } from 'rxjs';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 @Component({
   selector: 'ppo-add-round-to-favorites-button',
   template: ` <svg
@@ -33,7 +33,7 @@ import { PushModule } from '@ngrx/component';
     `,
   ],
   standalone: true,
-  imports: [CommonModule, SharedUiModule, PushModule],
+  imports: [SharedUiModule, PushPipe],
 })
 export class FavoriteButtonComponent {
   favoritesFill = new BehaviorSubject('transparent');

@@ -3,7 +3,7 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { RoundAnswer, scoreIsAccurate } from '@ppo/round/domain';
 import { pokerOddsActions } from './actions';
 type RoundStatus = 'Initial' | 'Playing' | 'Completed';
-type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean };
+type RoundAnswerWithEstimate = RoundAnswer & { didAccurateEstimate: boolean; };
 interface PlayUiState {
   fetchingRound: boolean;
   calculatingAnswer: boolean;
@@ -50,7 +50,7 @@ export const pokerOddsFeature = createFeature({
       round: action.round,
       answer: null,
       fetchingRound: false,
-      roundStatus: 'Playing',
+      roundStatus: 'Playing' as RoundStatus,
     })),
     on(pokerOddsActions.setRoundAnswer, (state, action) => ({
       ...state,
@@ -60,7 +60,7 @@ export const pokerOddsFeature = createFeature({
         roundId: action.answer.roundId,
       },
       calculatingAnswer: false,
-      roundStatus: 'Completed',
+      roundStatus: 'Completed' as RoundStatus,
     })),
     on(pokerOddsActions.togglePlayWithRevealedCards, (state) => ({
       ...state,

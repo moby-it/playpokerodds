@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/auth/feature-user-form"],
       "options": {
-        "jestConfig": "libs/auth/feature-user-form/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/auth/feature-user-form/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/auth/feature-user-form/**/*.ts",
-          "libs/auth/feature-user-form/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

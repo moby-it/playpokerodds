@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { LetModule } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { UserProfileFacade } from '@ppo/user/domain';
 import { RoundListComponent } from '../round-list/round-list.component';
 
@@ -16,7 +16,7 @@ import { RoundListComponent } from '../round-list/round-list.component';
     `,
   ],
   standalone: true,
-  imports: [LetModule, CommonModule, RoundListComponent],
+  imports: [LetDirective, CommonModule, RoundListComponent],
 })
 export class HistoryListComponent {
   constructor(private userProfile$: UserProfileFacade) {}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PokerOddsFacade } from '@ppo/play/domain';
 import { Animations } from '@ppo/shared/ui';
@@ -8,14 +8,31 @@ import {
   INITIAL_GUESS_BOX_MESSAGE,
   PLAYING_GUESS_BOX_MESSAGE,
 } from './constants';
+import { RoundResultComponent } from '@ppo/round/ui';
+import { PostRoundActionsComponent } from '../post-round-actions/post-round-actions.component';
+import { LoaderComponent } from 'libs/shared/ui/src/lib/loader/loader.component';
+import { GuessBoxAnswerMessagePipe, ScoreIsAccuratePipe } from '@ppo/round/domain';
+import { PlayButtonComponent } from '../play-button/play-button.component';
+import { LetDirective } from '@ngrx/component';
 
 @Component({
   selector: 'ppo-guess-box',
+  imports: [
+    RoundResultComponent,
+    PostRoundActionsComponent,
+    LoaderComponent,
+    ReactiveFormsModule,
+    ScoreIsAccuratePipe,
+    GuessBoxAnswerMessagePipe,
+    PlayButtonComponent,
+    LetDirective
+  ],
   templateUrl: './guess-box.component.html',
   animations: [Animations.fadeAnimation],
+  standalone: true
 })
 export class GuessBoxComponent {
-  constructor(private pokerFacade: PokerOddsFacade, private router: Router) {}
+  constructor(private pokerFacade: PokerOddsFacade, private router: Router) { }
   private roundStatus$ = this.pokerFacade.roundStatus$;
   private message$ = this.roundStatus$.pipe(
     map((status) => {
