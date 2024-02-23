@@ -17,7 +17,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { GlobalErrorHandler } from './errorHandler';
-import { FooterComponent } from './footer.component';
 import { TokenInterceptor } from './interceptors';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserStatusComponent } from './top-bar/user-status/user-status.component';
@@ -26,7 +25,6 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
     AppComponent,
     TopBarComponent,
     UserStatusComponent,
-    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,4 +62,4 @@ import { UserStatusComponent } from './top-bar/user-status/user-status.component
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

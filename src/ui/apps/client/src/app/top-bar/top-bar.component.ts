@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ppo-top-bar',
   templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.css'],
+  styles: [`
+    :host {
+        display: block;
+        z-index: 10;
+        }
+`]
 })
-export class TopBarComponent {}
+export class TopBarComponent { }

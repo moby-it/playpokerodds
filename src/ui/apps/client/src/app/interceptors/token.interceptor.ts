@@ -1,12 +1,11 @@
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
 import { BEARER_TOKEN_STORAGE_KEY } from '@ppo/shared/config';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export class TokenInterceptor implements HttpInterceptor {
   intercept(
