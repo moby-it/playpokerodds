@@ -6,7 +6,7 @@
   "prefix": "ppo",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/config"],
       "options": {
         "jestConfig": "libs/shared/config/jest.config.ts",
@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/shared/config/**/*.ts",

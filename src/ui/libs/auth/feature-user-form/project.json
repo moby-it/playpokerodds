@@ -6,7 +6,7 @@
   "prefix": "ppo",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/auth/feature-user-form"],
       "options": {
         "jestConfig": "libs/auth/feature-user-form/jest.config.ts",
@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/auth/feature-user-form/**/*.ts",
