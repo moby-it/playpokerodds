@@ -1,6 +1,5 @@
-FROM node:18.13.0-alpine as dependencies
+FROM node:20.11.0-alpine as dependencies
 WORKDIR /src
-ARG NPM_TOKEN
 COPY package*.json ./
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci -f
 

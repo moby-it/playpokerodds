@@ -1,5 +1,5 @@
 services:
-  api:
+  web-api:
     ports:
       - 3000:3000
     build:
@@ -38,4 +38,4 @@ services:
       - '5432:5432'
 secrets:
   npmrc:
-    external: true
+    file: ./.npmrc

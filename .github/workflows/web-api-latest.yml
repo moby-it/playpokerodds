@@ -17,10 +17,12 @@ jobs:
       JWT_SECRET: SOMEJWTSECRET
     steps:
       - uses: actions/checkout@v3
+      - run: touch .npmrc && echo "${{ secrets.NPMRC }}" > .npmrc
+        working-directory: src/web-api
       - name: Test api
         working-directory: ./src/web-api
         run: |
-          npm run build:test -- --secret id=npmrc,src=${{ secrets.NPMRC }} && npm run docker:test
+          npm run docker:test
   build:
     runs-on: "ubuntu-latest"
     needs: test
