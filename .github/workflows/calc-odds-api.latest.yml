@@ -31,5 +31,5 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:latest
           context: ./src/calc-odds-api
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}

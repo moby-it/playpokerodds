@@ -34,5 +34,5 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-ui:latest
           context: ./src/ui
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}

@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
       target: build
     command: npm test
+    secrets:
+      - npmrc
     env_file:
       - docker.env
     depends_on:
@@ -34,3 +36,6 @@ services:
       retries: 5
     ports:
       - '5432:5432'
+secrets:
+  npmrc:
+    external: true

@@ -14,5 +14,4 @@ Code of this repo is found inside the `src` folder. This folder includes the fol
 
 - Make sure you have [docker installed](https://docs.docker.com/desktop/) 
 - This project you need access to a private npm registry. Ask the org admin for an npm token that reads from this registry.
-- Create a file called `npm_token` at the project root. Copy the token in the `npm_token` file.
 - Run `run.sh` script.

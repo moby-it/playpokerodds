@@ -36,8 +36,8 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-ui:${{ github.ref_name }},${{ secrets.REPOSITORY_NAME }}/ppo-ui:stable
           context: ./src/ui
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}
   build-calc-odds-api:
     needs: test
     runs-on: ubuntu-22.04
@@ -55,8 +55,8 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.ref_name }},${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:stable
           context: ./src/calc-odds-api
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}
   build-web-api:
     needs: test
     runs-on: ubuntu-22.04
@@ -74,8 +74,8 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-api:${{ github.ref_name }},${{ secrets.REPOSITORY_NAME }}/ppo-api:stable
           context: ./src/web-api
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}
   migrate-db:
     needs: [build-client-ui, build-web-api, build-calc-odds-api]
     runs-on: ubuntu-22.04

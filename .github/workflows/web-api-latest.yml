@@ -20,7 +20,7 @@ jobs:
       - name: Test api
         working-directory: ./src/web-api
         run: |
-          npm run build:test -- --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} && npm run docker:test
+          npm run build:test -- --secret id=npmrc,src=${{ secrets.NPMRC }} && npm run docker:test
   build:
     runs-on: "ubuntu-latest"
     needs: test
@@ -42,5 +42,5 @@ jobs:
           push: true
           tags: ${{ secrets.REPOSITORY_NAME }}/ppo-api:latest
           context: ./src/web-api
-          build-args: |
-            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secrets: |
+            npmrc=${{ secrets.NPMRC }}

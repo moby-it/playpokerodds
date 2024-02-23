@@ -1,11 +1,8 @@
 # build environment
-FROM node:18.13.0-alpine as dependencies
+FROM node:20.11.0-alpine as dependencies
 WORKDIR /app
-ARG NPM_TOKEN
-COPY package*.json decorate-angular-cli.js .npmrc ./
-RUN npm ci -f
-RUN rm -f .npmrc
-
+COPY package*.json decorate-angular-cli.js ./
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci -f
 
 FROM dependencies as build
 ARG TARGET=prod
