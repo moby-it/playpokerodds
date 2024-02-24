@@ -2,3 +2,4 @@ postgres-data
 npm_token
 .scannerwork
 .npmrc
+secrets

@@ -17,7 +17,7 @@ jobs:
       JWT_SECRET: SOMEJWTSECRET
     steps:
       - uses: actions/checkout@v3
-      - run: touch .npmrc && echo "${{ secrets.NPMRC }}" > .npmrc
+      - run: echo "${{ secrets.NPMRC }}" > .npmrc
         working-directory: src/web-api
       - name: Test api
         working-directory: ./src/web-api
