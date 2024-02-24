@@ -57,6 +57,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "client",
-  "nxCloudAccessToken": "OGE3YzgwMzItYTU5YS00NjYzLThmYzctMjAwMWI0Yzg2NmQxfHJlYWQtd3JpdGU="
+  "defaultProject": "client"
 }

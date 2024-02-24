@@ -6,7 +6,7 @@
   "prefix": "ppo",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
       "outputs": ["{options.outputPath}"],
       "options": {
         "allowedCommonJsDependencies": ["@moby-it/poker-core"],
