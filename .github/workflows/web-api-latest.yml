@@ -18,7 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo "${{ secrets.NPMRC }}" > src/web-api/.npmrc
-      - run: wc src/web-api/.npmrc
       - name: Test api
         working-directory: ./src/web-api
         run: |
