@@ -2,6 +2,16 @@
 
 Instructions on how to stress test the calculations part of the playpokerodds app.
 
+## Prerequisites
+
+- Install [wrk](https://github.com/wg/wrk) in your computer
+- Deploy calc-odds-api in your infrastructure to test. I suggest:
+  - Creating a linux web server via nginx.
+  - [Install Docker](https://docs.docker.com/engine/install/)
+  - `docker run -p 80:7071 ghcr.io/moby-it/ppo-calc-odds:v1.8.0`
+  - Forward http calls from the webserver to the ppo-calc-odds container.
+
+
 ## Important bash Files
 
 There are 2 important `.sh` files in this folder - the `sample_curl.sh` and the `stress_test.sh`.
