@@ -1,4 +1,4 @@
-FROM node:18.13.0-alpine as dependencies
+FROM node:20.11.0-alpine as dependencies
 WORKDIR /src
 COPY package*.json ./
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci -f
@@ -9,7 +9,7 @@ COPY . ./
 RUN npm run build
 
 
-FROM node:18.13.0-alpine
+FROM node:20.11.0-alpine
 
 LABEL org.opencontainers.image.source=https://github.com/moby-it/playpokerodds
 

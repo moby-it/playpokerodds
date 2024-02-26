@@ -11,7 +11,7 @@ RUN npx prisma generate
 RUN npm run build
 
 
-FROM node:18.13.0-alpine
+FROM node:20.11.0-alpine
 
 LABEL org.opencontainers.image.source=https://github.com/moby-it/playpokerodds
 
