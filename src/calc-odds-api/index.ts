@@ -11,7 +11,7 @@ let iterations = Number(process.env['ITERATIONS']);
 console.log('Iterations: ', iterations);
 if (!iterations || iterations <= 0) {
   console.error('iterations invalid value. Will use default value: 30_000');
-  iterations = 30_000;
+  iterations = 50_000;
 }
 const apiKey = process.env['APIKEY'] || '';
 app.use(bodyParser.json());
