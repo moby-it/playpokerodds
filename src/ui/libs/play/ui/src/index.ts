@@ -1,3 +1,1 @@
-import { PlayComponent } from "./lib/play.component";
-
-export { PlayComponent };
+export { routes as PlayRoutes } from './lib/play.routes';
