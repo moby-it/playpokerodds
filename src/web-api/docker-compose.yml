@@ -6,7 +6,7 @@ services:
       secrets:
       - npmrc
     env_file:
-      - docker.env
+      - .env.docker
     depends_on:
       db:
         condition: service_healthy

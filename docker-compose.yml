@@ -20,7 +20,7 @@ services:
         - npmrc
     command: ['npx', 'prisma', 'migrate', 'deploy']
     env_file:
-      - src/web-api/docker.env
+      - src/web-api/.env.docker
     depends_on:
       db:
         condition: service_healthy
@@ -32,7 +32,7 @@ services:
       secrets:
         - npmrc
     env_file:
-      - src/web-api/docker.env
+      - src/web-api/.env.docker
     depends_on:
       migrate:
         condition: service_completed_successfully
