@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "module": "NodeNext" /* Specify what module code is generated. */,
+    "moduleResolution": "NodeNext",
     "rootDir": ".",
     "outDir": "./dist",
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,

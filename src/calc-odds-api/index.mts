@@ -22,11 +22,11 @@ app.post('/api/calcOdds', validateClient, (req: Request, res: Response) => {
     res.status(400).send('invalid body payload');
     return;
   }
-  console.time('calcOdds');
+  console.time('odds calculated');
 
   const odds = calculateOdds(body, iterations);
-  console.log('Time spent calculating');
-  console.timeEnd('calcOdds');
+  console.log('Odds: ', odds);
+  console.timeEnd('odds calculated');
   res.status(200).send({ odds });
 });
 
