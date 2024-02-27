@@ -16,8 +16,7 @@ const router = new Router();
 router.post('/api/calcOdds', async (ctx) => {
   const body: { estimate: number, round: Round; } = await ctx.request.body.json();
   if (!validateRound(body.round)) {
-    ctx.throw(400, 'invalid round payload');
-    return;
+    return ctx.throw(400, 'invalid round payload');
   }
   const odds = calculateOdds(body.round, iterations);
   ctx.response.body = { odds };
