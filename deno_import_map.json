@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "@poker-core/": "https://raw.githubusercontent.com/moby-it/playpokerodds/calc-deno/src/core/src/"
+  }
+}

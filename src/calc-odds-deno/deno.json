@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch -A main.ts",
+    "debug": "deno run --watch --inspect-brk -A main.ts"
+  },
+  "imports": {
+    "@poker-core/": "https://raw.githubusercontent.com/moby-it/playpokerodds/calc-deno/src/core/src/"
+  },
+  "importMap": "./vendor/import_map.json"
+}
