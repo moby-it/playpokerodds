@@ -1,5 +1,5 @@
-import { BestHand, CardGroup, HandRanks, Ranks } from './types';
-import { uniqWith } from './util';
+import { BestHand, CardGroup, HandRanks, Ranks } from './types.ts';
+import { uniqWith } from './util.ts';
 
 
 export function evaluate(cardGroup: CardGroup): BestHand {

@@ -1,4 +1,4 @@
-import { UnknownCard, validateCard } from '../card';
+import { UnknownCard, validateCard } from '../card/card.ts';
 
 export type Hand = [string, string];
 export const UnknownHand: Hand = ['..', '..'];

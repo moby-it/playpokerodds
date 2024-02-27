@@ -1,4 +1,4 @@
-import { shuffle } from './util';
+import { shuffle } from './util.ts';
 
 export enum Suits {
   club = 1,

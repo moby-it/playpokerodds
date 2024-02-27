@@ -1,7 +1,7 @@
-import { BoardState } from '../board';
-import { randomInt } from '../helpers';
-import { createRound } from './create-round';
-import { Round } from './round';
+import { BoardState } from '../board/boardState.ts';
+import { randomInt } from '../helpers/randomInt.ts';
+import { createRound } from './create-round.ts';
+import { Round } from './round.ts';
 
 export function createRandomRound(): Round {
   const totalHands = randomInt(1, 8);

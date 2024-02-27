@@ -1,21 +1,19 @@
-import { validateCard } from './card';
-
-describe('test card validator', () => {
-  it('should test card validator with invalid cards', () => {
-    expect(validateCard('15A')).toBeFalsy();
-    expect(validateCard('10A')).toBeFalsy();
-    expect(validateCard(['KS', 'KD'])).toBeFalsy();
-    expect(validateCard({})).toBeFalsy();
-    expect(validateCard(7)).toBeFalsy();
-    expect(validateCard('10s')).toBeFalsy();
-  });
-
-  it('should test card validator with valid cards', () => {
-    expect(validateCard('7d')).toBeTruthy();
-    expect(validateCard('Ts')).toBeTruthy();
-    expect(validateCard('3s')).toBeTruthy();
-    expect(validateCard('7h')).toBeTruthy();
-    expect(validateCard('5s')).toBeTruthy();
-    expect(validateCard('Qc')).toBeTruthy();
-  });
+import { assertFalse } from 'https://deno.land/std@0.213.0/assert/assert_false.ts';
+import { validateCard } from './card.ts';
+import { assert } from 'https://deno.land/std@0.217.0/assert/assert.ts';
+Deno.test("test card validator", () => {
+  assertFalse(validateCard('15A'));
+  assertFalse(validateCard('10A'));
+  assertFalse(validateCard(['KS', 'KD']));
+  assertFalse(validateCard({}));
+  assertFalse(validateCard(7));
+  assertFalse(validateCard('10s'));
+});
+Deno.test("should test card validator with valid cards", () => {
+  assert(validateCard('7d'));
+  assert(validateCard('Ts'));
+  assert(validateCard('3s'));
+  assert(validateCard('7h'));
+  assert(validateCard('5s'));
+  assert(validateCard('Qc'));
 });

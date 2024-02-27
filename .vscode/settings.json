@@ -1,4 +1,5 @@
 {
+  "deno.enablePaths": ["src/calc-odds-deno","src/core"],
   "eslint.workingDirectories": [
     "src/web-api",
     "src/core",

@@ -1,4 +1,4 @@
-import { CardGroup, Input } from './types';
+import { CardGroup, Input } from './types.ts';
 
 export function validateInput(input: Input): void {
   // numPlayers or hands

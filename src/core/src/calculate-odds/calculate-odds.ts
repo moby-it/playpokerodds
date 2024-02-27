@@ -1,6 +1,7 @@
-import { Round } from '../round';
+import { Round } from '../round/round.ts';
 
-import { Calculator, Input } from './calculator';
+import { Calculator} from './calculator/Calculator.ts';
+import { Input } from './calculator/types.ts';
 
 const transformRoundToInput = (round: Round, iterations: number): Input => {
   const input = {} as Input;

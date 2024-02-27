@@ -1,6 +1,6 @@
-import { Game, Player } from './Game';
-import { CardGroup, Deck, HandRanks, Input } from './types';
-import { calculateMaxIterations, cleanInput, validateInput } from './util';
+import { Game, Player } from './Game.ts';
+import { CardGroup, Deck, HandRanks, Input } from './types.ts';
+import { calculateMaxIterations, cleanInput, validateInput } from './util.ts';
 export class Calculator {
   private stats: any = {};
   private input: Input;
