@@ -1,7 +1,9 @@
-import { BoardState, validateBoard } from '../board';
-import { Board } from '../board/board';
-import { Card, UnknownCard } from '../card';
-import { Hand, validateHand } from '../hand';
+import { BoardState } from '../board/boardState.ts';
+import { validateBoard } from '../board/board.ts';
+
+import { Board } from '../board/board.ts';
+import { Card, UnknownCard } from '../card/card.ts';
+import { Hand, validateHand } from '../hand/hand.ts';
 
 export interface Round {
   myHand: Hand;

@@ -1,7 +1,8 @@
-import { BoardState, generateBoard } from '../board';
-import { createDeck } from '../deck';
-import { generateHand, generateHands } from '../hand';
-import { Round } from './round';
+import { BoardState } from '../board/boardState.ts';
+import { generateBoard } from '../board/generateBoard.ts';
+import { createDeck } from '../deck/createDeck.ts';
+import { generateHand, generateHands } from '../hand/generateHand.ts';
+import { Round } from './round.ts';
 
 export function createRound(
   totalHands: number,

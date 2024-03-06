@@ -1,4 +1,4 @@
-import { Card, validateCard } from '../card/card';
+import { Card, validateCard } from '../card/card.ts';
 
 export type Board = Card[];
 export function validateBoard(payload: unknown): payload is Board {

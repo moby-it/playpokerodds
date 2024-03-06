@@ -1,7 +1,7 @@
-import { generateCards } from '../card';
-import { Deck } from '../deck';
-import { range } from '../helpers';
-import { Hand, UnknownHand } from './hand';
+import { generateCards } from '../card/generateCard.ts';
+import { Deck } from '../deck/deck.ts';
+import { range } from '../helpers/range.ts';
+import { Hand, UnknownHand } from './hand.ts';
 
 export const generateHand = (deck: Deck) => generateCards(deck, 2) as Hand;
 export const generateUnknownHand = () => UnknownHand;

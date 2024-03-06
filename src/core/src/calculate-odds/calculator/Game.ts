@@ -1,6 +1,6 @@
-import { evaluate } from './evaluate';
-import { BestHand, CardGroup, Deck, Input } from './types';
-import { shuffle } from './util';
+import { evaluate } from './evaluate.ts';
+import { BestHand, CardGroup, Deck, Input } from './types.ts';
+import { shuffle } from './util.ts';
 
 export class Player {
   dealt = new CardGroup();

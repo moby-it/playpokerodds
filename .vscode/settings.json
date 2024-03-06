@@ -1,7 +1,8 @@
 {
+  "deno.enablePaths": ["src/calc-odds-deno","src/core"],
+  "deno.importMap": "./deno_import_map.json",
   "eslint.workingDirectories": [
     "src/web-api",
-    "src/core",
     "src/ui",
     "src/calc-odds-api"
   ],

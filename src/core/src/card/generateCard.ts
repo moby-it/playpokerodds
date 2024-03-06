@@ -1,6 +1,6 @@
-import { Deck } from '../deck';
-import { range } from '../helpers';
-import { Card } from './card';
+import { Deck } from '../deck/deck.ts';
+import { range } from '../helpers/range.ts';
+import { Card } from './card.ts';
 export const generateCardAndRemoveFromDeck = (deck: Deck): Card => {
   const randomIndex = Math.floor(Math.random() * deck.length);
   const card = deck[randomIndex];

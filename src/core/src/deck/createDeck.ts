@@ -1,4 +1,4 @@
-import { Deck } from './deck';
+import { Deck } from './deck.ts';
 
 export const createDeck = (): Deck => [
   'As',
