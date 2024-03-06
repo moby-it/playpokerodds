@@ -21,6 +21,9 @@ router.post('/api/calcOdds', async (ctx) => {
   const odds = calculateOdds(body.round, iterations);
   ctx.response.body = { odds };
 });
+router.get('/api/liveness', (ctx) => {
+  ctx.response.body = 'Liveness Check Passed';
+});
 const app = new Application();
 app.use(validateClient);
 app.use(router.routes());
