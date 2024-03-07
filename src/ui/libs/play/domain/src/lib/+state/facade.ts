@@ -11,11 +11,6 @@ import {
   selectRound,
   selectRoundStatus,
 } from './reducer';
-declare let gtag: (
-  action: string,
-  eventName: string,
-  options?: unknown
-) => void;
 @Injectable({ providedIn: 'root' })
 export class PokerOddsFacade {
   constructor(private store: Store, private pokerApiClient: GameApiClient) { }
@@ -32,8 +27,6 @@ export class PokerOddsFacade {
     this.store.dispatch(pokerOddsActions.startNewRound());
   }
   submitEstimate(estimate: number): void {
-    if (gtag)
-      gtag('event', 'round_played');
     this.store.dispatch(pokerOddsActions.answerRound({ estimate }));
   }
   fetchAndSetExistingRound(id: string): void {
