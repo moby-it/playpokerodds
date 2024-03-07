@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - run: echo "${{ secrets.NPMRC }}" > src/web-api/.npmrc
       - name: Test api
         working-directory: ./src/web-api
-        run: |
-          npm run build:test -- --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} && npm run docker:test
+        run: npm run docker:test
   build-client-ui:
     needs: test
     runs-on: ubuntu-22.04

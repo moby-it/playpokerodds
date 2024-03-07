@@ -18,8 +18,6 @@ services:
   calc-odds-api:
     build:
       context: ../calc-odds-api
-      secrets:
-      - npmrc
     environment:
       - ITERATIONS=30000
     ports:
@@ -40,4 +38,4 @@ services:
       - '5432:5432'
 secrets:
   npmrc:
-    file: ./.npmrc
+    file: .npmrc
