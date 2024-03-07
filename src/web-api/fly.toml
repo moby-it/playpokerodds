@@ -16,13 +16,21 @@ auto_stop_machines = true
 auto_start_machines = true
 min_machines_running = 0
 processes = ["app"]
-[[services.http_checks]]
-grace_period = 10
-interval = 30
-timeout = 5
+
+[[services.ports]]
+handlers = ["http"]
+port = 80
+force_https = true  # 
+
+[[http_service.checks]]
+grace_period = '10s'
+interval = '30s'
+timeout = '5s'
 path = "/health/liveness"
+
 [env]
 LEADERBOARD_MIN_GAMES = "2"
+
 [[vm]]
 cpu_kind = "shared"
 cpus = 1

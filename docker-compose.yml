@@ -43,8 +43,8 @@ services:
       context: src/calc-odds-api
       secrets:
         - npmrc
-    env_file:
-      - src/calc-odds-api/.env
+    environment:
+      - ITERATIONS=50000
     ports:
       - 7071:7071
     depends_on:
@@ -71,4 +71,4 @@ volumes:
     external: true
 secrets:
   npmrc:
-   file: .npmrc
+    file: .npmrc
