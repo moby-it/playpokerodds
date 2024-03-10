@@ -1,8 +1,0 @@
-<div class="pra-container" *ngrxLet="roundId$ as roundId">
-  @if (showFavoriteIcon$ | ngrxPush) {
-    <ppo-add-round-to-favorites-button
-      [roundId]="roundId"
-    ></ppo-add-round-to-favorites-button>
-  }
-  <ppo-copy-round-link-button [roundId]="roundId"></ppo-copy-round-link-button>
-</div>
