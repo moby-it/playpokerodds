@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Card } from '@moby-it/poker-core';
-import { fadeAnimation } from '../../../../../../shared/ui/src/lib/animations';
+import { fadeAnimation } from '@app/shared/ui/animations/fadeIn';
 @Component({
   selector: 'ppo-card',
   template: `

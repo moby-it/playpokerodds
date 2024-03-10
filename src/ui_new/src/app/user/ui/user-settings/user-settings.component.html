@@ -111,5 +111,7 @@
       </button>
     </div>
   </form>
-  <span *ngrxLet="error$ as error" class="error">{{ error }}</span>
+  @if (error()) {
+  <span class="error">{{ error() }}</span>
+  }
 </div>

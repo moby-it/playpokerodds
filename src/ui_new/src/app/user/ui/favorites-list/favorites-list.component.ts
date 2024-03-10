@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { LetDirective } from '@ngrx/component';
-import { UserProfileFacade } from '@app/user/domain/user-profile-store';
+import { UserProfileStore } from '@app/user/user-profile.store';
 import { RoundListComponent } from '../round-list/round-list.component';
 
 @Component({
@@ -16,9 +15,9 @@ import { RoundListComponent } from '../round-list/round-list.component';
     `,
   ],
   standalone: true,
-  imports: [CommonModule, LetDirective, RoundListComponent],
+  imports: [CommonModule, RoundListComponent],
 })
 export class FavoritesListComponent {
-  constructor(private userProfile$: UserProfileFacade) { }
-  favoriteRounds$ = this.userProfile$.favoriteRounds$;
+  constructor(private userProfile: UserProfileStore) { }
+  favoriteRounds = this.userProfile.favoriteRounds;
 }

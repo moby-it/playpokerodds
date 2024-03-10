@@ -1,4 +1,4 @@
-<div class="profile" *ngrxLet="profile$ as profile">
+<div class="profile">
   <div class="card">
     <span class="body-sm">Rank</span>
     <svg
@@ -17,7 +17,7 @@
       />
     </svg>
     <span class="body-xl">{{
-      profile.rank === -1 ? '-' : '#' + profile.rank
+      profile().rank === -1 ? '-' : '#' + profile().rank
     }}</span>
   </div>
   <div class="card">
@@ -36,7 +36,7 @@
       />
     </svg>
 
-    <span class="body-xl">{{ profile.score }}</span>
+    <span class="body-xl">{{ profile().score }}</span>
   </div>
   <div class="card">
     <span class="body-sm">Rounds Played</span>
@@ -63,6 +63,6 @@
       />
     </svg>
 
-    <span class="body-xl">{{ profile.rounds.length }}</span>
+    <span class="body-xl">{{ profile().rounds.length }}</span>
   </div>
 </div>

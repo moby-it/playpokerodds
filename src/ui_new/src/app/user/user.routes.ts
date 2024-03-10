@@ -1,14 +1,15 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Routes } from '@angular/router';
-import { AuthFacade } from '@ppo/auth/domain';
-import { UserProfileFacade } from '@ppo/user/domain';
+import { AuthStore } from '@app/auth/auth.store';
+import { UserProfileStore } from '@app/user/user-profile.store';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, map, Observable, of, skipWhile, take } from 'rxjs';
-import { FavoritesListComponent } from './favorites-list/favorites-list.component';
-import { HistoryListComponent } from './history-list/history-list.component';
-import { ProfileComponent } from './profile/profile.component';
-import { UserProfileContainerComponent } from './user-profile-container.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { FavoritesListComponent } from './ui/favorites-list/favorites-list.component';
+import { HistoryListComponent } from './ui/history-list/history-list.component';
+import { ProfileComponent } from './ui/profile/profile.component';
+import { UserProfileContainerComponent } from './ui/user-profile-container.component';
+import { UserSettingsComponent } from './ui/user-settings/user-settings.component';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 export const profileRoutes: Routes = [
   {
@@ -24,9 +25,9 @@ export const profileRoutes: Routes = [
           router.navigate(['/']);
           return of(false);
         }
-        const userProfileFacade = inject(UserProfileFacade);
+        const userProfileFacade = inject(UserProfileStore);
         userProfileFacade.fetchUserProfileByUsername(username);
-        return userProfileFacade.profile$.pipe(
+        return toObservable(userProfileFacade.profile).pipe(
           skipWhile((p) => !p.username && !p.error),
           map((profile) => {
             if (profile.error) {
@@ -50,13 +51,10 @@ export const profileRoutes: Routes = [
         path: 'user-settings',
         component: UserSettingsComponent,
         canActivate: [
-          (route: ActivatedRouteSnapshot): Observable<boolean> => {
-            const loggedInUsername$ = inject(AuthFacade).username$;
+          (route: ActivatedRouteSnapshot): boolean => {
+            const loggedInUsername = inject(AuthStore).username;
             const requestedUsername = route.parent?.params['username'];
-            return loggedInUsername$.pipe(
-              take(1),
-              map((loggedInUsername) => loggedInUsername === requestedUsername)
-            );
+            return loggedInUsername() === requestedUsername;
           },
         ],
       },

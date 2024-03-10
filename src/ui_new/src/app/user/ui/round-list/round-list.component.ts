@@ -7,15 +7,15 @@ import {
   OnInit,
   SimpleChanges,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Router } from '@angular/router';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { PokerOddsFacade } from '@ppo/play/domain';
-import { ScoreIsAccuratePipe } from '@ppo/round/domain';
-import { CopyRoundLinkButtonComponent, PlayRoundButtonComponent, PokerTableComponent, RoundResultComponent } from "@ppo/round/ui";
+import { PokerOddsStore } from '@app/play/poker-odds.store';
+import { ScoreIsAccuratePipe } from '@app/round/helpers';
+import { CopyRoundLinkButtonComponent, PlayRoundButtonComponent, PokerTableComponent, RoundResultComponent } from "@app/round/poker-table";
 import { UserRoundViewmodel } from '@app/user/models';
-import { UserProfileFacade } from '@app/user/domain/user-profile-store';
+import { UserProfileStore } from '@app/user/user-profile.store';
 import { BehaviorSubject, filter, switchMap, take, tap } from 'rxjs';
 import { SuitToSvgPipe } from './suitToSvg.pipe';
 @Component({
@@ -32,8 +32,6 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
   standalone: true,
   imports: [
     CommonModule,
-    PushPipe,
-    LetDirective,
     SuitToSvgPipe,
     ScoreIsAccuratePipe,
     RoundResultComponent,
@@ -44,8 +42,8 @@ import { SuitToSvgPipe } from './suitToSvg.pipe';
 })
 export class RoundListComponent implements OnChanges, OnInit {
   constructor(
-    private pokerOdds: PokerOddsFacade,
-    private userProfile: UserProfileFacade,
+    private pokerOdds: PokerOddsStore,
+    private userProfile: UserProfileStore,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -55,13 +53,13 @@ export class RoundListComponent implements OnChanges, OnInit {
         (r) => r.roundId === selectedRoundId
       );
       if (selectedRoundIdx >= 0) {
-        this.selectedRound$.next(this.rounds[selectedRoundIdx]);
+        this.selectedRound.set(this.rounds[selectedRoundIdx]);
       }
     });
   }
-  selectedRound$ = new BehaviorSubject<UserRoundViewmodel | null>(null);
-  watchingMyOwnmProfile$ = this.userProfile.watchingMyOwnProfile$;
-  username$ = this.userProfile.username$;
+  selectedRound = signal<UserRoundViewmodel | null>(null);
+  watchingMyOwnProfile = this.userProfile.watchingMyOwnProfile;
+  username = this.userProfile.username;
   destroy = inject(DestroyRef);
   @Input() rounds: UserRoundViewmodel[] = [];
   selectRound(round?: UserRoundViewmodel): void {
@@ -87,34 +85,23 @@ export class RoundListComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     // if selected round not in new rounds, clear selected round
     const newRounds: UserRoundViewmodel[] = changes['rounds'].currentValue;
-    this.selectedRound$
-      .pipe(
-        take(1),
-        tap((selectedRound) => {
-          if (
-            selectedRound &&
-            !newRounds.map((r) => r.roundId).includes(selectedRound?.roundId)
-          ) {
-            this.selectRound(newRounds.length ? newRounds[0] : undefined);
-          }
-        })
-      )
-      .subscribe();
+    const selectedRound = this.selectedRound();
+    if (
+      selectedRound &&
+      !newRounds.map((r) => r.roundId).includes(selectedRound?.roundId)
+    ) {
+      this.selectRound(newRounds.length ? newRounds[0] : undefined);
+    }
   }
   toggleFavorite(userRound: UserRoundViewmodel, event: Event): void {
     event.stopPropagation();
-    this.watchingMyOwnmProfile$
-      .pipe(
-        take(1),
-        filter(Boolean),
-        switchMap(() => {
-          const op$ = userRound.isFavorite
-            ? this.pokerOdds.removeRoundFromFavorites(userRound.roundId)
-            : this.pokerOdds.addRoundToFavorites(userRound.roundId);
-          return op$.pipe(tap(() => this.userProfile.refreshUserProfile()));
-        })
-      )
-      .subscribe();
+    if (this.watchingMyOwnProfile()) {
+      const op$ = userRound.isFavorite
+        ? this.pokerOdds.removeRoundFromFavorites(userRound.roundId)
+        : this.pokerOdds.addRoundToFavorites(userRound.roundId);
+      this.userProfile.refreshUserProfile();
+      op$.pipe(tap(() => this.userProfile.refreshUserProfile())).subscribe();
+    }
   }
   userRoundTrackBy(id: number, item: UserRoundViewmodel): string {
     return id + String(item.isFavorite);

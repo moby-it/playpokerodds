@@ -18,7 +18,7 @@
       <button
         type="submit"
         class="primary submit-btn"
-        [disabled]="(formInvalid$ | ngrxPush) === true"
+        [disabled]="(formInvalid$ | async) === true"
       >
         Sign in
       </button>

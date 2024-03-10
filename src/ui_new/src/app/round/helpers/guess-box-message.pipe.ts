@@ -9,7 +9,8 @@ const SPOT_ON_MESSAGE = 'Wow, spot on!';
   standalone: true,
 })
 export class GuessBoxAnswerMessagePipe implements PipeTransform {
-  transform(score: number): string {
+  transform(score: number | undefined): string {
+    if (typeof score !== 'number') return '';
     if (score === 0) {
       return SPOT_ON_MESSAGE;
     }

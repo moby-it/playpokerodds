@@ -1,30 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '@app/shared/config/apiUrl.token';
-import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
+import { Observable, finalize, tap } from 'rxjs';
 import { UserScore } from './userScores.dto';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LeaderboardsStore {
-  private _userScores$: BehaviorSubject<UserScore[]> = new BehaviorSubject<
-    UserScore[]
-  >([]);
-  userScores$ = this._userScores$.asObservable();
-  private _loading$ = new BehaviorSubject(false);
-  loading$ = this._loading$.asObservable();
+  #userScores = signal<UserScore[]>([]);
+  get userScores() {
+    return this.#userScores.asReadonly();
+  }
+  loading = signal(false);
   constructor(
     private http: HttpClient,
     @Inject(API_URL) private apiUrl: string
-  ) {}
+  ) { }
   fetchLeaderboards(): Observable<UserScore[]> {
-    this._loading$.next(true);
+    this.loading.set(true);
     return this.http
       .get<UserScore[]>(`${this.apiUrl}/poker/fetchLeaderboards`)
       .pipe(
         tap((userScores) => {
-          this._userScores$.next(userScores);
+          this.#userScores.set(userScores);
         }),
-        finalize(() => this._loading$.next(false))
+        finalize(() => this.loading.set(false))
       );
   }
 }

@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { LetDirective } from '@ngrx/component';
-import { AuthFacade } from '@ppo/auth/domain';
-import { UserFormComponent } from "@ppo/auth/feature-user-form";
+import { AuthStore } from '@app/auth/auth.store';
+import { UserFormComponent } from "@app/user/ui/user-form";
 import { take } from 'rxjs';
 @Component({
   selector: 'ppo-user-status',
-  imports: [UserFormComponent, RouterModule, LetDirective],
+  imports: [UserFormComponent, RouterModule],
   templateUrl: './user-status.component.html',
   standalone: true
 })
 export class UserStatusComponent {
   hovering = false;
   userFormVisible = false;
-  username$ = this.authFacade.username$;
-  constructor(private authFacade: AuthFacade, private router: Router) { }
+  username = this.authStore.username;
+  constructor(private authStore: AuthStore, private router: Router) { }
   toggleUserForm(): void {
     this.userFormVisible = !this.userFormVisible;
-    this.authFacade.clearErrorMessage();
+    this.authStore.clearErrorMessage();
   }
   navigateToProfile(): void {
-    this.username$.pipe(take(1)).subscribe((username) => {
+    const username = this.username();
+    if (username) {
       this.router.navigate(['/profile', username]);
-    });
+    }
   }
   onMouseEnter(): void {
     this.hovering = true;

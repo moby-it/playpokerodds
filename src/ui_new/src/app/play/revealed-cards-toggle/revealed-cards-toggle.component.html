@@ -3,7 +3,7 @@
   <input
     id="revealedCardsCheckbox"
     type="checkbox"
-    [checked]="revealedCards$ | ngrxPush"
+    [checked]="revealedCards()"
     (change)="toggleRevealedCards()"
   />
   <span class="slider round"></span>

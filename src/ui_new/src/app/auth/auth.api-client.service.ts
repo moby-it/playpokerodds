@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { API_URL } from '@ppo/shared/config';
+import { API_URL } from '@app/shared/config/apiUrl.token';
 import { Observable } from 'rxjs';
 import {
   AuthResposeDto, RegisterDto,
   SigninDto
-} from './dtos';
+} from './user.dto';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthApiClient {
   constructor(
     private http: HttpClient,

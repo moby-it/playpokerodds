@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { PushPipe } from '@ngrx/component';
-import { PokerOddsFacade } from '@ppo/play/domain';
+import { PokerOddsStore } from '@app/play/poker-odds.store';
 
 @Component({
   selector: 'ppo-revealed-cards-toggle',
-  imports: [PushPipe],
   templateUrl: './revealed-cards-toggle.component.html',
   styleUrls: ['./revealed-cards-toggle.component.css'],
   standalone: true
 })
 export class RevealedCardsToggleComponent {
-  constructor(private pokerFacade: PokerOddsFacade) { }
-  revealedCards$ = this.pokerFacade.playingWithRevealedCards$;
+  constructor(private pokerStore: PokerOddsStore) { }
+  revealedCards = this.pokerStore.playingWithRevealedCards;
   toggleRevealedCards(): void {
-    this.pokerFacade.togglePlayRevealedCards();
+    this.pokerStore.togglePlayRevealedCards();
   }
 }

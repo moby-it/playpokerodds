@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { AuthFacade } from '@ppo/auth/domain';
-import { PokerOddsFacade } from '@ppo/play/domain';
-import { CopyRoundLinkButtonComponent, FavoriteButtonComponent } from '@ppo/round/ui';
+import { Component, computed } from '@angular/core';
+import { AuthStore } from '@app/auth/auth.store';
+import { PokerOddsStore } from '@app/play/poker-odds.store';
+import { CopyRoundLinkButtonComponent, FavoriteButtonComponent } from '@app/round/poker-table';
 import { map } from 'rxjs';
 @Component({
   selector: 'ppo-post-round-actions',
-  imports: [CopyRoundLinkButtonComponent, FavoriteButtonComponent, PushPipe, LetDirective],
+  imports: [CopyRoundLinkButtonComponent, FavoriteButtonComponent],
   templateUrl: './post-round-action.component.html',
   standalone: true,
 })
 export class PostRoundActionsComponent {
   constructor(
-    private pokerFacade: PokerOddsFacade,
-    private authFacade: AuthFacade
+    private pokerStore: PokerOddsStore,
+    private authStore: AuthStore
   ) { }
-  roundId$ = this.pokerFacade.answer$.pipe(map((a) => a?.roundId));
-  showFavoriteIcon$ = this.authFacade.isLoggedIn$;
+  roundId = computed(() => this.pokerStore.answer()?.roundId);
+  showFavoriteIcon = this.authStore.isLoggedIn;
 }

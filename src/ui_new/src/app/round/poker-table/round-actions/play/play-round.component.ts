@@ -1,7 +1,6 @@
 
 import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { SharedUiModule } from '@ppo/shared/ui';
 @Component({
   selector: 'ppo-play-round-button',
   template: `<svg
@@ -33,7 +32,6 @@ import { SharedUiModule } from '@ppo/shared/ui';
     `,
   ],
   standalone: true,
-  imports: [SharedUiModule, RouterModule],
 })
 export class PlayRoundButtonComponent {
   constructor(private router: Router) {}

@@ -1,52 +1,84 @@
-import { Injectable } from '@angular/core';
-import { combineLatest, map, Observable, take, tap } from 'rxjs';
-import { UpdateUserDto, UserRoundViewmodel } from '@app/user/models';
+import { computed, Injectable, Signal } from '@angular/core';
+import { AuthStore } from '@app/auth/auth.store';
+import { SignalStore } from '@app/shared/signal-store';
+import { UpdateUserDto, UserRound, UserRoundViewmodel } from '@app/user/models';
+import { produce } from 'immer';
+import { catchError, of, take, tap } from 'rxjs';
+import { UserProfileApiClient } from './user-profile.api-client';
+import { HttpErrorResponse } from '@angular/common/http';
+
+interface UserProfileState {
+  error: string;
+  rank: number;
+  username: string;
+  score: number;
+  rounds: UserRound[];
+  roundFavoriteIds: string[];
+}
+const initialState: UserProfileState = {
+  username: '',
+  score: 0,
+  rank: -1,
+  rounds: [],
+  error: '',
+  roundFavoriteIds: [],
+};
 
 @Injectable({ providedIn: 'root' })
-export class UserProfileFacade {
-  constructor(private store: Store, private auth: AuthFacade) {}
-  error$ = this.store.select(selectError);
-  profile$ = this.store.select(selectUserProfileState);
-  username$ = this.store.select(selectUsername);
-  watchingMyOwnProfile$ = combineLatest([
-    this.username$,
-    this.auth.username$,
-  ]).pipe(map(([u1, u2]) => !!u1 && !!u2 && u1 === u2));
-  rounds$: Observable<UserRoundViewmodel[]> = combineLatest([
-    this.store.select(selectRounds),
-    this.store.select(selectRoundFavoriteIds),
-  ]).pipe(
-    map(([rounds, favoriteRoundsIds]) => {
-      return rounds.map((r) => ({
-        ...r,
-        isFavorite: favoriteRoundsIds.includes(r.roundId),
-      }));
-    })
-  );
-  favoriteRounds$: Observable<UserRoundViewmodel[]> = this.rounds$.pipe(
-    map((rounds) => rounds.filter((r) => r.isFavorite))
-  );
+export class UserProfileStore extends SignalStore<UserProfileState>{
+  constructor(private authStore: AuthStore, private userProfileApiClient: UserProfileApiClient) {
+    super(initialState);
+  }
+  error = this.select(state => state.error);
+  username = this.select(state => state.username);
+  watchingMyOwnProfile = computed(() => this.username() === this.authStore.username());
+  profile = this.stateAsSignal;
+  rounds: Signal<UserRoundViewmodel[]> = this.select(state => {
+    const rounds = state.rounds;
+    const favoriteRoundsIds = state.roundFavoriteIds;
+    return rounds.map((r) => ({
+      ...r,
+      isFavorite: favoriteRoundsIds.includes(r.roundId),
+    }));
+  });
+  favoriteRounds = computed(() => {
+    return this.rounds().filter(r => r.isFavorite);
+  });
   fetchUserProfileByUsername(username: string): void {
-    this.store.dispatch(userProfileActions.setError({ message: '' }));
-    this.store.dispatch(userProfileActions.fetchUserProfile({ username }));
-  }
+    this.setState(produce(this.state, state => ({ ...state, error: '' })));
+    this.userProfileApiClient.fetchUserProfileByUsername(username).pipe(
+      tap((userProfile) => this.setState(produce(this.state, state => ({
+        ...state,
+        rounds: userProfile.rounds,
+        score: Number(userProfile.score),
+        username: userProfile.username,
+        rank: userProfile.rank,
+        roundFavoriteIds: userProfile.roundFavoritesIds,
+        error: '',
+      })))),
+      catchError((e: HttpErrorResponse) => {
+        this.setError(e.error);
+        return of(null);
+      }),
+    ).subscribe();
+  };
   refreshUserProfile(): void {
-    this.username$
-      .pipe(
-        take(1),
-        tap((username) => {
-          this.store.dispatch(userProfileActions.setError({ message: '' }));
-          this.store.dispatch(
-            userProfileActions.fetchUserProfile({ username })
-          );
-        })
-      )
-      .subscribe();
-  }
+    this.setError('');
+    const username = this.username();
+    this.fetchUserProfileByUsername(username);
+  };
   updateUser(dto: Partial<UpdateUserDto>): void {
-    this.store.dispatch(userProfileActions.updateUserProfile({ dto }));
-  }
-  reset(): void {
-    this.store.dispatch(userProfileActions.reset());
+    this.userProfileApiClient.updateUser(dto).pipe(
+      tap(() => {
+        this.authStore.refresh();
+      }),
+      catchError(e => {
+        this.setError(e.message);
+        return of(null);
+      })
+    ).subscribe();
+  };
+  private setError(error: string) {
+    this.setState(produce(this.state, (state) => ({ ...state, error })));
   }
 }

@@ -5,12 +5,12 @@ import { API_URL } from '@app/shared/config/apiUrl.token';
 import { Observable } from 'rxjs';
 import { RoundAnswer } from '@app/round/dtos';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GameApiClient {
   constructor(
     @Inject(API_URL) private apiUrl: string,
     private http: HttpClient
-  ) {}
+  ) { }
   fetchRandomRound(): Observable<Round> {
     return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`);
   }

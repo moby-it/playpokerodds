@@ -11,7 +11,7 @@ export function estimateWasAccurate$(
 }
 @Pipe({ name: 'scoreIsAccurate', standalone: true })
 export class ScoreIsAccuratePipe implements PipeTransform {
-  transform(score?: number): boolean {
+  transform(score?: number | undefined): boolean {
     if (typeof score !== 'number') throw new Error('invalid pipe input');
     return scoreIsAccurate(score);
   }

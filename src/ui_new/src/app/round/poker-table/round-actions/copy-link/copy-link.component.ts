@@ -1,8 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 
 import { Component, Input } from '@angular/core';
-import { createRouteUrl } from '@ppo/round/domain';
-import { SharedUiModule } from '@ppo/shared/ui';
+import { createRouteUrl } from '@app/round/helpers';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ppo-copy-round-link-button',
@@ -39,7 +38,6 @@ import { ToastrService } from 'ngx-toastr';
     `,
   ],
   standalone: true,
-  imports: [SharedUiModule],
 })
 export class CopyRoundLinkButtonComponent {
   @Input() roundId: string | undefined;

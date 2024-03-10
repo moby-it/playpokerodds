@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { LetDirective } from '@ngrx/component';
-import { UserProfileFacade } from '@ppo/user/domain';
+import { UserProfileStore } from '@app/user/user-profile.store';
 
 @Component({
   selector: 'ppo-profile',
@@ -15,9 +14,8 @@ import { UserProfileFacade } from '@ppo/user/domain';
       }
     `,
   ],
-  imports: [LetDirective],
 })
 export class ProfileComponent {
-  constructor(private userProfileFacade: UserProfileFacade) {}
-  profile$ = this.userProfileFacade.profile$;
+  constructor(private userProfileFacade: UserProfileStore) {}
+  profile = this.userProfileFacade.profile;
 }

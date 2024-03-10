@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { distinctUntilChanged, map, startWith } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
-import { PushPipe } from '@ngrx/component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 @Component({
   selector: 'ppo-register-form',
   templateUrl: './register-form.component.html',
-  imports: [ReactiveFormsModule, PushPipe, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, AsyncPipe],
   standalone: true
 })
 export class RegisterFormComponent {
@@ -26,7 +25,7 @@ export class RegisterFormComponent {
     map((status) => status === 'INVALID')
   );
   onSubmit(): void {
-    this.componentStore.submit$(this.registerForm);
+    this.componentStore.submit(this.registerForm);
   }
   toSignInForm(): void {
     this.componentStore.toSignIn();

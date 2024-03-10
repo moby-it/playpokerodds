@@ -1,8 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PushPipe } from '@ngrx/component';
-import { UserProfileFacade } from '@app/user/domain';
-import { map } from 'rxjs';
+import { UserProfileStore } from '@app/user/user-profile.store';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 @Component({
   selector: 'ppo-user-profile-container',
@@ -15,11 +13,11 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     `,
   ],
   standalone: true,
-  imports: [RouterModule, SideMenuComponent, PushPipe],
+  imports: [RouterModule, SideMenuComponent],
 })
 export class UserProfileContainerComponent implements OnDestroy {
-  constructor(private userProfile: UserProfileFacade) {}
-  username$ = this.userProfile.profile$.pipe(map((p) => p.username));
+  constructor(private userProfile: UserProfileStore) { }
+  username = this.userProfile.username;
   ngOnDestroy(): void {
     this.userProfile.reset();
   }

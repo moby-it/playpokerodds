@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule, NgIf } from '@angular/common';
+import { Component, effect } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,20 +8,17 @@ import {
   Validators
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { AuthFacade } from '@ppo/auth/domain';
-import { UserProfileFacade } from '@ppo/user/domain';
-import { filter, skip, take, tap } from 'rxjs';
+import { AuthStore } from '@app/auth/auth.store';
+import { UserProfileStore } from '@app/user/user-profile.store';
 @Component({
   selector: 'ppo-user-settings',
   templateUrl: './user-settings.component.html',
   standalone: true,
   imports: [
-    PushPipe,
     CommonModule,
     ReactiveFormsModule,
-    LetDirective,
     RouterModule,
+    NgIf
   ],
 })
 export class UserSettingsComponent {
@@ -33,36 +29,32 @@ export class UserSettingsComponent {
       password: FormControl<string>;
     }>
     | undefined;
+
   constructor(
-    private auth: AuthFacade,
+    private authStore: AuthStore,
     private fb: NonNullableFormBuilder,
-    private userProfile: UserProfileFacade,
+    private userProfile: UserProfileStore,
     private router: Router
   ) {
-    this.auth.user$.pipe(take(1), filter(Boolean)).subscribe((user) => {
+    const user = this.authStore.user();
+    if (user) {
       this.form = this.fb.group({
         email: [user.email, [Validators.email]],
         username: [user.username, [Validators.required]],
         password: ['', Validators.required],
       });
       this.form.disable();
+    }
+    effect(() => {
+      if (!this.authStore.user()) {
+        this.router.navigate(['/']);
+        return;
+      }
     });
-    this.auth.user$
-      .pipe(
-        takeUntilDestroyed(),
-        skip(1),
-        tap((user) => {
-          if (!user) {
-            this.router.navigate(['/']);
-            return;
-          }
-        })
-      )
-      .subscribe();
   }
-  error$ = this.userProfile.error$;
+  error = this.userProfile.error;
 
-  currentUser$ = this.auth.user$;
+  currentUser = this.authStore.user;
   enableFormField(controlName: string): void {
     if (this.form?.get(controlName)?.enabled) {
       this.form?.get(controlName)?.disable();
@@ -75,6 +67,6 @@ export class UserSettingsComponent {
     if (this.form?.value) this.userProfile.updateUser(this.form.getRawValue());
   }
   logout(): void {
-    this.auth.logout();
+    this.authStore.logout();
   }
 }

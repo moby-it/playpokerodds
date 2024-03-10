@@ -8,7 +8,7 @@
       *ngFor="let userRound of rounds; trackBy: userRoundTrackBy"
       (click)="selectRound(userRound)"
       [ngClass]="{
-        selected: (selectedRound$ | ngrxPush)?.roundId === userRound.roundId
+        selected: selectedRound()?.roundId === userRound.roundId
       }"
     >
       <div class="content">
@@ -18,8 +18,8 @@
           <span>{{ userRound.myHand[1][0] }}</span>
           <img [src]="userRound.myHand[1] | suitToSvg" />
         </div>
-        <div class="date">{{ userRound.timestamp | date: 'shortDate' }}</div>
-        <div class="time">{{ userRound.timestamp | date: 'HH:mm' }}</div>
+        <div class="date">{{ userRound.timestamp | date : 'shortDate' }}</div>
+        <div class="time">{{ userRound.timestamp | date : 'HH:mm' }}</div>
         <div class="score">Score: {{ userRound.score }}</div>
       </div>
       <div class="isFavorite" (click)="toggleFavorite(userRound, $event)">
@@ -42,35 +42,33 @@
       </div>
     </div>
   </div>
-  <div class="round-preview" *ngrxLet="selectedRound$ as selectedRound">
-    <ppo-poker-table [round]="selectedRound"></ppo-poker-table>
-    <div class="round-results" *ngIf="selectedRound">
-      <ng-container
-        *ngIf="watchingMyOwnmProfile$ | ngrxPush; else watchingPublicProfile"
-      >
+  <div class="round-preview">
+    <ppo-poker-table [round]="selectedRound()"></ppo-poker-table>
+    <div class="round-results" *ngIf="selectedRound()">
+      <ng-container *ngIf="watchingMyOwnProfile(); else watchingPublicProfile">
         <ppo-round-result
-          [header]="selectedRound?.odds + '%'"
+          [header]="selectedRound()?.odds + '%'"
           body="Winning Odds"
         ></ppo-round-result>
         <ppo-round-result
-          [header]="selectedRound?.estimate + '%'"
+          [header]="selectedRound()?.estimate + '%'"
           body="Your Guess"
           [classes]="
-            (selectedRound?.score | scoreIsAccurate)
+            (selectedRound()?.score | scoreIsAccurate)
               ? ['result-accurate']
               : ['result-inaccurate']
           "
         ></ppo-round-result>
         <ppo-round-result
           [header]="
-            selectedRound?.score === 0 ? 'Spot on!' : selectedRound?.score
+            selectedRound()?.score === 0 ? 'Spot on!' : selectedRound()?.score
           "
           body="Your score"
         >
           <ng-container actions>
             <div class="pra-container">
               <ppo-copy-round-link-button
-                [roundId]="selectedRound?.roundId"
+                [roundId]="selectedRound()?.roundId"
               ></ppo-copy-round-link-button>
             </div>
           </ng-container>
@@ -79,17 +77,17 @@
       <ng-template #watchingPublicProfile>
         <ppo-round-result
           [header]="
-            selectedRound?.score === 0 ? 'Spot on!' : selectedRound?.score
+            selectedRound()?.score === 0 ? 'Spot on!' : selectedRound()?.score
           "
-          body="{{ username$ | ngrxPush }}'s Score"
+          body="{{ username() }}'s Score"
         >
           <ng-container actions>
             <div class="pra-container">
               <ppo-play-round-button
-                [roundId]="selectedRound?.roundId"
+                [roundId]="selectedRound()?.roundId"
               ></ppo-play-round-button>
               <ppo-copy-round-link-button
-                [roundId]="selectedRound?.roundId"
+                [roundId]="selectedRound()?.roundId"
               ></ppo-copy-round-link-button>
             </div>
           </ng-container>

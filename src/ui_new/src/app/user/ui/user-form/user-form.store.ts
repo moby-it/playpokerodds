@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, effect } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ComponentStore } from '@ngrx/component-store';
-import { AuthFacade, AuthStatus } from '@ppo/auth/domain';
-import { Observable, tap, withLatestFrom } from 'rxjs';
+import { AuthStatus, AuthStore } from '@app/auth/auth.store';
+import { SignalStore } from '@app/shared/signal-store';
+import { produce } from 'immer';
 export enum FormType {
   REGISTER,
   SIGN_IN,
@@ -15,52 +15,39 @@ const initialState: UserFormState = {
   formType: FormType.SIGN_IN,
 };
 @Injectable()
-export class UserFormStore extends ComponentStore<UserFormState> {
-  formType$ = this.select((state) => state.formType);
-  authError$ = this.authFacade.errorMessage$;
+export class UserFormStore extends SignalStore<UserFormState>{
+  formType = this.select((state) => state.formType);
+  authError = this.authStore.errorMessage;
 
-  private updateFormType = this.updater((state, formType: FormType) => ({
-    ...state,
-    formType,
-  }));
-  constructor(private authFacade: AuthFacade) {
-    super(initialState);
-    authFacade.status$
-      .pipe(
-        tap((status) => {
-          switch (status) {
-            case AuthStatus.AUTHORIZED:
-              this.updateFormType(FormType.NONE);
-          }
-        })
-      )
-      .subscribe();
+  updateFormType(formType: FormType) {
+    this.setState(produce(this.state, state => { state.formType = formType; }));
   }
-  toSignIn = this.effect((source$: Observable<void>) =>
-    source$.pipe(
-      tap(() => this.updateFormType(FormType.SIGN_IN)),
-      tap(() => this.authFacade.clearErrorMessage())
-    )
-  );
-  toRegister = this.effect((source$: Observable<void>) =>
-    source$.pipe(
-      tap(() => this.updateFormType(FormType.REGISTER)),
-      tap(() => this.authFacade.clearErrorMessage())
-    )
-  );
-  submit$ = this.effect((source$: Observable<FormGroup>) =>
-    source$.pipe(
-      withLatestFrom(this.formType$),
-      tap(([formGroup, formType]) => {
-        switch (formType) {
-          case FormType.REGISTER:
-            this.authFacade.register(formGroup.value);
-            break;
-          case FormType.SIGN_IN:
-            this.authFacade.signin(formGroup.value);
-            break;
-        }
-      })
-    )
-  );
+  constructor(private authStore: AuthStore) {
+    super(initialState);
+    effect(() => {
+      if (this.authStore.status() === AuthStatus.AUTHORIZED) {
+        this.updateFormType(FormType.NONE);
+      }
+    });
+  }
+  toSignIn() {
+    this.updateFormType(FormType.SIGN_IN);
+    this.authStore.clearErrorMessage();
+  }
+  toRegister() {
+    this.updateFormType(FormType.REGISTER);
+    this.authStore.clearErrorMessage();
+  }
+  async submit(form: FormGroup) {
+    let result: boolean = false;
+    switch (this.formType()) {
+      case FormType.REGISTER:
+        result = await this.authStore.register(form.value);
+        break;
+      case FormType.SIGN_IN:
+        result = await this.authStore.signin(form.value);
+        break;
+    }
+    if (result) this.updateFormType(FormType.NONE);
+  }
 }

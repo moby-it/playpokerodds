@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs';
 import { UserFormStore } from '../user-form.store';
-import { PushPipe } from '@ngrx/component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 @Component({
   selector: 'ppo-signin-form',
   templateUrl: './signin-form.component.html',
-  imports: [PushPipe, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AsyncPipe],
   standalone: true
 })
 export class SigninFormComponent {
@@ -24,7 +23,7 @@ export class SigninFormComponent {
     map((status) => status === 'INVALID')
   );
   onSubmit(): void {
-    this.componentStore.submit$(this.signinForm);
+    this.componentStore.submit(this.signinForm);
   }
   toRegisterInForm(): void {
     this.componentStore.toRegister();
