@@ -1,13 +1,14 @@
 # build environment
 FROM node:20.11.0-alpine as dependencies
 WORKDIR /app
-COPY package*.json decorate-angular-cli.js ./
-RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci -f
+RUN npm i -g pnpm@8.15.4
+COPY package.json pnpm-lock.yaml decorate-angular-cli.js ./
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile
 
 FROM dependencies as build
 ARG TARGET=prod
 COPY . ./
-RUN npm run build:${TARGET}
+RUN pnpm build:${TARGET}
 
 FROM nginx:1.23-alpine
 
