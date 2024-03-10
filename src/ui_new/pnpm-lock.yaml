@@ -29,6 +29,9 @@ dependencies:
   '@angular/router':
     specifier: ^17.2.0
     version: 17.2.4(@angular/common@17.2.4)(@angular/core@17.2.4)(@angular/platform-browser@17.2.4)(rxjs@7.8.1)
+  '@moby-it/poker-core':
+    specifier: ^2.1.3
+    version: 2.1.3
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -2175,6 +2178,10 @@ packages:
     dependencies:
       call-bind: 1.0.7
     dev: true
+
+  /@moby-it/poker-core@2.1.3:
+    resolution: {integrity: sha512-uYwzkVZE+L9W5lq+GCTaiZU1K2lg5jt61gDCcmTapeT7bEYinovg1IDwyLMOO9xYOPhEdfkjtXBQWib9z5vE8g==, tarball: https://npm.pkg.github.com/download/@moby-it/poker-core/2.1.3/7cba357244798413f3381d03ccf37b4f63316d4a}
+    dev: false
 
   /@ngtools/webpack@17.2.3(@angular/compiler-cli@17.2.4)(typescript@5.3.3)(webpack@5.90.1):
     resolution: {integrity: sha512-+d5Q7/ctDHePYZXcg0GFwL/AbyEkPMHoCiT7pmLI0B0n87D/mYKK/qmVN1VANBrFLTuIe8RtcL0aJ9pw8HAxWA==}
