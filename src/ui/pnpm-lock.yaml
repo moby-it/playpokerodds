@@ -35,9 +35,6 @@ dependencies:
   '@moby-it/poker-core':
     specifier: ^2.1.3
     version: 2.1.3
-  clipboard:
-    specifier: link:@angular/cdk/clipboard
-    version: link:@angular/cdk/clipboard
   immer:
     specifier: ^10.0.4
     version: 10.0.4
