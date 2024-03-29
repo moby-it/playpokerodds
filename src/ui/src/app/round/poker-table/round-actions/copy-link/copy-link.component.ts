@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { createRouteUrl } from '@app/round/helpers';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -40,11 +40,11 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
 })
 export class CopyRoundLinkButtonComponent {
-  @Input() roundId: string | undefined;
-  constructor(private clipboard: Clipboard, private toaster: ToastrService) {}
+  roundId = input<string>();
+  constructor(private clipboard: Clipboard, private toaster: ToastrService) { }
   copyToClipboard(): void {
-    if (this.roundId) {
-      const url = createRouteUrl(this.roundId);
+    if (this.roundId()) {
+      const url = createRouteUrl(this.roundId() as string);
       this.clipboard.copy(url);
       this.toaster.info('Link copied', '', { timeOut: 2000 });
     }

@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   DestroyRef,
-  Input,
   OnChanges,
   OnInit,
   SimpleChanges,
   inject,
-  signal,
+  input,
+  signal
 } from '@angular/core';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { ScoreIsAccuratePipe } from '@app/round/helpers';
 import { CopyRoundLinkButtonComponent, PlayRoundButtonComponent, PokerTableComponent, RoundResultComponent } from "@app/round/poker-table";
 import { UserRoundViewmodel } from '@app/user/models';
 import { UserProfileStore } from '@app/user/user-profile.store';
-import { BehaviorSubject, filter, switchMap, take, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { SuitToSvgPipe } from './suitToSvg.pipe';
 @Component({
   selector: 'ppo-round-list',
@@ -49,11 +49,11 @@ export class RoundListComponent implements OnChanges, OnInit {
   ) {
     this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
       const selectedRoundId = params.get('selectedRoundId');
-      const selectedRoundIdx = this.rounds.findIndex(
+      const selectedRoundIdx = this.rounds().findIndex(
         (r) => r.roundId === selectedRoundId
       );
       if (selectedRoundIdx >= 0) {
-        this.selectedRound.set(this.rounds[selectedRoundIdx]);
+        this.selectedRound.set(this.rounds()[selectedRoundIdx]);
       }
     });
   }
@@ -61,7 +61,7 @@ export class RoundListComponent implements OnChanges, OnInit {
   watchingMyOwnProfile = this.userProfile.watchingMyOwnProfile;
   username = this.userProfile.username;
   destroy = inject(DestroyRef);
-  @Input() rounds: UserRoundViewmodel[] = [];
+  rounds = input<UserRoundViewmodel[]>([]);
   selectRound(round?: UserRoundViewmodel): void {
     if (!round) {
       this.router.navigate([], { relativeTo: this.route });
@@ -77,7 +77,7 @@ export class RoundListComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     if (this.rounds.length) {
       if (!this.route.snapshot.queryParamMap.has('selectedRoundId')) {
-        this.selectRound(this.rounds[0]);
+        this.selectRound(this.rounds()[0]);
       }
     }
 

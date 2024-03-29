@@ -1,8 +1,8 @@
 <div class="poker-table-container">
-  @if (round) {
-    <ppo-board class="board" [board]="round.board"></ppo-board>
-    <ppo-playing-hand [hand]="round.myHand"></ppo-playing-hand>
-    @for (opponent of round.opponentsHands; track opponent; let i = $index) {
+  @if (round()) {
+    <ppo-board class="board" [board]="round()?.board"></ppo-board>
+    <ppo-playing-hand [hand]="round()?.myHand"></ppo-playing-hand>
+    @for (opponent of round()?.opponentsHands; track opponent; let i = $index) {
       <ppo-opponent-hand
         [hand]="opponent"
         [isVisible]="opponent | handIsVisible"

@@ -1,6 +1,6 @@
 
-import { Component, Input } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, input } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ppo-play-round-button',
   template: `<svg
@@ -34,11 +34,11 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
 })
 export class PlayRoundButtonComponent {
-  constructor(private router: Router) {}
-  @Input() roundId: string | undefined;
+  constructor(private router: Router) { }
+  roundId = input<string>();
   playRound(): void {
-    if (this.roundId) {
-      this.router.navigate(['/', 'play', this.roundId]);
+    if (this.roundId()) {
+      this.router.navigate(['/', 'play', this.roundId()]);
     }
   }
 }

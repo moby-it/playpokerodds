@@ -5,7 +5,7 @@
     </div>
     <div
       class="row"
-      *ngFor="let userRound of rounds; trackBy: userRoundTrackBy"
+      *ngFor="let userRound of rounds(); trackBy: userRoundTrackBy"
       (click)="selectRound(userRound)"
       [ngClass]="{
         selected: selectedRound()?.roundId === userRound.roundId

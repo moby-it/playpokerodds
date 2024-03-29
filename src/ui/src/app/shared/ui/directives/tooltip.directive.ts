@@ -5,9 +5,9 @@ import {
   ElementRef,
   EmbeddedViewRef,
   HostListener,
-  Input,
   OnDestroy,
   ViewContainerRef,
+  input
 } from '@angular/core';
 import { TooltipComponent } from '../components/tooltip/tooltip.component';
 
@@ -16,8 +16,9 @@ import { TooltipComponent } from '../components/tooltip/tooltip.component';
   standalone: true
 })
 export class TooltipDirective implements OnDestroy {
-  @Input() ppoTooltip = '';
-  @Input() fontSize = '22';
+
+  ppoTooltip = input('');
+  fontSize = input('22');
   private componentRef: ComponentRef<TooltipComponent> | null = null;
   @HostListener('mouseenter')
   onMouseEnter(): void {
@@ -53,7 +54,7 @@ export class TooltipDirective implements OnDestroy {
   ) { }
   private setTooltipComponentProperties(): void {
     if (this.componentRef !== null) {
-      this.componentRef.instance.tooltip = this.ppoTooltip;
+      this.componentRef.instance.tooltip = this.ppoTooltip();
       const { left, right, bottom } =
         this.elementRef.nativeElement.getBoundingClientRect();
       this.componentRef.instance.left = (right - left) / 2 + left;

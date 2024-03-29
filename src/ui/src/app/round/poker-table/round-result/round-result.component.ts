@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 
 @Component({
   selector: 'ppo-round-result',
@@ -7,17 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
   standalone: true,
   imports: [CommonModule]
 })
-export class RoundResultComponent implements OnInit {
+export class RoundResultComponent {
+
+  size = input('md');
+  header = input();
+  body = input();
+  classes = input<string[]>();
+
   headerClass = 'lg';
   bodyClass = 'sm';
-  @Input() size: 'lg' | 'md' = 'md';
-  @Input() header: string | number | undefined | null;
-  @Input() body: string | number | undefined | null;
-  @Input() classes: string[] = [];
-  ngOnInit(): void {
-    if (this.size === 'lg') {
-      this.headerClass = 'xl';
-      this.bodyClass = 'md';
-    }
+  constructor() {
+    effect(() => {
+      if (this.size() === 'lg') {
+        this.headerClass = 'xl';
+        this.bodyClass = 'md';
+      }
+    });
   }
 }

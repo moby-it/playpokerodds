@@ -1,5 +1,5 @@
 
-import { Component, Input, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { PokerOddsStore } from '@app/play/poker-odds.store';
 @Component({
   selector: 'ppo-add-round-to-favorites-button',
@@ -33,16 +33,16 @@ import { PokerOddsStore } from '@app/play/poker-odds.store';
 })
 export class FavoriteButtonComponent {
   favoritesFill = signal('transparent');
+  roundId = input<string>();
   constructor(private pokerOdds: PokerOddsStore) { }
-  @Input() roundId: string | undefined;
   saveToFavorites(): void {
-    if (this.roundId) {
+    if (this.roundId()) {
       if (this.favoritesFill() === 'transparent') {
-        this.pokerOdds.addRoundToFavorites(this.roundId).subscribe(() => {
+        this.pokerOdds.addRoundToFavorites(this.roundId() as string).subscribe(() => {
           this.favoritesFill.set('white');
         });
       } else {
-        this.pokerOdds.removeRoundFromFavorites(this.roundId).subscribe(() => {
+        this.pokerOdds.removeRoundFromFavorites(this.roundId() as string).subscribe(() => {
           this.favoritesFill.set('transparent');
         });
       }

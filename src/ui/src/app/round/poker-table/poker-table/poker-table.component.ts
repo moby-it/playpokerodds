@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
 import { Round } from '@moby-it/poker-core';
 import { BoardComponent } from '../board/board.component';
-import { PlayingHandComponent } from '../playing-hand/playing-hand.component';
 import { OpponentHandComponent } from '../opponent-hand/opponent-hand.component';
-import { HandIsVisiblePipe } from './handIsVisible.pipe';
+import { PlayingHandComponent } from '../playing-hand/playing-hand.component';
 import { HandBadgeGridPositionPipe } from './handBadgeGridPosition.pipe';
-import { CommonModule } from '@angular/common';
+import { HandIsVisiblePipe } from './handIsVisible.pipe';
 
 @Component({
   selector: 'ppo-poker-table',
@@ -27,5 +27,5 @@ import { CommonModule } from '@angular/common';
   standalone: true
 })
 export class PokerTableComponent {
-  @Input() round: Round | null | undefined;
+  round = input<Round | null | undefined>();
 }
