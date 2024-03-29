@@ -1,5 +1,14 @@
-import { BoardState, CreateRoundInputs } from '@moby-it/poker-core';
-
+interface CreateRoundInputs {
+  totalHands: number;
+  totalKnownHands: number;
+  boardState: BoardState;
+}
+enum BoardState {
+  PreFlop = 0,
+  Flop = 1,
+  Turn = 2,
+  River = 3
+}
 export function generateRandomRoundInputs(): CreateRoundInputs {
   const boardState = rng(BoardState.PreFlop, BoardState.Turn);
   const totalHands = rng(2, 5);

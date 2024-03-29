@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, effect, input, output } from '@angular/core';
 
 @Component({
   selector: 'ppo-play-button',
@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   standalone: true
 })
 export class PlayButtonComponent {
-  @Input() disabled = false;
-  @Output() buttonClicked = new EventEmitter();
+  disabled = input(false);
+  buttonClicked = output<void>();
   clicked(): void {
     this.buttonClicked.emit();
   }
