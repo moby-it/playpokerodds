@@ -14,9 +14,9 @@ export class UserProfileApiClient {
   fetchUserProfileByUsername(username: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
       `${this.apiUrl}/user/fetchByUsername/${username}`
-    );
+      , { withCredentials: true });
   }
   updateUser(dto: Partial<UpdateUserDto>): Observable<UserResposeDto> {
-    return this.http.put<UserResposeDto>(`${this.apiUrl}/user/update`, dto);
+    return this.http.put<UserResposeDto>(`${this.apiUrl}/user/update`, dto, { withCredentials: true });
   }
 }

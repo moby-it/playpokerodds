@@ -12,7 +12,7 @@ export class GameApiClient {
     private http: HttpClient
   ) { }
   fetchRandomRound(): Observable<Round> {
-    return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`);
+    return this.http.get<Round>(`${this.apiUrl}/poker/FetchRandomRound`, { withCredentials: true });
   }
   fetchRound({
     boardState,
@@ -25,12 +25,13 @@ export class GameApiClient {
         totalKnownHands,
         boardState,
       },
+      withCredentials: true
     });
   }
   fetchRoundById(roundId: string): Observable<Round> {
     return this.http.get<Round>(
       `${this.apiUrl}/poker/FetchRoundById/${roundId}`
-    );
+      , { withCredentials: true });
   }
   postNewRoundAnswer(round: Round, estimate: number): Observable<RoundAnswer> {
     return this.http.post<RoundAnswer>(
@@ -39,7 +40,7 @@ export class GameApiClient {
         round,
         estimate,
       }
-    );
+      , { withCredentials: true });
   }
   postExistingRoundAnswer(
     roundId: string,
@@ -51,21 +52,21 @@ export class GameApiClient {
         roundId,
         estimate,
       }
-    );
+      , { withCredentials: true });
   }
   addToFavorites(roundId: string): Observable<unknown> {
     return this.http.put<RoundAnswer>(
       `${this.apiUrl}/poker/addToFavorites/${roundId}`,
       {}
-    );
+      , { withCredentials: true });
   }
   removeFromFavorites(roundId: string): Observable<unknown> {
     return this.http.put<RoundAnswer>(
       `${this.apiUrl}/poker/removeFromFavorites/${roundId}`,
       {}
-    );
+      , { withCredentials: true });
   }
   fetchUserRounds(): Observable<RoundAnswer[]> {
-    return this.http.get<RoundAnswer[]>(`${this.apiUrl}/poker/fetchUserRounds`);
+    return this.http.get<RoundAnswer[]>(`${this.apiUrl}/poker/fetchUserRounds`, { withCredentials: true });
   }
 }

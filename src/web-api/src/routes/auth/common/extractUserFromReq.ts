@@ -18,8 +18,5 @@ function verifyJwt(token: string): string | JwtPayload | null {
   }
 }
 export function extractTokenFromRequest(req: Request): string | null {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-  const token = authHeader.substring(7, authHeader.length);
-  return token;
+  return req.cookies.token;
 }

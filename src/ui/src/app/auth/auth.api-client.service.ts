@@ -17,9 +17,9 @@ export class AuthApiClient {
     return this.http.post<AuthResposeDto>(`${this.apiUrl}/auth/register`, dto);
   }
   signin(dto: SigninDto): Observable<AuthResposeDto> {
-    return this.http.post<AuthResposeDto>(`${this.apiUrl}/auth/login`, dto);
+    return this.http.post<AuthResposeDto>(`${this.apiUrl}/auth/login`, dto, { withCredentials: true });
   }
   refreshToken(): Observable<AuthResposeDto> {
-    return this.http.get<AuthResposeDto>(`${this.apiUrl}/auth/refreshToken`);
+    return this.http.get<AuthResposeDto>(`${this.apiUrl}/auth/refreshToken`, { withCredentials: true });
   }
 }

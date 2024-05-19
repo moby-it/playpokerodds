@@ -5,7 +5,10 @@ import cors from 'cors';
 import { registerPassportMiddleware } from './passport';
 
 export function registerMiddleware(app: Application) {
-  app.use(cors());
+  app.use(cors({
+    origin: ['http://localhost:4200'],
+    preflightContinue: true
+  }));
   app.use(bodyParser.json());
   app.use(morgan('dev'));
   registerPassportMiddleware();

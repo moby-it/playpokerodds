@@ -1,4 +1,4 @@
-import { Injectable, computed } from '@angular/core';
+import { Injectable, afterNextRender, afterRender, computed } from '@angular/core';
 import { BEARER_TOKEN_STORAGE_KEY } from '@app/shared/config/bearerToken';
 import { SignalStore } from '@app/shared/signal-store';
 import { produce } from 'immer';
@@ -26,7 +26,7 @@ const authInitialState: AuthState = {
 };
 
 @Injectable({ providedIn: 'root' })
-export class AuthStore extends SignalStore<AuthState>{
+export class AuthStore extends SignalStore<AuthState> {
   user = this.select((state) => state.user);
   username = this.select(state => state.user?.username);
   status = this.select(state => state.status);
@@ -35,29 +35,29 @@ export class AuthStore extends SignalStore<AuthState>{
   isLoggedIn = computed(() => this.status() === AuthStatus.AUTHORIZED);
   constructor(private authApiClient: AuthApiClient) {
     super(authInitialState);
-    if (localStorage.getItem(BEARER_TOKEN_STORAGE_KEY)) {
-      this.refresh();
-    }
+    afterNextRender(() => {
+      const cookie = document.cookie.split('; ').find(row => row.startsWith(BEARER_TOKEN_STORAGE_KEY))?.split('=')[0];
+      if (cookie) {
+        this.refresh();
+      }
+    },);
   }
   signin(dto: SigninDto): Promise<boolean> {
     return lastValueFrom(this.authApiClient.signin(dto).pipe(
       tap((response) => {
-        localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
         this.setUser(response);
       }),
       map(() => true),
       catchError((e) => {
         if (e instanceof HttpErrorResponse) {
-          this.setErrorMessage(e.error.message);
+          this.setErrorMessage(e.error.setItemmessage);
         }
-        localStorage.clear();
         return of(false);
       })));
   }
   register(dto: RegisterDto): Promise<boolean> {
     return lastValueFrom(this.authApiClient.register(dto).pipe(
       tap((response) => {
-        localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
         this.setUser(response);
       }),
       map(() => true),
@@ -79,14 +79,13 @@ export class AuthStore extends SignalStore<AuthState>{
   refresh(): void {
     this.authApiClient.refreshToken().pipe(
       tap((response) => {
-        localStorage.setItem(BEARER_TOKEN_STORAGE_KEY, response.token);
         this.setUser(response);
       }),
       catchError((e) => {
         if (e instanceof HttpErrorResponse) {
           this.setErrorMessage(e.error.message);
         }
-        localStorage.clear();
+
         return of(null);
       })
     ).subscribe();

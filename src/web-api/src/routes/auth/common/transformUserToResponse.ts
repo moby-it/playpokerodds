@@ -10,7 +10,7 @@ export interface UserResponse {
 }
 export function transformUserToResponse(
   req: Request,
-  res: Response<UserResponse, User & { role: UserRole | null }>
+  res: Response<UserResponse, User & { role: UserRole | null; }>
 ) {
   const user = res.locals;
   const token = signUserData({
@@ -18,11 +18,14 @@ export function transformUserToResponse(
     email: user.email,
     role: user.role?.role ?? 0,
   });
-  res.status(200).send({
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    score: Number(user.score),
-    token: token,
-  });
+  res.status(200)
+    .cookie('token', token, { sameSite: 'none', path: '/auth/login', secure: false })
+    .setHeader('Access-Control-Allow-Credentials', 'true')
+    .send({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      score: Number(user.score),
+      token: token,
+    });
 }
