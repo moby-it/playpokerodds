@@ -14,12 +14,9 @@ import { Router } from '@angular/router';
   styles: [`
   :host {
     flex-grow: 1;
-    background: url('/assets/home-background.png');
-    background-size: cover;
     min-height: 100vh;
   }
   .homepage-content {
-    padding-top: 92px;
     display: flex;
     flex-direction: column;
     align-items: center;
