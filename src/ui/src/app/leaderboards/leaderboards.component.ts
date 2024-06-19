@@ -9,7 +9,12 @@ import { UserScore } from './userScores.dto';
   templateUrl: './leaderboards.component.html',
   imports: [LeaderboardsPositionPipe],
   standalone: true,
-  styleUrls: ['./leaderboards.component.scss'],
+  styles: `
+  :host {
+  display: block;
+  min-height: 100vh;
+}
+`,
 })
 export class LeaderboardsComponent {
   constructor(

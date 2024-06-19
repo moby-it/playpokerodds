@@ -1,14 +1,14 @@
 import { ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './errorHandler';
 import { API_URL } from './shared/config/apiUrl.token';
 import { TokenInterceptor } from './token.interceptor';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule, provideAnimations } from "@angular/platform-browser/animations";
 export const appConfig: ApplicationConfig = {
   providers: [
     { provide: API_URL, useValue: environment.apiUrl },
@@ -19,14 +19,12 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideRouter(routes),
-    importProvidersFrom([
-      HttpClientModule,
-      BrowserAnimationsModule,
-      ToastrModule.forRoot({
-        positionClass: 'toast-bottom-right',
-        timeOut: 5000,
-        closeButton: true,
-      }),
-    ]),
+    provideAnimations(),
+    provideHttpClient(),
+    provideToastr({
+      positionClass: 'toast-bottom-right',
+      timeOut: 5000,
+      closeButton: true,
+    })
   ]
 };

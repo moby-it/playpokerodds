@@ -1,7 +1,7 @@
 # build environment
 FROM node:20.11.0-alpine as dependencies
 WORKDIR /app
-RUN npm i -g pnpm@8.15.4
+RUN npm i -g pnpm@9.0.4
 COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile
 

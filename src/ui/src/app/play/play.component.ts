@@ -8,8 +8,20 @@ import { RevealedCardsToggleComponent } from './revealed-cards-toggle/revealed-c
 @Component({
   selector: 'ppo-play',
   imports: [GuessBoxComponent, PokerTableComponent, RevealedCardsToggleComponent],
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.css'],
+  template: `
+  <div class="container">
+  <div class="play-area">
+    <ppo-revealed-cards-toggle></ppo-revealed-cards-toggle>
+    <ppo-poker-table [round]="round()"></ppo-poker-table>
+    <ppo-guess-box></ppo-guess-box>
+  </div>
+</div>
+`,
+  styles: `
+  :host {
+  flex: 1;
+  display: flex;
+}`,
   standalone: true
 })
 export class PlayComponent implements OnDestroy, OnInit {
@@ -19,6 +31,7 @@ export class PlayComponent implements OnDestroy, OnInit {
     private toastr: ToastrService
   ) { }
   round = this.pokerOddsFacade.currentRound;
+
   ngOnInit(): void {
     if (this.authStore.isLoggedIn()) {
       const activeToast = this.toastr.info(
