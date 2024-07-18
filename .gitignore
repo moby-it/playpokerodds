@@ -4,3 +4,4 @@ npm_token
 .npmrc
 secrets
 db.env
+.env

@@ -39,7 +39,7 @@ services:
     image: postgres:16.3
     env_file: db.env
     healthcheck:
-      test: ['CMD', 'pg_isready', '-d', 'gtop', '-U', 'root']
+      test: ['CMD', 'pg_isready', '-d', 'gtop', '-U', 'postgres']
       start_period: 10s
       interval: 3s
       timeout: 5s
