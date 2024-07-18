@@ -2,7 +2,7 @@ services:
   client-ui:
     image: ghcr.io/moby-it/ppo-ui:latest
     ports:
-      - 4200:80
+      - 43001:80
     depends_on:
       - web-api
   migrate:
@@ -20,7 +20,7 @@ services:
   web-api:
     image: ghcr.io/moby-it/ppo-api:latest
     ports:
-      - 3000:3000
+      - 43002:3000
     env_file:
       - src/web-api/.env
     depends_on:
@@ -32,7 +32,7 @@ services:
     image: ghcr.io/moby-it/ppo-calc-odds:latest
     env_file: src/calc-odds-api/.env
     ports:
-      - 7071:7071
+      - 43003:7071
     depends_on:
       - db
   db:
@@ -45,7 +45,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - '5432:5432'
+      - '43004:5432'
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 volumes:
