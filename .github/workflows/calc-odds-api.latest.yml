@@ -29,7 +29,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:latest
+          tags: ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:latest, ${{ secrets.REPOSITORY_NAME }}/ppo-calc-odds:${{ github.sha }}
           context: ./src/calc-odds-api
-          secrets: |
-            npmrc=${{ secrets.NPMRC }}

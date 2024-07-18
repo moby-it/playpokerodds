@@ -1,10 +1,10 @@
-FROM node:20.11.0-alpine as dependencies
+FROM node:20.11.0-alpine AS dependencies
 WORKDIR /src
 COPY package*.json ./
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci -f
 
 
-FROM dependencies as build
+FROM dependencies AS build
 WORKDIR /src
 COPY . ./
 RUN npx prisma generate

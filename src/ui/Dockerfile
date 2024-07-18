@@ -1,11 +1,11 @@
 # build environment
-FROM node:20.11.0-alpine as dependencies
+FROM node:20.11.0-alpine AS dependencies
 WORKDIR /app
 RUN npm i -g pnpm@9.0.4
 COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile
 
-FROM dependencies as build
+FROM dependencies AS build
 ARG TARGET=prod
 COPY . ./
 RUN pnpm build:${TARGET}
