@@ -1,14 +1,8 @@
 services:
   client-ui:
+    image: ghcr.io/moby-it/ppo-ui:latest
     ports:
       - 4200:80
-    build:
-      context: src/ui
-      dockerfile: Dockerfile
-      secrets:
-        - npmrc
-      args:
-        - TARGET=dev
     depends_on:
       - web-api
   migrate:
@@ -19,43 +13,33 @@ services:
         - npmrc
     command: ['npx', 'prisma', 'migrate', 'deploy']
     env_file:
-      - src/web-api/.env.docker
+      - src/web-api/.env
     depends_on:
       db:
         condition: service_healthy
   web-api:
+    image: ghcr.io/moby-it/ppo-api:latest
     ports:
       - 3000:3000
-    build:
-      context: src/web-api
-      secrets:
-        - npmrc
     env_file:
-      - src/web-api/.env.docker
+      - src/web-api/.env
     depends_on:
       migrate:
         condition: service_completed_successfully
       calc-odds-api:
         condition: service_started
   calc-odds-api:
-    build:
-      context: src/calc-odds-api
-      secrets:
-        - npmrc
-    environment:
-      - ITERATIONS=50000
+    image: ghcr.io/moby-it/ppo-calc-odds:latest
+    env_file: src/calc-odds-api/.env
     ports:
       - 7071:7071
     depends_on:
       - db
   db:
     image: postgres:16.3
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: gtop
+    env_file: db.env
     healthcheck:
-      test: ['CMD', 'pg_isready', '-d', 'gtop', '-U', 'root']
+      test: ['CMD', 'pg_isready', '-d', 'gtop', '-U', 'postgres']
       start_period: 10s
       interval: 3s
       timeout: 5s

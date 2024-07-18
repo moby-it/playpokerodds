@@ -3,3 +3,5 @@ npm_token
 .scannerwork
 .npmrc
 secrets
+db.env
+.env
