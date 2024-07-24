@@ -1,10 +1,12 @@
 services:
   client-ui:
+    restart: always
     image: ghcr.io/moby-it/ppo-ui:latest
     ports:
       - 43001:80
     depends_on:
       - web-api
+
   migrate:
     build:
       context: src/web-api
@@ -17,7 +19,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
   web-api:
+    restart: always
     image: ghcr.io/moby-it/ppo-api:latest
     ports:
       - 43002:3000
@@ -29,12 +33,14 @@ services:
       calc-odds-api:
         condition: service_started
   calc-odds-api:
+    restart: always
     image: ghcr.io/moby-it/ppo-calc-odds:latest
     env_file: src/calc-odds-api/.env
     ports:
       - 43003:7071
     depends_on:
       - db
+
   db:
     image: postgres:16.3
     env_file: db.env
