@@ -1,0 +1,120 @@
+services:
+  client-ui:
+    image: ghcr.io/moby-it/ppo-ui:latest
+    ports:
+      - 43001:80
+    depends_on:
+      - web-api
+    deploy:
+      rollback_config:
+        failure_action: pause
+        monitor: 5s
+        parallelism: 1
+      restart_policy:
+        condition: any
+        delay: 3s
+      update_config:
+        monitor: 5s
+        failure_action: rollback
+        delay: 5s
+        parallelism: 1
+        order: start-first
+
+  migrate:
+    build:
+      context: src/web-api
+      target: build
+      secrets:
+        - npmrc
+    command: ["npx", "prisma", "migrate", "deploy"]
+    configs:
+      - source: ppoapi-v1.conf
+        target: /src/.env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web-api:
+    image: ghcr.io/moby-it/ppo-api:latest
+    ports:
+      - 43002:3000
+    configs:
+      - source: ppoapi-v1.conf
+        target: /src/.env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      calc-odds-api:
+        condition: service_started
+    deploy:
+      rollback_config:
+        failure_action: pause
+        monitor: 5s
+        parallelism: 1
+      restart_policy:
+        condition: any
+        delay: 3s
+      update_config:
+        monitor: 5s
+        failure_action: rollback
+        delay: 5s
+        parallelism: 1
+        order: start-first
+
+  calc-odds-api:
+    image: ghcr.io/moby-it/ppo-calc-odds:latest
+    configs:
+      - source: ppocalc-v1.conf
+        target: /src/.env
+    ports:
+      - 43003:7071
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00" # Maximum and minimum of 1 CPU
+        reservations:
+          cpus: "1.00" # Reserve 1 CPU to ensure it's always allocated
+      rollback_config:
+        failure_action: pause
+        monitor: 5s
+        parallelism: 1
+      restart_policy:
+        condition: any
+        delay: 3s
+      update_config:
+        monitor: 5s
+        failure_action: rollback
+        delay: 5s
+        parallelism: 1
+        order: start-first
+  db:
+    image: postgres:16.3
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_DB: gtop
+       POSTGRES_PASSWORD_FILE: /run/secrets/dbpass-v1.conf
+    secrets:
+      - dbpass-v1.conf
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "gtop", "-U", "postgres"]
+      start_period: 10s
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "43004:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data:
+    external: true
+secrets:
+    dbpass-v1.conf:
+      external: true
+configs:
+  ppoapi-v1.conf:
+    external: true
+  ppocalc-v1.conf:
+    external: true
