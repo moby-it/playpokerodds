@@ -20,20 +20,6 @@ services:
         parallelism: 1
         order: start-first
 
-  migrate:
-    build:
-      context: src/web-api
-      target: build
-      secrets:
-        - npmrc
-    command: ["npx", "prisma", "migrate", "deploy"]
-    configs:
-      - source: ppoapi-v1.conf
-        target: /src/.env
-    depends_on:
-      db:
-        condition: service_healthy
-
   web-api:
     image: ghcr.io/moby-it/ppo-api:latest
     ports:
@@ -42,10 +28,8 @@ services:
       - source: ppoapi-v1.conf
         target: /src/.env
     depends_on:
-      migrate:
-        condition: service_completed_successfully
-      calc-odds-api:
-        condition: service_started
+      - calc-odds-api
+
     deploy:
       rollback_config:
         failure_action: pause
@@ -89,12 +73,13 @@ services:
         delay: 5s
         parallelism: 1
         order: start-first
+
   db:
     image: postgres:16.3
     environment:
-       POSTGRES_USER: postgres
-       POSTGRES_DB: gtop
-       POSTGRES_PASSWORD_FILE: /run/secrets/dbpass-v1.conf
+      POSTGRES_USER: postgres
+      POSTGRES_DB: gtop
+      POSTGRES_PASSWORD_FILE: /run/secrets/dbpass-v1.conf
     secrets:
       - dbpass-v1.conf
     healthcheck:
@@ -111,8 +96,8 @@ volumes:
   postgres-data:
     external: true
 secrets:
-    dbpass-v1.conf:
-      external: true
+  dbpass-v1.conf:
+    external: true
 configs:
   ppoapi-v1.conf:
     external: true
