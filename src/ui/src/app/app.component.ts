@@ -27,7 +27,8 @@ export class AppComponent {
     if (e instanceof NavigationEnd && e.url === '/') {
       return {
         'background': "url('/assets/home-background.png')",
-        'background-size': 'cover'
+        'background-size': 'cover',
+        'height': '100%'
       };
     } else {
       return {
