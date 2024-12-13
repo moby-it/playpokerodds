@@ -11,10 +11,9 @@ input[data-autocompleted] {
   flex-direction: column;
   align-items: center;
   gap: 80px;
-  padding: 100px 24px;
+  /* padding: 100px 24px; */
   min-height: 100vh;
   background-color: var(--neutral--900);
-
 }
 .flex-1 {
   flex: 1;
